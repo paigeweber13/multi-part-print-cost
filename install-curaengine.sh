@@ -1,13 +1,13 @@
 #!/bin/bash
 INSTALL_DIRECTORY="lib"
 LOG_DIR="./log/"
-LOG_FILE="$(date -u +"%Y-%m-%dT%H:%M:%SZ").log"
+LOG_FILE="$LOG_DIR$(date -u +"%Y-%m-%dT%H:%M:%SZ").log"
 
 if [ ! -d "$LOG_DIR" ]; then
   mkdir $LOG_DIR
 fi
 
-echo "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" > $LOG_DIR$LOG_FILE
+echo "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" > $LOG_FILE
 
 PROTOBUF_SOURCE_URL='https://github.com/protocolbuffers/protobuf/archive/v3.7.1.tar.gz'
 PROTOBUF_SOURCE_PATH='protobuf-3.7.1'
@@ -34,8 +34,8 @@ cd $INSTALL_DIRECTORY
 if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
   # we are on a debian-based OS
   echo "Updating package repo..." | tee -a $LOG_FILE
-  sudo apt-get update >> $LOG_FILE
-  sudo apt-get install libtool >> $LOG_FILE
+  sudo apt-get update >> $LOG_FILE 2>&1
+  sudo apt-get install libtool >> $LOG_FILE 2>&1
 else
   echo "Make sure libtool is installed!"
 fi
@@ -43,15 +43,19 @@ fi
 ## continuing with protobuf
 # only download and extract if those folders don't already exist
 if [ ! -f "$PROTOBUF_SOURCE_PATH.tar.gz" ]; then
+  echo "Downloading protobuf source..." | tee -a $LOG_FILE
   wget -O $PROTOBUF_SOURCE_PATH.tar.gz $PROTOBUF_SOURCE_URL
 fi
 if [ ! -d "$PROTOBUF_SOURCE_PATH" ]; then
-  tar -xzf $PROTOBUF_SOURCE_PATH.tar.gz
+  echo "Extracting protobuf..." | tee -a $LOG_FILE
+  tar -xzf $PROTOBUF_SOURCE_PATH.tar.gz >> $LOG_FILE 2>&1
 fi
 
 # test if protoc is installed
-protoc --version
+echo "Testing protoc..." | tee -a $LOG_FILE
+protoc --version 2>&1 | tee -a $LOG_FILE
 if [ $? != 0 ]; then
+  echo "Protoc is not installed, installing..." | tee -a $LOG_FILE
   # protoc is not installed!
   cd $PROTOBUF_SOURCE_PATH
   ./autogen.sh
@@ -59,15 +63,16 @@ if [ $? != 0 ]; then
   make
   sudo make install
   cd ..
+
+  echo "Testing protoc again..." | tee -a $LOG_FILE
+  protoc --version 2>&1 | tee -a $LOG_FILE
+  if [ $? != 0 ]; then
+    # something still went wrong...
+    echo "Protoc could not be installed, check the log at $LOG_FILE" | tee -a $LOG_FILE
+    exit 1
+  fi
 fi
 
-# test protoc
-protoc --version
-if [ $? != 0 ]; then
-  # something still went wrong...
-  echo "Protoc could not be installed, check the log at $LOG_FILE"
-  exit 1
-fi
 ## end protobuf
 
 ## 2. LibArcus
