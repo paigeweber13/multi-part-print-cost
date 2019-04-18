@@ -33,9 +33,9 @@ cd $INSTALL_DIRECTORY
 ### 1.1 Libtool - protobuf dependency
 if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
   # we are on a debian-based OS
-  echo "Updating package repo..." | tee -a $LOG_FILE
-  sudo apt-get update >> $LOG_FILE 2>&1
-  sudo apt-get install libtool >> $LOG_FILE 2>&1
+  echo "Updating package repo..." | tee -a ../$LOG_FILE
+  sudo apt-get update >> ../$LOG_FILE 2>&1
+  sudo apt-get install libtool >> ../$LOG_FILE 2>&1
 else
   echo "Make sure libtool is installed!"
 fi
@@ -43,19 +43,19 @@ fi
 ## continuing with protobuf
 # only download and extract if those folders don't already exist
 if [ ! -f "$PROTOBUF_SOURCE_PATH.tar.gz" ]; then
-  echo "Downloading protobuf source..." | tee -a $LOG_FILE
+  echo "Downloading protobuf source..." | tee -a ../$LOG_FILE
   wget -O $PROTOBUF_SOURCE_PATH.tar.gz $PROTOBUF_SOURCE_URL
 fi
 if [ ! -d "$PROTOBUF_SOURCE_PATH" ]; then
-  echo "Extracting protobuf..." | tee -a $LOG_FILE
-  tar -xzf $PROTOBUF_SOURCE_PATH.tar.gz >> $LOG_FILE 2>&1
+  echo "Extracting protobuf..." | tee -a ../$LOG_FILE
+  tar -xzf $PROTOBUF_SOURCE_PATH.tar.gz >> ../$LOG_FILE 2>&1
 fi
 
 # test if protoc is installed
-echo "Testing protoc..." | tee -a $LOG_FILE
-protoc --version 2>&1 | tee -a $LOG_FILE
+echo "Testing protoc..." | tee -a ../$LOG_FILE
+protoc --version 2>&1 | tee -a ../$LOG_FILE
 if [ $? != 0 ]; then
-  echo "Protoc is not installed, installing..." | tee -a $LOG_FILE
+  echo "Protoc is not installed, installing..." | tee -a ../$LOG_FILE
   # protoc is not installed!
   cd $PROTOBUF_SOURCE_PATH
   ./autogen.sh
@@ -64,11 +64,11 @@ if [ $? != 0 ]; then
   sudo make install
   cd ..
 
-  echo "Testing protoc again..." | tee -a $LOG_FILE
-  protoc --version 2>&1 | tee -a $LOG_FILE
+  echo "Testing protoc again..." | tee -a ../$LOG_FILE
+  protoc --version 2>&1 | tee -a ../$LOG_FILE
   if [ $? != 0 ]; then
     # something still went wrong...
-    echo "Protoc could not be installed, check the log at $LOG_FILE" | tee -a $LOG_FILE
+    echo "Protoc could not be installed, check the log at $LOG_FILE" | tee -a ../$LOG_FILE
     exit 1
   fi
 fi
