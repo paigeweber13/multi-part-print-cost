@@ -47,13 +47,13 @@ if [ ! -f "$PROTOBUF_SOURCE_PATH.tar.gz" ]; then
   echo "Downloading protobuf source..." | tee -a ../$LOG_FILE
   wget -O $PROTOBUF_SOURCE_PATH.tar.gz $PROTOBUF_SOURCE_URL
 else
-  echo "protobuf source already downloaded (run \`$0 clean\` to force re-downloading)" | tee -a ../$LOG_FILE
+  echo "protobuf source already downloaded (to force re-downloading, run \`$0 clean\` )" | tee -a ../$LOG_FILE
 fi
 if [ ! -d "$PROTOBUF_SOURCE_PATH" ]; then
   echo "Extracting protobuf..." | tee -a ../$LOG_FILE
   tar -xzf $PROTOBUF_SOURCE_PATH.tar.gz >> ../$LOG_FILE 2>&1
 else
-  echo "protobuf source already installed (run \`$0 clean\` to force re-install)" | tee -a ../$LOG_FILE
+  echo "protobuf source already installed (to force re-install, run \`$0 clean\` )" | tee -a ../$LOG_FILE
 fi
 
 # test if protoc is installed
@@ -86,12 +86,12 @@ if [ ! -f "$LIB_ARCUS_SOURCE_PATH.tar.gz" ]; then
   echo "Downloading libarcus source..." | tee -a ../$LOG_FILE
   wget -O $LIB_ARCUS_SOURCE_PATH.tar.gz $LIB_ARCUS_SOURCE_URL
 else
-  echo "libarcus source already downloaded (run \`$0 clean\` to force re-downloading)" | tee -a ../$LOG_FILE
+  echo "libarcus source already downloaded (to force re-downloading, run \`$0 clean\` )" | tee -a ../$LOG_FILE
 fi
 if [ ! -d "$LIB_ARCUS_SOURCE_PATH" ]; then
   tar -xzf $LIB_ARCUS_SOURCE_PATH.tar.gz
 else
-  echo "libarcus source already installed (run \`$0 clean\` to force re-insatllation)" | tee -a ../$LOG_FILE
+  echo "libarcus source already installed (to force re-insatllation, run \`$0 clean\`)" | tee -a ../$LOG_FILE
 fi
 
 ### 2.1 cmake, python3-dev, and python3-sip-dev: Libarcus dependencies
