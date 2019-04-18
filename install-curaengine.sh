@@ -1,7 +1,13 @@
 #!/bin/bash
 INSTALL_DIRECTORY='lib'
 PROTOBUF_BINARY_URL='https://github.com/protocolbuffers/protobuf/releases/download/v3.7.1/protoc-3.7.1-linux-x86_64.zip'
-PROTOBUF_BINARY_NAME='protobuf-bin'
+PROTOBUF_BINARY_PATH='protobuf-bin'
+
+LIB_ARCUS_SOURCE_URL='https://github.com/Ultimaker/libArcus/archive/4.0.0.zip'
+LIB_ARCUS_SOURCE_PATH='libarcus'
+
+CURAENGINE_SOURCE_URL='https://github.com/Ultimaker/CuraEngine/archive/4.0.0.zip'
+CURAENGINE_SOURCE_PATH='curaengine'
 
 if [ -d "$INSTALL_DIRECTORY" ]; then
   rm -rf $INSTALL_DIRECTORY
@@ -22,21 +28,26 @@ else
 fi
 
 ## continuing with protobuf
-wget -O $PROTOBUF_BINARY_NAME.zip $PROTOBUF_BINARY_URL
-unzip $PROTOBUF_BINARY_NAME.zip -d ./$PROTOBUF_BINARY_NAME
+wget -O $PROTOBUF_BINARY_PATH.zip $PROTOBUF_BINARY_URL
+unzip $PROTOBUF_BINARY_PATH.zip -d ./$PROTOBUF_BINARY_PATH
+# add protoc to path
+PATH=$(pwd)/$PROTOBUF_BINARY_PATH/bin:$PATH
+# test protoc
+#protoc --version
+## end protobuf
 
-
-    # Be sure to have libtool installed.
-    # Download protobuf from https://github.com/google/protobuf/releases (download ZIP and unZIP at desired location, or clone the repo). The protocol buffer is used for communication between the CuraEngine and the GUI.
-    # Run autogen.sh from the protobuf directory: $ ./autogen.sh
-    # $ ./configure
-    # $ make
-    # # make install
-    # (Please note the #. It indicates the need of superuser, as known as root, priviliges.)
-    # (In case the shared library cannot be loaded, you can try sudo ldconfig on Linux systems)
-
-
-git clone https://github.com/Ultimaker/libArcus.git
+## 2. LibArcus
+wget -O $LIB_ARCUS_SOURCE_PATH.zip $LIB_ARCUS_BINARY_URL
+unzip $LIB_ARCUS_BINARY_PATH.zip -d ./$LIB_ARCUS_BINARY_PATH
+if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
+  # we are on a debian-based OS
+  sudo apt-get install cmake
+  sudo apt-get install python3-dev
+  sudo apt-get install python3-sip-dev
+else
+  echo "Make sure cmake, python3-dev, and pythono3-sip-dev are installed!"
+fi
 
 # finally, CuraEngine itself
-git clone https://github.com/Ultimaker/CuraEngine.git
+wget -O $CURAENGINE_SOURCE_PATH.zip $CURAENGINE_BINARY_URL
+unzip $CURAENGINE_BINARY_PATH.zip -d ./$CURAENGINE_BINARY_PATH
