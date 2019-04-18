@@ -34,8 +34,9 @@ cd $INSTALL_DIRECTORY
 if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
   # we are on a debian-based OS
   echo "Updating package repo..." | tee -a ../$LOG_FILE
-  sudo apt-get update >> ../$LOG_FILE 2>&1
-  sudo apt-get install libtool >> ../$LOG_FILE 2>&1
+  sudo apt-get -y update >> ../$LOG_FILE 2>&1
+  echo "Making sure libtool is installed..." | tee -a ../$LOG_FILE
+  sudo apt-get -y install libtool >> ../$LOG_FILE 2>&1
 else
   echo "Make sure libtool is installed!"
 fi
@@ -45,10 +46,14 @@ fi
 if [ ! -f "$PROTOBUF_SOURCE_PATH.tar.gz" ]; then
   echo "Downloading protobuf source..." | tee -a ../$LOG_FILE
   wget -O $PROTOBUF_SOURCE_PATH.tar.gz $PROTOBUF_SOURCE_URL
+else
+  echo "protobuf source already downloaded (run \`$0 clean\` to force re-downloading)" | tee -a ../$LOG_FILE
 fi
 if [ ! -d "$PROTOBUF_SOURCE_PATH" ]; then
   echo "Extracting protobuf..." | tee -a ../$LOG_FILE
   tar -xzf $PROTOBUF_SOURCE_PATH.tar.gz >> ../$LOG_FILE 2>&1
+else
+  echo "protobuf source already installed (run \`$0 clean\` to force re-install)" | tee -a ../$LOG_FILE
 fi
 
 # test if protoc is installed
@@ -72,23 +77,30 @@ if [ $? != 0 ]; then
     exit 1
   fi
 fi
+echo "Protoc works, continuing..." | tee -a ../$LOG_FILE
 
 ## end protobuf
 
 ## 2. LibArcus
 if [ ! -f "$LIB_ARCUS_SOURCE_PATH.tar.gz" ]; then
+  echo "Downloading libarcus source..." | tee -a ../$LOG_FILE
   wget -O $LIB_ARCUS_SOURCE_PATH.tar.gz $LIB_ARCUS_SOURCE_URL
+else
+  echo "libarcus source already downloaded (run \`$0 clean\` to force re-downloading)" | tee -a ../$LOG_FILE
 fi
 if [ ! -d "$LIB_ARCUS_SOURCE_PATH" ]; then
   tar -xzf $LIB_ARCUS_SOURCE_PATH.tar.gz
+else
+  echo "libarcus source already installed (run \`$0 clean\` to force re-insatllation)" | tee -a ../$LOG_FILE
 fi
 
 ### 2.1 cmake, python3-dev, and python3-sip-dev: Libarcus dependencies
 if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
   # we are on a debian-based OS
-  sudo apt-get install cmake
-  sudo apt-get install python3-dev
-  sudo apt-get install python3-sip-dev
+  echo "Making sure cmake, python3-dev, and python3-sip-dev are installed..." | tee -a ../$LOG_FILE
+  sudo apt-get -y install cmake >> ../$LOG_FILE 2>&1
+  sudo apt-get -y install python3-dev >> ../$LOG_FILE 2>&1
+  sudo apt-get -y install python3-sip-dev >> ../$LOG_FILE 2>&1
 else
   echo "Make sure cmake, python3-dev, and pythono3-sip-dev are installed!"
 fi
