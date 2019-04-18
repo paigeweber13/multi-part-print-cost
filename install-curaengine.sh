@@ -1,6 +1,7 @@
 #!/bin/bash
 INSTALL_DIRECTORY='lib'
 PROTOBUF_BINARY_URL='https://github.com/protocolbuffers/protobuf/releases/download/v3.7.1/protoc-3.7.1-linux-x86_64.zip'
+PROTOBUF_BINARY_NAME='protobuf-bin'
 
 if [ -d "$INSTALL_DIRECTORY" ]; then
   rm -rf $INSTALL_DIRECTORY
@@ -15,12 +16,14 @@ if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
   # we are on a debian-based OS
   sudo apt-get update
   sudo apt-get install libtool
+  sudo apt-get install unzip
 else
-  echo "Make sure libtool is installed!"
+  echo "Make sure libtool and unzip are installed!"
 fi
 
 ## continuing with protobuf
-wget -O protobuf-bin.zip $PROTOBUF_BINARY_URL
+wget -O $PROTOBUF_BINARY_NAME.zip $PROTOBUF_BINARY_URL
+unzip $PROTOBUF_BINARY_NAME.zip -d ./$PROTOBUF_BINARY_NAME
 
 
     # Be sure to have libtool installed.
