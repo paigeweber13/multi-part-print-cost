@@ -107,8 +107,12 @@ fi
 
 # for now, always installs, because I don't know how to check
 echo "Adding protobuf stuff to cmake path..." | tee -a ../$LOG_FILE
-export Protobuf_INCLUDE_DIR=$(pwd)/protobuf-3.7.1/src
-export Protobuf_LIBRARY_RELEASE=$(pwd)/protobuf-3.7.1/src/.libs/libprotobuf.so
+# export Protobuf_INCLUDE_DIR=$(pwd)/protobuf-3.7.1/src
+# export Protobuf_LIBRARY_RELEASE=$(pwd)/protobuf-3.7.1/src/.libs/libprotobuf.so
+export CMAKE_INCLUDE_PATH=$CMAKE_INCLUDE_PATH:/usr/include/python3.6m/:$(pwd)/protobuf-3.7.1/src
+export CMAKE_LIBRARY_PATH=$CMAKE_LIBRARY_PATH:$(pwd)/protobuf-3.7.1/src/.libs
+# I had problems with this script using my python supplied by pyenv, trying to use this to fix it....
+export PATH=/usr/bin:$PATH
 
 cd $LIB_ARCUS_SOURCE_PATH
 if [ ! -d "build" ]; then
