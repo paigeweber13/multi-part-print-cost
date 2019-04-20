@@ -58,7 +58,7 @@ fi
 
 # test if protoc is installed
 echo "Testing protoc..." | tee -a ../$LOG_FILE
-protoc --version 2>&1 | tee -a ../$LOG_FILE
+/usr/local/bin/protoc --version 2>&1 | tee -a ../$LOG_FILE
 if [ $? != 0 ]; then
   echo "Protoc is not installed, installing..." | tee -a ../$LOG_FILE
   # protoc is not installed!
@@ -70,7 +70,7 @@ if [ $? != 0 ]; then
   cd ..
 
   echo "Testing protoc again..." | tee -a ../$LOG_FILE
-  protoc --version 2>&1 | tee -a ../$LOG_FILE
+  /usr/local/bin/protoc --version 2>&1 | tee -a ../$LOG_FILE
   if [ $? != 0 ]; then
     # something still went wrong...
     echo "Protoc could not be installed, check the log at $LOG_FILE" | tee -a ../$LOG_FILE
@@ -78,10 +78,6 @@ if [ $? != 0 ]; then
   fi
 fi
 echo "Protoc works, continuing..." | tee -a ../$LOG_FILE
-
-echo "Adding cmake stuff to path..." | tee -a ../$LOG_FILE
-export CMAKE_INCLUDE_PATH="$CMAKE_INCLUDE_PATH:$PROTOBUFF_SOURCE_PATH/src/google/protobuf"
-export CMAKE_LIBRARY_PATH="$CMAKE_LIBRARY_PATH:$PROTOBUFF_SOURCE_PATH/src"
 
 ## end protobuf
 
@@ -110,6 +106,10 @@ else
 fi
 
 # for now, always installs, because I don't know how to check
+echo "Adding protobuf stuff to cmake path..." | tee -a ../$LOG_FILE
+export Protobuf_INCLUDE_DIR=$(pwd)/protobuf-3.7.1/src
+export Protobuf_LIBRARY_RELEASE=$(pwd)/protobuf-3.7.1/cmake/libprotobuf.cmake
+
 cd $LIB_ARCUS_SOURCE_PATH
 if [ ! -d "build" ]; then
   mkdir build 
