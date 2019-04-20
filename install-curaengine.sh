@@ -35,7 +35,7 @@ if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
   # we are on a debian-based OS
   echo "Updating package repo..." | tee -a ../$LOG_FILE
   sudo apt-get -y update >> ../$LOG_FILE 2>&1
-  echo "Making sure libtool is installed..." | tee -a ../$LOG_FILE
+  echo "Checking to see if libtool is installed..." | tee -a ../$LOG_FILE
   sudo apt-get -y install libtool >> ../$LOG_FILE 2>&1
 else
   echo "Make sure libtool is installed!"
@@ -79,6 +79,10 @@ if [ $? != 0 ]; then
 fi
 echo "Protoc works, continuing..." | tee -a ../$LOG_FILE
 
+echo "Adding cmake stuff to path..." | tee -a ../$LOG_FILE
+export CMAKE_INCLUDE_PATH="$CMAKE_INCLUDE_PATH:$PROTOBUFF_SOURCE_PATH/src/google/protobuf"
+export CMAKE_LIBRARY_PATH="$CMAKE_LIBRARY_PATH:$PROTOBUFF_SOURCE_PATH/src"
+
 ## end protobuf
 
 ## 2. LibArcus
@@ -97,7 +101,7 @@ fi
 ### 2.1 cmake, python3-dev, and python3-sip-dev: Libarcus dependencies
 if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
   # we are on a debian-based OS
-  echo "Making sure cmake, python3-dev, and python3-sip-dev are installed..." | tee -a ../$LOG_FILE
+  echo "Checking to see if cmake, python3-dev, and python3-sip-dev are installed..." | tee -a ../$LOG_FILE
   sudo apt-get -y install cmake >> ../$LOG_FILE 2>&1
   sudo apt-get -y install python3-dev >> ../$LOG_FILE 2>&1
   sudo apt-get -y install python3-sip-dev >> ../$LOG_FILE 2>&1
@@ -105,9 +109,12 @@ else
   echo "Make sure cmake, python3-dev, and pythono3-sip-dev are installed!"
 fi
 
-# for now, always installs because I don't know how to check
+# for now, always installs, because I don't know how to check
 cd $LIB_ARCUS_SOURCE_PATH
-mkdir build 
+if [ ! -d "build" ]; then
+  mkdir build 
+fi
+
 cd build
 cmake ..
 make
