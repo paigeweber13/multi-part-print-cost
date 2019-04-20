@@ -108,7 +108,7 @@ fi
 # for now, always installs, because I don't know how to check
 echo "Adding protobuf stuff to cmake path..." | tee -a ../$LOG_FILE
 export Protobuf_INCLUDE_DIR=$(pwd)/protobuf-3.7.1/src
-export Protobuf_LIBRARY_RELEASE=$(pwd)/protobuf-3.7.1/cmake/libprotobuf.cmake
+export Protobuf_LIBRARY_RELEASE=$(pwd)/protobuf-3.7.1/src/.libs/libprotobuf.so
 
 cd $LIB_ARCUS_SOURCE_PATH
 if [ ! -d "build" ]; then
