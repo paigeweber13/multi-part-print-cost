@@ -22,6 +22,7 @@ if [ -d "$INSTALL_DIRECTORY" ]; then
   if [ "$1" == 'clean' ]; then
     echo "cleaning" | tee -a $LOG_FILE
     rm -rf $INSTALL_DIRECTORY
+    mkdir $INSTALL_DIRECTORY
   fi
 else
   mkdir $INSTALL_DIRECTORY
