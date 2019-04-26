@@ -28,6 +28,7 @@ cd ..
 wget -O $LIB_ARCUS_SOURCE_PATH.tar.gz $LIB_ARCUS_SOURCE_URL
 tar -xzf $LIB_ARCUS_SOURCE_PATH.tar.gz
 
+# libraries seem to be in /usr/local/lib
 export CMAKE_INCLUDE_PATH=$CMAKE_INCLUDE_PATH:$(pwd)/protobuf-3.7.1/src
 export CMAKE_LIBRARY_PATH=$CMAKE_LIBRARY_PATH:$(pwd)/protobuf-3.7.1/src/.libs
 
@@ -43,3 +44,9 @@ cd ../..
 ## 3. finally, CuraEngine itself
 wget -O $CURAENGINE_SOURCE_PATH.tar.gz $CURAENGINE_SOURCE_URL
 tar -xzf $CURAENGINE_SOURCE_PATH.tar.gz 
+
+cd $CURAENGINE_SOURCE_PATH
+mkdir build
+cd build
+cmake ..
+make
