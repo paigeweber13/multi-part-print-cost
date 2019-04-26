@@ -9,6 +9,9 @@ LIB_ARCUS_SOURCE_PATH='libArcus-4.0.0'
 CURAENGINE_SOURCE_URL='https://github.com/Ultimaker/CuraEngine/archive/4.0.0.tar.gz'
 CURAENGINE_SOURCE_PATH='CuraEngine-4.0.0'
 
+mkdir lib
+cd lib
+
 ## 1. protobuf
 wget -O $PROTOBUF_SOURCE_PATH.tar.gz $PROTOBUF_SOURCE_URL
 tar -xzf $PROTOBUF_SOURCE_PATH.tar.gz
