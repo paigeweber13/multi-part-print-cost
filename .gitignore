@@ -2,3 +2,4 @@ lib/
 log/
 build/
 make-stats/
+bin/
