@@ -16,5 +16,7 @@ sudo mount -o loop $APPIMAGE_NAME.AppImage /mnt/CuraAppImage
 
 echo "copying CuraEngine to ./bin/"
 cp /mnt/CuraAppImage/usr/bin/CuraEngine ./
+cp -r /mnt/CuraAppImage/usr/bin/resources/definitions ./resources/definitions
+cp -r /mnt/CuraAppImage/usr/bin/resources/extruders ./resources/extruders
 
 cd ..
