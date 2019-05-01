@@ -1,0 +1,116 @@
+Total Costs
+Array
+(
+    [metadata] => Array
+        (
+            [material] => PLA
+            [color] => #000000
+            [infillPercentage] => 20
+            [layerHeight] => 0.2
+            [supportRemoval] => false
+            [vaporPolishing] => false
+            [shipping] => delivery
+            [rushPrinting] => true
+        )
+
+    [totalWeight] => Array
+        (
+            [amount] => 41.21
+            [unit] => grams
+        )
+
+    [totalTime] => Array
+        (
+            [amount] => 10048
+            [unit] => seconds
+        )
+
+    [costs] => Array
+        (
+            [printTime] => Array
+                (
+                    [amount] => 11.16
+                    [calculation] => 10048 seconds * (1 hour)/(60*60 seconds) * $4.00 USD/hour
+                    [unit] => USD
+                )
+
+            [material] => Array
+                (
+                    [amount] => 10.30
+                    [calculation] => 41.21 grams * 0.25 USD/g
+                    [unit] => USD
+                )
+
+            [delivery] => Array
+                (
+                    [amount] => 6.21
+                    [calculation] => 5.80 USD base + 41.21 grams * 0.01 USD/g
+                    [unit] => USD
+                )
+
+        )
+
+    [subtotal] => Array
+        (
+            [amount] => 27.67
+            [calculation] => 11.16 USD printTime + 10.30 USD material + 6.21 USD delivery
+            [unit] => USD
+        )
+
+    [total] => Array
+        (
+            [amount] => 27.67
+            [calculation] => 27.67 subtotal
+            [unit] => USD
+        )
+
+)
+
+API Response
+Array
+(
+    [0] => Array
+        (
+            [estimatedCost] => Array
+                (
+                    [amount] => 21.47
+                    [unit] => USD
+                    [calculation] => 2.79 hours * $4.00/hour + 41.21 grams * $0.25/gram
+                )
+
+            [filamentUsed] => Array
+                (
+                    [amount] => 41.21
+                    [unit] => grams
+                    [calculation] => (1.75mm/2)^2 * 3.1416 * 13707mm * 1cm^3/1000mm^3 * 1.25g/cm^3
+                )
+
+            [gCodeLink] => http://www.3dpartprice.com/gCodeOutput/flower.stl.gcode
+            [printDuration] => Array
+                (
+                    [amount] => 10048
+                    [unit] => seconds
+                    [formatted] => 2 hours, 47 minutes, 28 seconds
+                )
+
+            [sliceDuration] => Array
+                (
+                    [amount] => 1.90
+                    [unit] => seconds
+                )
+
+            [slicer] => cura
+            [stlFileLink] => http://www.3dpartprice.com/stlUploads/flower.stl
+            [stlFilename] => flower.stl
+            [stlFilesize] => 4223884
+            [stlTriangleCount] => 84476
+            [stlVolume] => Array
+                (
+                    [amount] => 24.72
+                    [unit] => cm
+                    [formatted] => cm^3
+                )
+
+        )
+
+)
