@@ -12,7 +12,12 @@ each case is calculated with and without supports.
 
 all three use 3 perimeter, top, and bottom layers, and 20% cubic infill
 
+Filament is assumed to be PLA. Density is assumed to be 1.24 g/cm3 and cost is
+assumed to be $18 USD per KG. This is the cost of most of 3D Solutech's rolls,
+which is my trusted brand.
+
 ## TODO:
+ [ ] get approx filament cost from slic3r gcode
  [ ] how will I add times together? Make time object? Switch language?
    [ ] Is there any benefit in continuing to use bash over something like
        python?
