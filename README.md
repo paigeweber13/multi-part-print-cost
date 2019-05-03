@@ -17,6 +17,7 @@ all three use 3 perimeter, top, and bottom layers, and 20% cubic infill
    [ ] Is there any benefit in continuing to use bash over something like
        python?
    [ ] Can I run slic3r appimage from python?
+ [ ] get newest version, even when newest version number changes
  [ ] make it work with arbitrary exported slic3r profile
 
 ## Compatibility:
