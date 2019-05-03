@@ -1,23 +1,14 @@
-# Dependencies:
-## install-curaengine.sh
-Should automatically get dependencies. Tested on Ubuntu, should work on all
-debian-based distributions. If you are on another distribution, dependencies
-include:
- - libtool
- - cmake
- - python3 development headers
- - python3-sip development headers
+# Multi Part Print Cost
+Calculates cumulative filament used and time taken for prints that have
+multiple parts. Uses Slic3r Prusa Edition on the backend.
 
- # To Start Docker Image:
-```
-docker build -t=curaengine-build .
-docker run --name my-curaengine-build -dit curaengine-build
-```
+## Print settings
+Calculates by default with four different settings: 
+0.1 mm layer height
+0.2 mm layer height
+0.3 mm layer height
+0.35mm layer height
+each case is calculated with and without supports.
 
-To get a shell inside this image, run `docker exec -it my-curaengine-build bash
-`
-
-# TODO:
- - try the APIcaller from http://3dpartprice.com/3dpartpricelib/api-caller.php,
-   compare results to those from Cura. Is it worth the extra work to use cura
-   instead of this service?
+all three use 3 perimeter, top, and bottom layers, and 20% cubic infill
+supports
