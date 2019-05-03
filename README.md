@@ -22,12 +22,12 @@ cost is assumed to be $18 USD per KG. This is the cost of most of 3D Solutech's
 rolls, which is my trusted brand.
 
 ## TODO:
- [ ] how to get gcode to actually include filament cost?
- [ ] get approx filament cost from slic3r gcode
  [ ] how will I add times together? Make time object? Switch language?
    [ ] Is there any benefit in continuing to use bash over something like
        python?
    [ ] Can I run slic3r appimage from python?
+ [x] how to get gcode to actually include filament cost?
+ [ ] get approx filament cost from slic3r gcode
  [ ] get newest version, even when newest version number changes
  [ ] make it work with arbitrary exported slic3r profile
 
