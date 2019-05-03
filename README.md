@@ -10,13 +10,17 @@ Calculates by default with four different settings:
 0.35mm layer height
 each case is calculated with and without supports.
 
-all three use 3 perimeter, top, and bottom layers, and 20% cubic infill
+all three use 3 perimeter, top, and bottom layers, and 20% cubic infill.
+Printer-specific settings based on Ender3, the printer I have on hand. But
+time/cost estimates should be the same across single-extruder printers that use
+the same filament.
 
-Filament is assumed to be PLA. Density is assumed to be 1.24 g/cm3 and cost is
-assumed to be $18 USD per KG. This is the cost of most of 3D Solutech's rolls,
-which is my trusted brand.
+Filament is assumed to be 1.75mm PLA. Density is assumed to be 1.24 g/cm3 and
+cost is assumed to be $18 USD per KG. This is the cost of most of 3D Solutech's
+rolls, which is my trusted brand.
 
 ## TODO:
+ [ ] how to get gcode to actually include filament cost?
  [ ] get approx filament cost from slic3r gcode
  [ ] how will I add times together? Make time object? Switch language?
    [ ] Is there any benefit in continuing to use bash over something like
