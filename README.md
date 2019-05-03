@@ -11,4 +11,3 @@ Calculates by default with four different settings:
 each case is calculated with and without supports.
 
 all three use 3 perimeter, top, and bottom layers, and 20% cubic infill
-supports
