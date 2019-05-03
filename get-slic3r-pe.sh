@@ -9,3 +9,4 @@ fi
 cd bin
 
 wget -O $APPIMAGE_NAME.AppImage $LATEST_APPIMAGE_URL
+chmod +x bin/$APPIMAGE_NAME.AppImage
