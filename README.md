@@ -3,11 +3,13 @@ Calculates cumulative filament used and time taken for prints that have
 multiple parts. Uses Slic3r Prusa Edition on the backend.
 
 ## Print settings
+Full information about the profile used is in test/profiles. The important details are summarized below:
+
 Calculates by default with four different settings: 
-0.1 mm layer height
-0.2 mm layer height
-0.3 mm layer height
-0.35mm layer height
+ * 0.1 mm layer height
+ * 0.2 mm layer height
+ * 0.3 mm layer height
+ * 0.35mm layer height
 each case is calculated with and without supports.
 
 all three use 3 perimeter, top, and bottom layers, and 20% cubic infill.
