@@ -10,6 +10,10 @@ SETTINGS_350_MICRON='--first-layer-height 0.40 --layer-height 0.35'
 
 MODEL_TO_SLICE='bulbasaur'
 
+if [ ! -d "gcodes" ]; then
+  mkdir getkeycodes
+fi
+
 # Usage: slic3r [ ACTIONS ] [ TRANSFORM ] [ OPTIONS ] [ file.stl ... ]
 # ../bin/slic3r-pe.AppImage --slice $SETTINGS_FOR_ALL $SETTINGS_200_MICRON $MODEL_TO_SLICE
 COMMAND="../bin/slic3r-pe.AppImage --slice --load profiles/slic3r-pe-config.ini $SETTINGS_200_MICRON models/$MODEL_TO_SLICE.stl --output gcodes/$MODEL_TO_SLICE-0.2mm.gcode"
