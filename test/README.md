@@ -1,22 +1,4 @@
-# The Test Directory
-## Data
-A place to store research about how long other tools predict the amount of
-filament used and the time taken.
-
-### Sources:
-files starting with 3d-part-price are output from [this
-webpage](http://3dpartprice.com/3dpartpricelib/api-caller.php). Source code is
-[available here](https://github.com/hackwin/3dPartPrice). 
-
-## Profiles:
-the profiles used to slice test models are in test/profiles. Settings were for
-the Creality Ender 3 and used 0.2mm layer height, 20% grid infill, with
-supports.
-
-`filament-usage-data.csv` is a summary of estimates (and eventually, data from
-actual prints) that I can compare this tool with
-
-## Models:
+# Model Sources
 Models are used as allowed by their respective licenses. Attributions follow:
 
 Model|Author|Url|License 
