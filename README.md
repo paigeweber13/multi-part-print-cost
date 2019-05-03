@@ -13,6 +13,10 @@ each case is calculated with and without supports.
 all three use 3 perimeter, top, and bottom layers, and 20% cubic infill
 
 ## TODO:
+ [ ] how will I add times together? Make time object? Switch language?
+   [ ] Is there any benefit in continuing to use bash over something like
+       python?
+   [ ] Can I run slic3r appimage from python?
  [ ] make it work with arbitrary exported slic3r profile
 
 ## Compatibility:
