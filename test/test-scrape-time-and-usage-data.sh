@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILE_TO_LOAD='models/bulbasaur.gcode'
+FILE_TO_LOAD='gcodes/bulbasaur*.gcode'
 
 FILAMENT_USED_LINE=$(grep 'filament used' $FILE_TO_LOAD)
 PRINT_TIME_LINE=$(grep 'estimated printing time' $FILE_TO_LOAD)
