@@ -14,3 +14,7 @@ all three use 3 perimeter, top, and bottom layers, and 20% cubic infill
 
 ## TODO:
  [ ] make it work with arbitrary exported slic3r profile
+
+## Compatibility:
+only works with mac/linux/other unix-based operating systems. If there is
+enough interest, I will work on a windows port.
