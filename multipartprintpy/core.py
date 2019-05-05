@@ -1,4 +1,5 @@
 import subprocess
+import typing
 
 """
 assumes this module is being run from the root of the package directory
@@ -13,3 +14,6 @@ def slice_model(layer_height: float, supports: bool, path_to_model: str):
                path_to_model[:-4] + '-' + str(layer_height) + 'mm.gcode']
     subprocess.run(command)
     return command
+
+def scrape_time_and_usage_estimates(list_of_files: typing.List[str]):
+    pass
