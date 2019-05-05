@@ -22,3 +22,13 @@ class TestCoreFunctions(unittest.TestCase):
         self.assertEqual(expected_command, mpp.slice_model(0.2, 0, 'test/'
             + 'models/bulbasaur.stl'))
         self.assertTrue(os.path.isfile('test/models/bulbasaur-0.2mm.gcode'))
+
+    def test_scrape_time_and_usage_estimates_from_gcode(self):
+        expected_result = 'filament used: 4.01m\n' \
+                        + '               9.6cm3\n' \
+                        + '               12.0g\n' \
+                        + 'filament cost: 0.2 USD\n' \
+                        + 'estimated print time: 52m28s\n'
+        actual_result = mpp.scrape_time_and_usage_estimates(
+            ['bulbasaur-0.2mm.gcode'])
+        self.assertEqual(expected_result, actual_result)
