@@ -27,7 +27,8 @@ rolls, which is my trusted brand.
          python?
    - [x] Can I run slic3r appimage from python?
  - [x] how to get gcode to actually include filament cost?
- - [ ] get approx filament cost from slic3r gcode
+ - [x] get approx filament cost from slic3r gcode
+ - [ ] what happens if the model takes more than a day?
  - [ ] get newest version, even when newest version number changes
  - [ ] make it work with arbitrary exported slic3r profile
 
