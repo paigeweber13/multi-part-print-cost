@@ -37,13 +37,14 @@ class TestCoreFunctions(unittest.TestCase):
         """
         sees if scrape_time function can get the data from a gcode
         """
-        expected_result = {
+        expected_result = [{
+            'name-of-file': 'bulbasaur-0.2mm.gcode',
             'filament-used-m': 4.01,
             'filament-used-cm3': 9.6,
             'filament-used-g': 12.0,
             'filament-cost-usd': 0.2,
             'print-time': datetime.datetime.strptime('52:28', '%M:%S').time(),
-        }
+        }]
         actual_result = mpp.scrape_time_and_usage_estimates(
             ['bulbasaur-0.2mm.gcode'])
         self.assertEqual(expected_result, actual_result)
