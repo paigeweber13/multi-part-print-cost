@@ -8,3 +8,8 @@ flower|filiptheking|[thingiverse](https://www.thingiverse.com/thing:1596049)|[Cr
 clamp-bolt|johann517|[thingiverse](https://www.thingiverse.com/thing:1673030)|[Creative Commons - Attribution](http://creativecommons.org/licenses/by/3.0/)
 wing|tahustvedt|[thingiverse](https://www.thingiverse.com/thing:3358880)|[Creative Commons - Attribution - Non-Commercial](https://creativecommons.org/licenses/by-nc/3.0/)
 iris-box|LoboCNC|[thingiverse](https://www.thingiverse.com/thing:1817180)|[Creative Commons - Attribution - Share Alike](https://creativecommons.org/licenses/by-sa/3.0/)
+
+large-box was modeled by me (rileyweber13). It doesn't have a license because
+as far as I know, I can't have intellectual property of a cube anyways. If
+anyone knows differently, please correct me and I will add a (very permissive)
+license.
