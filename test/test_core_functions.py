@@ -3,6 +3,7 @@ tests core functionality. assumes that you are running tests from the root of
 the project directory
 """
 
+import datetime
 import os
 import unittest
 
@@ -36,11 +37,13 @@ class TestCoreFunctions(unittest.TestCase):
         """
         sees if scrape_time function can get the data from a gcode
         """
-        expected_result = 'filament used: 4.01m\n' +\
-                          '               9.6cm3\n' +\
-                          '               12.0g\n' +\
-                          'filament cost: 0.2 USD\n' +\
-                          'estimated print time: 52m28s\n'
+        expected_result = {
+            'filament-used-m': 4.01,
+            'filament-used-cm3': 9.6,
+            'filament-used-g': 12.0,
+            'filament-cost-usd': 0.2,
+            'print-time': datetime.datetime.strptime('52:28', '%M:%S').time(),
+        }
         actual_result = mpp.scrape_time_and_usage_estimates(
             ['bulbasaur-0.2mm.gcode'])
         self.assertEqual(expected_result, actual_result)
