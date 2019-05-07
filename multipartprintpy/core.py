@@ -16,14 +16,18 @@ def slice_model(layer_height: float, supports: bool,
     slices model using slic3r. Must run get-slic3r-pe.sh first
     """
     list_of_commands = []
+    layer_height = round(layer_height, 2)
+    first_layer_height = round(layer_height+0.05, 2)
     for model in path_to_models:
         command = [BINARY_LOCATION, '--slice', '--load',
-                   CONFIG_FILE, '--first-layer-height', str(layer_height+0.05),
-                   '--layer-height', str(layer_height), model, '--output',
+                   CONFIG_FILE, '--first-layer-height', 
+                   str(first_layer_height), '--layer-height',
+                   str(layer_height), model, '--output',
                    model[:-4] + '-' + str(layer_height) + 'mm.gcode']
         if supports:
-           command.insert(8, '--suport-material')
+           command.insert(9, '--support-material')
         list_of_commands.append(command)
+        print('running:', command)
         subprocess.run(command)
     return list_of_commands
 
