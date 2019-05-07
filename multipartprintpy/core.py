@@ -21,6 +21,8 @@ def slice_model(layer_height: float, supports: bool,
                    CONFIG_FILE, '--first-layer-height', str(layer_height+0.05),
                    '--layer-height', str(layer_height), model, '--output',
                    model[:-4] + '-' + str(layer_height) + 'mm.gcode']
+        if supports:
+           command.insert(8, '--suport-material')
         list_of_commands.append(command)
         subprocess.run(command)
     return list_of_commands
