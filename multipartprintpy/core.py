@@ -10,16 +10,20 @@ import typing
 CONFIG_FILE = 'profiles/slic3r-pe-config.ini'
 BINARY_LOCATION = 'bin/slic3r-pe.AppImage'
 
-def slice_model(layer_height: float, supports: bool, path_to_model: str):
+def slice_model(layer_height: float, supports: bool,
+                path_to_models: typing.List[str]):
     """
     slices model using slic3r. Must run get-slic3r-pe.sh first
     """
-    command = [BINARY_LOCATION, '--slice', '--load',
-               CONFIG_FILE, '--first-layer-height', str(layer_height+0.05),
-               '--layer-height', str(layer_height), path_to_model, '--output',
-               path_to_model[:-4] + '-' + str(layer_height) + 'mm.gcode']
-    subprocess.run(command)
-    return command
+    list_of_commands = []
+    for model in path_to_models:
+        command = [BINARY_LOCATION, '--slice', '--load',
+                   CONFIG_FILE, '--first-layer-height', str(layer_height+0.05),
+                   '--layer-height', str(layer_height), model, '--output',
+                   model[:-4] + '-' + str(layer_height) + 'mm.gcode']
+        list_of_commands.append(command)
+        subprocess.run(command)
+    return list_of_commands
 
 def scrape_time_and_usage_estimates(list_of_files: typing.List[str]):
     """
@@ -44,14 +48,14 @@ def scrape_time_and_usage_estimates(list_of_files: typing.List[str]):
         except FileNotFoundError:
             print('file ' + gcode_file + ' not found, skipping...')
             continue
-        
+
         print(my_match)
 
         filament_usage_m = round(float(my_match.group(
             'mm_usage')) / 1000, 2)
         print_time = datetime.datetime.strptime(my_match.group('time'),
-            # '%Hh %Mm %Ss').time()
-            '%Mm %Ss').time()
+                                                # '%Hh %Mm %Ss').time()
+                                                '%Mm %Ss').time()
         result.append({
             'name-of-file': gcode_file,
             'filament-used-m': filament_usage_m,

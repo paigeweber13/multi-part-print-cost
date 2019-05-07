@@ -22,15 +22,15 @@ class TestCoreFunctions(unittest.TestCase):
         except FileNotFoundError:
             pass
 
-        expected_command = [
+        expected_commands = [[
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
             '--layer-height', '0.2', 'test/models/bulbasaur.stl',
             '--output', 'test/models/bulbasaur-0.2mm.gcode'
-            ]
-        self.assertEqual(expected_command,
-                         mpp.slice_model(0.2, 0, 'test/' +
-                                         'models/bulbasaur.stl'))
+            ]]
+        self.assertEqual(expected_commands,
+                         mpp.slice_model(0.2, 0, ['test/' +
+                                         'models/bulbasaur.stl']))
         self.assertTrue(os.path.isfile('test/models/bulbasaur-0.2mm.gcode'))
 
     def test_scrape_time_and_usage_estimates_from_gcode(self):
