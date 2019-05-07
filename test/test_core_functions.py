@@ -58,7 +58,7 @@ class TestCoreFunctions(unittest.TestCase):
         self.assertTrue(os.path.isfile('test/models/support-test-0.1mm.gcode'))
 
         try:
-            os.remove('test/models/support-0.1mm.gcode')
+            os.remove('test/models/support-test-0.1mm.gcode')
         except FileNotFoundError:
             pass
 
