@@ -33,6 +33,35 @@ class TestCoreFunctions(unittest.TestCase):
                                          'models/bulbasaur.stl']))
         self.assertTrue(os.path.isfile('test/models/bulbasaur-0.2mm.gcode'))
 
+        try:
+            os.remove('test/models/bulbasaur-0.2mm.gcode')
+        except FileNotFoundError:
+            pass
+
+    def test_slice_single_model_with_supports(self):
+        """
+        """
+        try:
+            os.remove('test/models/flower-0.1mm.gcode')
+        except FileNotFoundError:
+            pass
+
+        expected_commands = [[
+            'bin/slic3r-pe.AppImage', '--slice', '--load',
+            'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.15',
+            '--layer-height', '0.1', 'test/models/flower.stl',
+            '--output', 'test/models/bulbasaur-0.1mm.gcode'
+            ]]
+        self.assertEqual(expected_commands,
+                         mpp.slice_model(0.1, True, ['test/' +
+                                         'models/bulbasaur.stl']))
+        self.assertTrue(os.path.isfile('test/models/flower-0.1mm.gcode'))
+
+        try:
+            os.remove('test/models/flower-0.1mm.gcode')
+        except FileNotFoundError:
+            pass
+
     def test_scrape_time_and_usage_estimates_from_gcode(self):
         """
         sees if scrape_time function can get the data from a gcode
