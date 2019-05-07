@@ -49,16 +49,16 @@ class TestCoreFunctions(unittest.TestCase):
         expected_commands = [[
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.15',
-            '--layer-height', '0.1', 'test/models/flower.stl',
-            '--output', 'test/models/bulbasaur-0.1mm.gcode'
+            '--layer-height', '0.1', 'test/models/support-test.stl', '--support-material', '--output',
+            'test/models/support-test-0.1mm.gcode'
             ]]
         self.assertEqual(expected_commands,
                          mpp.slice_model(0.1, True, ['test/' +
-                                         'models/flower.stl']))
-        self.assertTrue(os.path.isfile('test/models/flower-0.1mm.gcode'))
+                                         'models/support-test.stl']))
+        self.assertTrue(os.path.isfile('test/models/support-test-0.1mm.gcode'))
 
         try:
-            os.remove('test/models/flower-0.1mm.gcode')
+            os.remove('test/models/support-0.1mm.gcode')
         except FileNotFoundError:
             pass
 
