@@ -54,7 +54,7 @@ class TestCoreFunctions(unittest.TestCase):
             ]]
         self.assertEqual(expected_commands,
                          mpp.slice_model(0.1, True, ['test/' +
-                                         'models/bulbasaur.stl']))
+                                         'models/flower.stl']))
         self.assertTrue(os.path.isfile('test/models/flower-0.1mm.gcode'))
 
         try:
