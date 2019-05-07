@@ -29,6 +29,8 @@ rolls, which is my trusted brand.
  - [x] how to get gcode to actually include filament cost?
  - [x] get approx filament cost from slic3r gcode
  - [ ] what happens if the model takes more than a day?
+ - [ ] port get-slic3r-pe.sh to a python function in core.py
+ - [ ] combine it all, build an interface
  - [ ] get newest version, even when newest version number changes
  - [ ] make it work with arbitrary exported slic3r profile
 
