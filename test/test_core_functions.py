@@ -29,7 +29,7 @@ class TestCoreFunctions(unittest.TestCase):
             '--output', 'test/models/bulbasaur-0.2mm.gcode'
             ]]
         self.assertEqual(expected_commands,
-                         mpp.slice_model(0.2, 0, ['test/' +
+                         mpp.slice_model(0.2, False, ['test/' +
                                          'models/bulbasaur.stl']))
         self.assertTrue(os.path.isfile('test/models/bulbasaur-0.2mm.gcode'))
 
