@@ -28,9 +28,9 @@ rolls, which is my trusted brand.
    - [x] Can I run slic3r appimage from python?
  - [x] how to get gcode to actually include filament cost?
  - [x] get approx filament cost from slic3r gcode
- - [ ] test scrape from support-test.gcode
- - [ ] what happens if the model takes more than a day?
- - [ ] test scrape from large-box.gcode
+ - [x] test scrape from support-test.gcode
+ - [x] what happens if the model takes more than a day?
+ - [x] test scrape from large-box.gcode
  - [ ] write tests for slicing/scraping multiple models
  - [ ] port get-slic3r-pe.sh to a python function in core.py
  - [ ] combine it all, build an interface
