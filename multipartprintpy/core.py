@@ -1,5 +1,8 @@
 """
-assumes this module is being run from the root of the package directory
+a collection of tools to slice .stl files and get filament usage and
+time-to-print estimates from .gcode files.
+
+assumes this module is being run from the root of the package directory.
 """
 
 import datetime
@@ -18,6 +21,7 @@ def slice_model(layer_height: float, supports: bool,
     list_of_commands = []
     layer_height = round(layer_height, 2)
     first_layer_height = round(layer_height+0.05, 2)
+
     for model in path_to_models:
         command = [BINARY_LOCATION, '--slice', '--load',
                    CONFIG_FILE, '--first-layer-height', 
@@ -27,7 +31,6 @@ def slice_model(layer_height: float, supports: bool,
         if supports:
            command.insert(9, '--support-material')
         list_of_commands.append(command)
-        print('running:', command)
         subprocess.run(command)
     return list_of_commands
 
@@ -75,16 +78,12 @@ def scrape_time_and_usage_estimates(list_of_files: typing.List[str]):
             print('file ' + gcode_file + ' does not have properly formatted'
                 + 'filament usage and time data. Skipping.')
 
-        print(my_match)
-
         filament_usage_m = round(float(my_match.group(
             'mm_usage')) / 1000, 2)
-        # print_time = datetime.datetime.strptime(my_match.group('time'),
-                                                # '%Hh %Mm %Ss').time()
-                                                # '%Mm %Ss').time()
         print_time = datetime.timedelta(days=print_time[0],
             hours=print_time[1], minutes=print_time[2],
             seconds=print_time[3])
+
         result.append({
             'name-of-file': gcode_file,
             'filament-used-m': filament_usage_m,
