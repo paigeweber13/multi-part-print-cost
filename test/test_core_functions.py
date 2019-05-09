@@ -180,3 +180,39 @@ class TestCoreFunctions(unittest.TestCase):
         actual_result = mpp.scrape_time_and_usage_estimates(
             ['test/gcodes/large-box-0.3mm.gcode'])
         self.assertEqual(expected_result, actual_result)
+
+    def test_scrape_time_and_usage_estimates_from_three_gcode_files(self):
+        """
+        sees if scrape_time function can get the data from three gcodes 
+        simultaneously
+        """
+        expected_result = [{
+            'name-of-file': 'test/gcodes/bulbasaur-0.2mm.gcode',
+            'filament-used-m': 4.01,
+            'filament-used-cm3': 9.6,
+            'filament-used-g': 12.0,
+            'filament-cost-usd': 0.2,
+            'print-time': datetime.timedelta(minutes=52, seconds=28)
+        },
+        {
+            'name-of-file': 'test/gcodes/clamp-bolt-0.2mm.gcode',
+            'filament-used-m': 3.03,
+            'filament-used-cm3': 7.3,
+            'filament-used-g': 9.0,
+            'filament-cost-usd': 0.2,
+            'print-time': datetime.timedelta(hours=1, minutes=14, 
+                seconds=10)
+        },
+        {
+            'name-of-file': 'test/gcodes/support-test-0.2mm.gcode',
+            'filament-used-m': 1.96,
+            'filament-used-cm3': 4.7,
+            'filament-used-g': 5.9,
+            'filament-cost-usd': 0.1,
+            'print-time': datetime.timedelta(minutes=29, seconds=57)
+        }]
+        actual_result = mpp.scrape_time_and_usage_estimates(
+            ['test/gcodes/bulbasaur-0.2mm.gcode',
+            'test/gcodes/clamp-bolt-0.2mm.gcode',
+            'test/gcodes/support-test-0.2mm.gcode'])
+        self.assertEqual(expected_result, actual_result)
