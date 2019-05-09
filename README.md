@@ -31,8 +31,9 @@ rolls, which is my trusted brand.
  - [x] test scrape from support-test.gcode
  - [x] what happens if the model takes more than a day?
  - [x] test scrape from large-box.gcode
- - [ ] clean up code
- - [ ] write tests for slicing/scraping multiple models
+ - [x] clean up code
+ - [x] write tests for slicing/scraping multiple models
+ - [ ] write function that aggregates results of scraping data from gcodes
  - [ ] port get-slic3r-pe.sh to a python function in core.py
  - [ ] combine it all, build an interface
  - [ ] get newest version, even when newest version number changes
