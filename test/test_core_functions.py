@@ -86,6 +86,51 @@ class TestCoreFunctions(unittest.TestCase):
         except FileNotFoundError:
             pass
 
+    def test_slice_three_models_simultaneously(self):
+        """
+        """
+        try:
+            os.remove('test/models/bulbasaur-0.2mm.gcode')
+            os.remove('test/models/clamp-bolt-0.2mm.gcode')
+            os.remove('test/models/support-test-0.2mm.gcode')
+        except FileNotFoundError:
+            pass
+
+        expected_commands = [[
+            'bin/slic3r-pe.AppImage', '--slice', '--load',
+            'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
+            '--layer-height', '0.2', 'test/models/bulbasaur.stl', 
+            '--output', 'test/models/bulbasaur-0.2mm.gcode'
+            ], [
+            'bin/slic3r-pe.AppImage', '--slice', '--load',
+            'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
+            '--layer-height', '0.2', 'test/models/clamp-bolt.stl', 
+            '--output', 'test/models/clamp-bolt-0.2mm.gcode'
+            ],
+            [
+            'bin/slic3r-pe.AppImage', '--slice', '--load',
+            'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
+            '--layer-height', '0.2', 'test/models/support-test.stl', 
+            '--output', 'test/models/support-test-0.2mm.gcode'
+            ]]
+        self.assertEqual(expected_commands,
+                         mpp.slice_model(0.2, False,
+                                         [
+                                             'test/models/bulbasaur.stl',
+                                             'test/models/clamp-bolt.stl',
+                                             'test/models/support-test.stl',
+                                         ]))
+        self.assertTrue(os.path.isfile('test/models/bulbasaur-0.2mm.gcode'))
+        self.assertTrue(os.path.isfile('test/models/clamp-bolt-0.2mm.gcode'))
+        self.assertTrue(os.path.isfile('test/models/support-test-0.2mm.gcode'))
+
+        try:
+            os.remove('test/models/bulbasaur-0.2mm.gcode')
+            os.remove('test/models/clamp-bolt-0.2mm.gcode')
+            os.remove('test/models/support-test-0.2mm.gcode')
+        except FileNotFoundError:
+            pass
+
     def test_scrape_time_and_usage_estimates_from_gcode(self):
         """
         sees if scrape_time function can get the data from a gcode
