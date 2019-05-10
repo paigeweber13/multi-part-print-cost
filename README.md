@@ -33,7 +33,7 @@ rolls, which is my trusted brand.
  - [x] test scrape from large-box.gcode
  - [x] clean up code
  - [x] write tests for slicing/scraping multiple models
- - [ ] write function that aggregates results of scraping data from gcodes
+ - [x] write function that aggregates results of scraping data from gcodes
  - [ ] port get-slic3r-pe.sh to a python function in core.py
  - [ ] combine it all, build an interface
  - [ ] get newest version, even when newest version number changes
