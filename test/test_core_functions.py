@@ -216,3 +216,39 @@ class TestCoreFunctions(unittest.TestCase):
             'test/gcodes/clamp-bolt-0.2mm.gcode',
             'test/gcodes/support-test-0.2mm.gcode'])
         self.assertEqual(expected_result, actual_result)
+
+    def test_aggregate_data(self):
+        individual_results = [{
+            'name-of-file': 'test/gcodes/bulbasaur-0.2mm.gcode',
+            'filament-used-m': 4.01,
+            'filament-used-cm3': 9.6,
+            'filament-used-g': 12.0,
+            'filament-cost-usd': 0.2,
+            'print-time': datetime.timedelta(minutes=52, seconds=28)
+        },
+        {
+            'name-of-file': 'test/gcodes/clamp-bolt-0.2mm.gcode',
+            'filament-used-m': 3.03,
+            'filament-used-cm3': 7.3,
+            'filament-used-g': 9.0,
+            'filament-cost-usd': 0.2,
+            'print-time': datetime.timedelta(hours=1, minutes=14, 
+                seconds=10)
+        },
+        {
+            'name-of-file': 'test/gcodes/support-test-0.2mm.gcode',
+            'filament-used-m': 1.96,
+            'filament-used-cm3': 4.7,
+            'filament-used-g': 5.9,
+            'filament-cost-usd': 0.1,
+            'print-time': datetime.timedelta(minutes=29, seconds=57)
+        }]
+        expected_result = {
+            'filament-used-m': 9.00,
+            'filament-used-cm3': 21.6,
+            'filament-used-g': 26.9,
+            'filament-cost-usd': 0.5,
+            'print-time': datetime.timedelta(hours=2, minutes=36, seconds=35)
+        }
+        self.assertEqual(expected_result,
+            mpp.aggregate_data(individual_results))
