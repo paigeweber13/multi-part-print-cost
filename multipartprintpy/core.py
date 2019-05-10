@@ -93,3 +93,30 @@ def scrape_time_and_usage_estimates(list_of_files: typing.List[str]):
             'print-time': print_time,
         })
     return result
+
+def aggregate_data(print_estimates):
+    """
+    print_estimates is a dict with all the stats about a single sliced 
+    model
+    """
+    aggregate = {
+        'filament-used-m': 0.0,
+        'filament-used-cm3': 0.0,
+        'filament-used-g': 0.0,
+        'filament-cost-usd': 0.0,
+        'print-time': datetime.timedelta(seconds=0),
+    }
+    for data in print_estimates:
+        aggregate['filament-used-m'] += data['filament-used-m']
+        aggregate['filament-used-cm3'] += data['filament-used-cm3']
+        aggregate['filament-used-g'] += data['filament-used-g']
+        aggregate['filament-cost-usd'] += data['filament-cost-usd']
+        aggregate['print-time'] += data['print-time']
+
+    aggregate['filament-used-m'] = round(aggregate['filament-used-m'], 2)
+    aggregate['filament-used-cm3'] = round(aggregate['filament-used-cm3'], 2)
+    aggregate['filament-used-g'] = round(aggregate['filament-used-g'], 2)
+    aggregate['filament-cost-usd'] = round(aggregate['filament-cost-usd'], 2)
+    aggregate['print-time'] = aggregate['print-time']
+
+    return aggregate
