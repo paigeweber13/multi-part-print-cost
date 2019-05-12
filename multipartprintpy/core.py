@@ -6,12 +6,25 @@ assumes this module is being run from the root of the package directory.
 """
 
 import datetime
+import os
 import re
 import subprocess
 import typing
 
 CONFIG_FILE = 'profiles/slic3r-pe-config.ini'
 BINARY_LOCATION = 'bin/slic3r-pe.AppImage'
+
+def get_slic3r_pe():
+    latest_appimage_url = 'https://github.com/prusa3d/Slic3r/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+linux64-full-201904140843.AppImage'
+    appimage_name = 'slic3r-pe.AppImage'
+    download_dir = 'bin'
+    
+    if not os.path.isdir(download_dir):
+        os.makedirs(download_dir)
+    
+    subprocess.run(['wget', '-O', download_dir + '/' + appimage_name, 
+        latest_appimage_url])
+    subprocess.run(['chmod', '+x', download_dir + '/' + appimage_name])
 
 def slice_model(layer_height: float, supports: bool,
                 path_to_models: typing.List[str]):
