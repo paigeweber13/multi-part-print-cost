@@ -34,7 +34,7 @@ rolls, which is my trusted brand.
  - [x] clean up code
  - [x] write tests for slicing/scraping multiple models
  - [x] write function that aggregates results of scraping data from gcodes
- - [ ] port get-slic3r-pe.sh to a python function in core.py
+ - [x] port get-slic3r-pe.sh to a python function in core.py
  - [ ] combine it all, build an interface
  - [ ] get newest version, even when newest version number changes
  - [ ] make it work with arbitrary exported slic3r profile
