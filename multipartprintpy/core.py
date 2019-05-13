@@ -27,6 +27,21 @@ def get_slic3r_pe():
         latest_appimage_url])
     subprocess.run(['chmod', '+x', download_dir + '/' + appimage_name])
 
+def get_gcode_output_path(model_path: str, layer_height: float):
+    """
+    returns a string representing the path where the gcodes should be output.
+    Also ensures that intermediate directories are created.
+    """
+    split_path = model_path.split('/')
+    gcode_directory = '/'.join(split_path[:-1]) + '/gcodes/'
+    if not os.path.isdir(gcode_directory):
+        os.makedirs(gcode_directory)
+
+    output_file_path = gcode_directory + split_path[-1][:-4] + '-' + \
+        str(layer_height) + 'mm.gcode'
+    print('input path:', model_path, 'output path:', output_file_path)
+    return output_file_path
+
 def slice_model(layer_height: float, supports: bool,
                 path_to_models: typing.List[str]):
     """
@@ -37,11 +52,12 @@ def slice_model(layer_height: float, supports: bool,
     first_layer_height = round(layer_height+0.05, 2)
 
     for model in path_to_models:
+        output_file_path = get_gcode_output_path(model, layer_height)
         command = [BINARY_LOCATION, '--slice', '--load',
                    CONFIG_FILE, '--first-layer-height', 
                    str(first_layer_height), '--layer-height',
                    str(layer_height), model, '--output',
-                   model[:-4] + '-' + str(layer_height) + 'mm.gcode']
+                   output_file_path]
         if supports:
            command.insert(9, '--support-material')
         list_of_commands.append(command)
@@ -144,7 +160,7 @@ def compute_stats(layer_height: float, supports: bool,
     slice_model(layer_height, supports, models)
     gcode_names = []
     for model in models:
-        gcode_names.append(model[:-4] + '-' + str(layer_height) + 'mm.gcode')
+        gcode_names.append(get_gcode_output_path(model, layer_height))
     
     stats = scrape_time_and_usage_estimates(gcode_names)
     stats.insert(0, aggregate_data(stats))
