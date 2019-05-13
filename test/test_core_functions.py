@@ -3,6 +3,7 @@ tests core functionality. assumes that you are running tests from the root of
 the project directory
 """
 
+import copy
 import datetime
 import os
 import unittest
@@ -254,13 +255,18 @@ class TestCoreFunctions(unittest.TestCase):
         except FileNotFoundError:
             pass
 
+        self.maxDiff = None
         actual = mpp.compute_stats(0.2, False, ['test/models/bulbasaur.stl',
                                                 'test/models/clamp-bolt.stl',
                                                 'test/models/support-test.stl'
                                                ])
-        expected = TestCoreFunctions.expected_scrape_results_200micron.copy()
+        expected = copy.deepcopy(\
+            TestCoreFunctions.expected_scrape_results_200micron)
         expected.insert(0, \
             TestCoreFunctions.expected_aggregate_results_200micron)
+        expected[1]['name-of-file'] = 'test/models/bulbasaur-0.2mm.gcode'
+        expected[2]['name-of-file'] = 'test/models/clamp-bolt-0.2mm.gcode'
+        expected[3]['name-of-file'] = 'test/models/support-test-0.2mm.gcode'
         self.assertEqual(expected, actual)
 
         try:
