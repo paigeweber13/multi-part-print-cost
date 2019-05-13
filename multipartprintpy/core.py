@@ -39,7 +39,6 @@ def get_gcode_output_path(model_path: str, layer_height: float):
 
     output_file_path = gcode_directory + split_path[-1][:-4] + '-' + \
         str(layer_height) + 'mm.gcode'
-    print('input path:', model_path, 'output path:', output_file_path)
     return output_file_path
 
 def slice_model(layer_height: float, supports: bool,
