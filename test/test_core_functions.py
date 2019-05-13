@@ -56,7 +56,7 @@ class TestCoreFunctions(unittest.TestCase):
         tries to slice a single model with 0.2mm layer height and checks to see if the file exists. Not a really robust check, but it works
         """
         try:
-            os.remove('test/models/bulbasaur-0.2mm.gcode')
+            os.remove('test/models/gcodes/bulbasaur-0.2mm.gcode')
         except FileNotFoundError:
             pass
 
@@ -64,15 +64,16 @@ class TestCoreFunctions(unittest.TestCase):
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
             '--layer-height', '0.2', 'test/models/bulbasaur.stl',
-            '--output', 'test/models/bulbasaur-0.2mm.gcode'
+            '--output', 'test/models/gcodes/bulbasaur-0.2mm.gcode'
             ]]
         self.assertEqual(expected_commands,
                          mpp.slice_model(0.2, False, ['test/' +
                                          'models/bulbasaur.stl']))
-        self.assertTrue(os.path.isfile('test/models/bulbasaur-0.2mm.gcode'))
+        self.assertTrue(os.path.isfile(
+            'test/models/gcodes/bulbasaur-0.2mm.gcode'))
 
         try:
-            os.remove('test/models/bulbasaur-0.2mm.gcode')
+            os.remove('test/models/gcodes/bulbasaur-0.2mm.gcode')
         except FileNotFoundError:
             pass
 
@@ -80,7 +81,7 @@ class TestCoreFunctions(unittest.TestCase):
         """
         """
         try:
-            os.remove('test/models/support-test-0.1mm.gcode')
+            os.remove('test/models/gcodes/support-test-0.1mm.gcode')
         except FileNotFoundError:
             pass
 
@@ -88,15 +89,16 @@ class TestCoreFunctions(unittest.TestCase):
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.15',
             '--layer-height', '0.1', 'test/models/support-test.stl', '--support-material', '--output',
-            'test/models/support-test-0.1mm.gcode'
+            'test/models/gcodes/support-test-0.1mm.gcode'
             ]]
         self.assertEqual(expected_commands,
                          mpp.slice_model(0.1, True, ['test/' +
                                          'models/support-test.stl']))
-        self.assertTrue(os.path.isfile('test/models/support-test-0.1mm.gcode'))
+        self.assertTrue(os.path.isfile(
+            'test/models/gcodes/support-test-0.1mm.gcode'))
 
         try:
-            os.remove('test/models/support-test-0.1mm.gcode')
+            os.remove('test/models/gcodes/support-test-0.1mm.gcode')
         except FileNotFoundError:
             pass
 
@@ -104,7 +106,7 @@ class TestCoreFunctions(unittest.TestCase):
         """
         """
         try:
-            os.remove('test/models/large-box-0.3mm.gcode')
+            os.remove('test/models/gcodes/large-box-0.3mm.gcode')
         except FileNotFoundError:
             pass
 
@@ -112,15 +114,16 @@ class TestCoreFunctions(unittest.TestCase):
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.35',
             '--layer-height', '0.3', 'test/models/large-box.stl', '--support-material', '--output',
-            'test/models/large-box-0.3mm.gcode'
+            'test/models/gcodes/large-box-0.3mm.gcode'
             ]]
         self.assertEqual(expected_commands,
                          mpp.slice_model(0.3, True, ['test/' +
                                          'models/large-box.stl']))
-        self.assertTrue(os.path.isfile('test/models/large-box-0.3mm.gcode'))
+        self.assertTrue(os.path.isfile(
+            'test/models/gcodes/large-box-0.3mm.gcode'))
 
         try:
-            os.remove('test/models/large-box-0.3mm.gcode')
+            os.remove('test/models/gcodes/large-box-0.3mm.gcode')
         except FileNotFoundError:
             pass
 
@@ -128,9 +131,9 @@ class TestCoreFunctions(unittest.TestCase):
         """
         """
         try:
-            os.remove('test/models/bulbasaur-0.2mm.gcode')
-            os.remove('test/models/clamp-bolt-0.2mm.gcode')
-            os.remove('test/models/support-test-0.2mm.gcode')
+            os.remove('test/models/gcodes/bulbasaur-0.2mm.gcode')
+            os.remove('test/models/gcodes/clamp-bolt-0.2mm.gcode')
+            os.remove('test/models/gcodes/support-test-0.2mm.gcode')
         except FileNotFoundError:
             pass
 
@@ -138,34 +141,37 @@ class TestCoreFunctions(unittest.TestCase):
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
             '--layer-height', '0.2', 'test/models/bulbasaur.stl', 
-            '--output', 'test/models/bulbasaur-0.2mm.gcode'
+            '--output', 'test/models/gcodes/bulbasaur-0.2mm.gcode'
             ], [
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
             '--layer-height', '0.2', 'test/models/clamp-bolt.stl', 
-            '--output', 'test/models/clamp-bolt-0.2mm.gcode'
+            '--output', 'test/models/gcodes/clamp-bolt-0.2mm.gcode'
             ],
             [
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
             '--layer-height', '0.2', 'test/models/support-test.stl', 
-            '--output', 'test/models/support-test-0.2mm.gcode'
+            '--output', 'test/models/gcodes/support-test-0.2mm.gcode'
             ]]
         self.assertEqual(expected_commands,
                          mpp.slice_model(0.2, False,
                                          [
-                                             'test/models/bulbasaur.stl',
-                                             'test/models/clamp-bolt.stl',
-                                             'test/models/support-test.stl',
+                                         'test/models/bulbasaur.stl',
+                                         'test/models/clamp-bolt.stl',
+                                         'test/models/support-test.stl',
                                          ]))
-        self.assertTrue(os.path.isfile('test/models/bulbasaur-0.2mm.gcode'))
-        self.assertTrue(os.path.isfile('test/models/clamp-bolt-0.2mm.gcode'))
-        self.assertTrue(os.path.isfile('test/models/support-test-0.2mm.gcode'))
+        self.assertTrue(os.path.isfile(
+            'test/models/gcodes/bulbasaur-0.2mm.gcode'))
+        self.assertTrue(os.path.isfile(
+            'test/models/gcodes/clamp-bolt-0.2mm.gcode'))
+        self.assertTrue(os.path.isfile(
+            'test/models/gcodes/support-test-0.2mm.gcode'))
 
         try:
-            os.remove('test/models/bulbasaur-0.2mm.gcode')
-            os.remove('test/models/clamp-bolt-0.2mm.gcode')
-            os.remove('test/models/support-test-0.2mm.gcode')
+            os.remove('test/models/gcodes/bulbasaur-0.2mm.gcode')
+            os.remove('test/models/gcodes/clamp-bolt-0.2mm.gcode')
+            os.remove('test/models/gcodes/support-test-0.2mm.gcode')
         except FileNotFoundError:
             pass
 
@@ -249,30 +255,38 @@ class TestCoreFunctions(unittest.TestCase):
         """
         will fail if slic3r updates the way it predicts time and filament usage
         """
+        self.maxDiff = None
         try:
-            os.remove('test/models/bulbasaur-0.2mm.gcode')
-            os.remove('test/models/clamp-bolt-0.2mm.gcode')
-            os.remove('test/models/support-test-0.2mm.gcode')
+            os.remove('test/models/gcodes/bulbasaur-0.2mm.gcode')
+            os.remove('test/models/gcodes/clamp-bolt-0.2mm.gcode')
+            os.remove('test/models/gcodes/support-test-0.2mm.gcode')
         except FileNotFoundError:
             pass
 
-        actual = mpp.compute_stats(0.2, False, ['test/models/bulbasaur.stl',
-                                                'test/models/clamp-bolt.stl',
-                                                'test/models/support-test.stl'
-                                               ])
+        actual = mpp.compute_stats(0.2, False, 
+            [
+                'test/models/bulbasaur.stl',
+                'test/models/clamp-bolt.stl',
+                'test/models/support-test.stl'
+            ])
         expected = copy.deepcopy(\
             TestCoreFunctions.expected_scrape_results_200micron)
+        print(expected)
         expected.insert(0, \
             TestCoreFunctions.expected_aggregate_results_200micron)
-        expected[1]['name-of-file'] = 'test/models/bulbasaur-0.2mm.gcode'
-        expected[2]['name-of-file'] = 'test/models/clamp-bolt-0.2mm.gcode'
-        expected[3]['name-of-file'] = 'test/models/support-test-0.2mm.gcode'
+        print(TestCoreFunctions.expected_aggregate_results_200micron)
+        expected[1]['name-of-file'] = \
+            'test/models/gcodes/bulbasaur-0.2mm.gcode'
+        expected[2]['name-of-file'] = \
+            'test/models/gcodes/clamp-bolt-0.2mm.gcode'
+        expected[3]['name-of-file'] = \
+            'test/models/gcodes/support-test-0.2mm.gcode'
         self.assertEqual(expected, actual)
 
         try:
-            os.remove('test/models/bulbasaur-0.2mm.gcode')
-            os.remove('test/models/clamp-bolt-0.2mm.gcode')
-            os.remove('test/models/support-test-0.2mm.gcode')
+            os.remove('test/models/gcodes/bulbasaur-0.2mm.gcode')
+            os.remove('test/models/gcodes/clamp-bolt-0.2mm.gcode')
+            os.remove('test/models/gcodes/support-test-0.2mm.gcode')
         except FileNotFoundError:
             pass
 
