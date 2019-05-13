@@ -127,6 +127,7 @@ def aggregate_data(print_estimates):
         aggregate['filament-cost-usd'] += data['filament-cost-usd']
         aggregate['print-time'] += data['print-time']
 
+    aggregate['name-of-file'] = 'total'
     aggregate['filament-used-m'] = round(aggregate['filament-used-m'], 2)
     aggregate['filament-used-cm3'] = round(aggregate['filament-used-cm3'], 2)
     aggregate['filament-used-g'] = round(aggregate['filament-used-g'], 2)
@@ -159,7 +160,16 @@ def main():
 
     results = compute_stats(float(sys.argv[1]), bool(sys.argv[2]),
                             sys.argv[3:num_commands])
-    print(results)
+    
+    for result in results:
+        file_name = result['name-of-file']
+        if len(result['name-of-file']) > 30:
+            file_name = result['name-of-file'][-26:]
+            file_name = '... ' + file_name
+        print('%30s | %6.2f | %6.1f | %6.1f | %3.2f | %12s' % (
+            file_name , result['filament-used-m'],
+            result['filament-used-cm3'], result['filament-used-g'],
+            result['filament-cost-usd'], result['print-time']))
 
 if __name__ == '__main__':
     main()
