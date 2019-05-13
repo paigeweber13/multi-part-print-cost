@@ -9,6 +9,7 @@ import datetime
 import os
 import re
 import subprocess
+import sys
 import typing
 
 CONFIG_FILE = 'profiles/slic3r-pe-config.ini'
@@ -133,3 +134,32 @@ def aggregate_data(print_estimates):
     aggregate['print-time'] = aggregate['print-time']
 
     return aggregate
+
+def compute_stats(layer_height: float, supports: bool,
+                  models: typing.List[str]):
+    """
+    wrapper function that takes paths to models and returns time and filament usage stats
+    """
+    slice_model(layer_height, supports, models)
+    gcode_names = []
+    for model in models:
+        gcode_names.append(model[:-4] + '-' + str(layer_height) + 'mm.gcode')
+    
+    stats = scrape_time_and_usage_estimates(gcode_names)
+    stats.insert(0, aggregate_data(stats))
+
+    return stats
+
+def main():
+    num_commands = len(sys.argv)
+    if num_commands < 4:
+        print('usage:', sys.argv[0],
+            'layer-height supports? model[, model, ...]')
+        return
+
+    results = compute_stats(float(sys.argv[1]), bool(sys.argv[2]),
+                            sys.argv[3:num_commands])
+    print(results)
+
+if __name__ == '__main__':
+    main()
