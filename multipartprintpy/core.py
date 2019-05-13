@@ -165,7 +165,7 @@ def main():
         'various units.')
     print()
     print('%30s | %6s | %6s | %6s | %5s | %12s' % (
-        'Name of File', 'm', 'cm3', 'g', '$', 'Print Time'))
+        'Name of File', 'm', 'cm3', 'g', '$', 'dd:hh:mm:ss'))
     for result in results:
         file_name = result['name-of-file']
         if len(result['name-of-file']) > 30:
