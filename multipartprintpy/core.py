@@ -94,7 +94,7 @@ def scrape_time_and_usage_estimates(list_of_files: typing.List[str]):
 
         filament_usage_m = round(float(my_match.group(
             'mm_usage')) / 1000, 2)
-        print_time = datetime.timedelta(days=print_time[0],
+        print_timedelta = datetime.timedelta(days=print_time[0],
             hours=print_time[1], minutes=print_time[2],
             seconds=print_time[3])
 
@@ -104,7 +104,7 @@ def scrape_time_and_usage_estimates(list_of_files: typing.List[str]):
             'filament-used-cm3': float(my_match.group('cm3_usage')),
             'filament-used-g': float(my_match.group('g_usage')),
             'filament-cost-usd': float(my_match.group('usd_cost')),
-            'print-time': print_time,
+            'print-time': print_timedelta,
         })
     return result
 
