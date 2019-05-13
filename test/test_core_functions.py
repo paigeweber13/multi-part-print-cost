@@ -43,6 +43,7 @@ class TestCoreFunctions(unittest.TestCase):
         }]
 
         cls.expected_aggregate_results_200micron = {
+            'name-of-file': 'total',
             'filament-used-m': 9.00,
             'filament-used-cm3': 21.6,
             'filament-used-g': 26.9,
