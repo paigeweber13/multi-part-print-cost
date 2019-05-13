@@ -161,12 +161,17 @@ def main():
     results = compute_stats(float(sys.argv[1]), bool(sys.argv[2]),
                             sys.argv[3:num_commands])
     
+    print('Slicing complete! Outputting statistics of filament usage in ' +
+        'various units.')
+    print()
+    print('%30s | %6s | %6s | %6s | %5s | %12s' % (
+        'Name of File', 'm', 'cm3', 'g', '$', 'Print Time'))
     for result in results:
         file_name = result['name-of-file']
         if len(result['name-of-file']) > 30:
             file_name = result['name-of-file'][-26:]
             file_name = '... ' + file_name
-        print('%30s | %6.2f | %6.1f | %6.1f | %3.2f | %12s' % (
+        print('%30s | %6.2f | %6.1f | %6.1f | %5.2f | %12s' % (
             file_name , result['filament-used-m'],
             result['filament-used-cm3'], result['filament-used-g'],
             result['filament-cost-usd'], result['print-time']))
