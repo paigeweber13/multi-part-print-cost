@@ -31,7 +31,7 @@ class TestCoreFunctions(unittest.TestCase):
             'filament-used-g': 9.0,
             'filament-cost-usd': 0.2,
             'print-time': datetime.timedelta(hours=1, minutes=14, 
-                seconds=10)
+                seconds=9)
         },
         {
             'name-of-file': 'test/gcodes/support-test-0.2mm.gcode',
@@ -47,7 +47,7 @@ class TestCoreFunctions(unittest.TestCase):
             'filament-used-cm3': 21.6,
             'filament-used-g': 26.9,
             'filament-cost-usd': 0.5,
-            'print-time': datetime.timedelta(hours=2, minutes=36, seconds=35)
+            'print-time': datetime.timedelta(hours=2, minutes=36, seconds=34)
         }
 
     def test_slice_single_model(self):
@@ -255,7 +255,6 @@ class TestCoreFunctions(unittest.TestCase):
         except FileNotFoundError:
             pass
 
-        self.maxDiff = None
         actual = mpp.compute_stats(0.2, False, ['test/models/bulbasaur.stl',
                                                 'test/models/clamp-bolt.stl',
                                                 'test/models/support-test.stl'
