@@ -35,7 +35,12 @@ rolls, which is my trusted brand.
  - [x] write tests for slicing/scraping multiple models
  - [x] write function that aggregates results of scraping data from gcodes
  - [x] port get-slic3r-pe.sh to a python function in core.py
- - [ ] combine it all, build an interface
+ - [x] combine it all, build an interface
+ - [ ] make tests faster
+   - [ ] look at pytest-profiling
+   - [ ] how can I make a fast test that will give a multiple-day print time?
+ - [ ] fix error when slicing crank.stl that says there are no layers
+   - [ ] start by writing a failing test for crank.
  - [ ] create GUI
  - [ ] get newest version, even when newest version number changes
  - [ ] make it work with arbitrary exported slic3r profile
