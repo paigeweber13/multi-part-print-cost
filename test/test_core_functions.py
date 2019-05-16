@@ -17,38 +17,37 @@ class TestCoreFunctions(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.expected_scrape_results_200micron = [{
-            'name-of-file': 'test/gcodes/bulbasaur-0.2mm.gcode',
-            'filament-used-m': 4.01,
-            'filament-used-cm3': 9.6,
-            'filament-used-g': 12.0,
-            'filament-cost-usd': 0.2,
-            'print-time': datetime.timedelta(minutes=52, seconds=28)
+            'name-of-file': 'test/gcodes/1cm-cube-0.2mm.gcode',
+            'filament-used-m': 0.86,
+            'filament-used-cm3': 2.1,
+            'filament-used-g': 2.6,
+            'filament-cost-usd': 0.0,
+            'print-time': datetime.timedelta(minutes=11, seconds=4)
         },
         {
-            'name-of-file': 'test/gcodes/clamp-bolt-0.2mm.gcode',
-            'filament-used-m': 3.03,
-            'filament-used-cm3': 7.3,
-            'filament-used-g': 9.0,
-            'filament-cost-usd': 0.2,
-            'print-time': datetime.timedelta(hours=1, minutes=14, 
-                seconds=9)
+            'name-of-file': 'test/gcodes/2cm-cube-0.2mm.gcode',
+            'filament-used-m': 4.99,
+            'filament-used-cm3': 12.0,
+            'filament-used-g': 14.9,
+            'filament-cost-usd': 0.3,
+            'print-time': datetime.timedelta(minutes=54, seconds=51)
         },
         {
-            'name-of-file': 'test/gcodes/support-test-0.2mm.gcode',
-            'filament-used-m': 1.96,
-            'filament-used-cm3': 4.7,
-            'filament-used-g': 5.9,
-            'filament-cost-usd': 0.1,
-            'print-time': datetime.timedelta(minutes=29, seconds=57)
+            'name-of-file': 'test/gcodes/3cm-cube-0.2mm.gcode',
+            'filament-used-m': 14.36,
+            'filament-used-cm3': 34.5,
+            'filament-used-g': 42.8,
+            'filament-cost-usd': 0.8,
+            'print-time': datetime.timedelta(hours=2, minutes=23, seconds=20)
         }]
 
         cls.expected_aggregate_results_200micron = {
             'name-of-file': 'total',
-            'filament-used-m': 9.00,
-            'filament-used-cm3': 21.6,
-            'filament-used-g': 26.9,
-            'filament-cost-usd': 0.5,
-            'print-time': datetime.timedelta(hours=2, minutes=36, seconds=34)
+            'filament-used-m': 20.21,
+            'filament-used-cm3': 48.6,
+            'filament-used-g': 60.3,
+            'filament-cost-usd': 1.1,
+            'print-time': datetime.timedelta(hours=3, minutes=29, seconds=15)
         }
 
     def test_slice_single_model(self):
@@ -131,47 +130,47 @@ class TestCoreFunctions(unittest.TestCase):
         """
         """
         try:
-            os.remove('test/models/gcodes/bulbasaur-0.2mm.gcode')
-            os.remove('test/models/gcodes/clamp-bolt-0.2mm.gcode')
-            os.remove('test/models/gcodes/support-test-0.2mm.gcode')
+            os.remove('test/models/gcodes/1cm-cube-0.2mm.gcode')
+            os.remove('test/models/gcodes/2cm-cube-0.2mm.gcode')
+            os.remove('test/models/gcodes/3cm-cube-0.2mm.gcode')
         except FileNotFoundError:
             pass
 
         expected_commands = [[
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
-            '--layer-height', '0.2', 'test/models/bulbasaur.stl', 
-            '--output', 'test/models/gcodes/bulbasaur-0.2mm.gcode'
+            '--layer-height', '0.2', 'test/models/1cm-cube.stl', 
+            '--output', 'test/models/gcodes/1cm-cube-0.2mm.gcode'
             ], [
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
-            '--layer-height', '0.2', 'test/models/clamp-bolt.stl', 
-            '--output', 'test/models/gcodes/clamp-bolt-0.2mm.gcode'
+            '--layer-height', '0.2', 'test/models/2cm-cube.stl', 
+            '--output', 'test/models/gcodes/2cm-cube-0.2mm.gcode'
             ],
             [
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
-            '--layer-height', '0.2', 'test/models/support-test.stl', 
-            '--output', 'test/models/gcodes/support-test-0.2mm.gcode'
+            '--layer-height', '0.2', 'test/models/3cm-cube.stl', 
+            '--output', 'test/models/gcodes/3cm-cube-0.2mm.gcode'
             ]]
         self.assertEqual(expected_commands,
                          mpp.slice_model(0.2, False,
                                          [
-                                         'test/models/bulbasaur.stl',
-                                         'test/models/clamp-bolt.stl',
-                                         'test/models/support-test.stl',
+                                         'test/models/1cm-cube.stl',
+                                         'test/models/2cm-cube.stl',
+                                         'test/models/3cm-cube.stl',
                                          ]))
         self.assertTrue(os.path.isfile(
-            'test/models/gcodes/bulbasaur-0.2mm.gcode'))
+            'test/models/gcodes/1cm-cube-0.2mm.gcode'))
         self.assertTrue(os.path.isfile(
-            'test/models/gcodes/clamp-bolt-0.2mm.gcode'))
+            'test/models/gcodes/2cm-cube-0.2mm.gcode'))
         self.assertTrue(os.path.isfile(
-            'test/models/gcodes/support-test-0.2mm.gcode'))
+            'test/models/gcodes/3cm-cube-0.2mm.gcode'))
 
         try:
-            os.remove('test/models/gcodes/bulbasaur-0.2mm.gcode')
-            os.remove('test/models/gcodes/clamp-bolt-0.2mm.gcode')
-            os.remove('test/models/gcodes/support-test-0.2mm.gcode')
+            os.remove('test/models/gcodes/1cm-cube-0.2mm.gcode')
+            os.remove('test/models/gcodes/2cm-cube-0.2mm.gcode')
+            os.remove('test/models/gcodes/3cm-cube-0.2mm.gcode')
         except FileNotFoundError:
             pass
 
@@ -233,9 +232,9 @@ class TestCoreFunctions(unittest.TestCase):
         """
         expected_result = TestCoreFunctions.expected_scrape_results_200micron
         actual_result = mpp.scrape_time_and_usage_estimates(
-            ['test/gcodes/bulbasaur-0.2mm.gcode',
-             'test/gcodes/clamp-bolt-0.2mm.gcode',
-             'test/gcodes/support-test-0.2mm.gcode'])
+            ['test/gcodes/1cm-cube-0.2mm.gcode',
+             'test/gcodes/2cm-cube-0.2mm.gcode',
+             'test/gcodes/3cm-cube-0.2mm.gcode'])
         self.assertEqual(expected_result, actual_result)
 
     def test_aggregate_data(self):
@@ -255,19 +254,18 @@ class TestCoreFunctions(unittest.TestCase):
         """
         will fail if slic3r updates the way it predicts time and filament usage
         """
-        self.maxDiff = None
         try:
-            os.remove('test/models/gcodes/bulbasaur-0.2mm.gcode')
-            os.remove('test/models/gcodes/clamp-bolt-0.2mm.gcode')
-            os.remove('test/models/gcodes/support-test-0.2mm.gcode')
+            os.remove('test/models/gcodes/1cm-cube-0.2mm.gcode')
+            os.remove('test/models/gcodes/2cm-cube-0.2mm.gcode')
+            os.remove('test/models/gcodes/3cm-cube-0.2mm.gcode')
         except FileNotFoundError:
             pass
 
         actual = mpp.compute_stats(0.2, False, 
             [
-                'test/models/bulbasaur.stl',
-                'test/models/clamp-bolt.stl',
-                'test/models/support-test.stl'
+                'test/models/1cm-cube.stl',
+                'test/models/2cm-cube.stl',
+                'test/models/3cm-cube.stl'
             ])
         expected = copy.deepcopy(\
             TestCoreFunctions.expected_scrape_results_200micron)
@@ -276,17 +274,16 @@ class TestCoreFunctions(unittest.TestCase):
             TestCoreFunctions.expected_aggregate_results_200micron)
         print(TestCoreFunctions.expected_aggregate_results_200micron)
         expected[1]['name-of-file'] = \
-            'test/models/gcodes/bulbasaur-0.2mm.gcode'
+            'test/models/gcodes/1cm-cube-0.2mm.gcode'
         expected[2]['name-of-file'] = \
-            'test/models/gcodes/clamp-bolt-0.2mm.gcode'
+            'test/models/gcodes/2cm-cube-0.2mm.gcode'
         expected[3]['name-of-file'] = \
-            'test/models/gcodes/support-test-0.2mm.gcode'
+            'test/models/gcodes/3cm-cube-0.2mm.gcode'
         self.assertEqual(expected, actual)
 
         try:
-            os.remove('test/models/gcodes/bulbasaur-0.2mm.gcode')
-            os.remove('test/models/gcodes/clamp-bolt-0.2mm.gcode')
-            os.remove('test/models/gcodes/support-test-0.2mm.gcode')
+            os.remove('test/models/gcodes/1cm-cube-0.2mm.gcode')
+            os.remove('test/models/gcodes/2cm-cube-0.2mm.gcode')
+            os.remove('test/models/gcodes/3cm-cube-0.2mm.gcode')
         except FileNotFoundError:
             pass
-
