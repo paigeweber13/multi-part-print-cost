@@ -36,9 +36,12 @@ rolls, which is my trusted brand.
  - [x] write function that aggregates results of scraping data from gcodes
  - [x] port get-slic3r-pe.sh to a python function in core.py
  - [x] combine it all, build an interface
- - [ ] make tests faster
-   - [ ] look at pytest-profiling
-   - [ ] how can I make a fast test that will give a multiple-day print time?
+ - [x] make tests faster
+   - [x] look at pytest-profiling (ended up using pytest --durations=0)
+   - [x] how can I make a fast test that will give a multiple-day print time?
+     - [x] don't need to slice the model! Just need to scrape data from gcode.
+       The function that has the edge case with multi-day prints is the scrape
+       function.
  - [ ] fix error when slicing crank.stl that says there are no layers
    - [ ] start by writing a failing test for crank.
  - [ ] create GUI
