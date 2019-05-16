@@ -129,6 +129,7 @@ def aggregate_data(print_estimates):
     model
     """
     aggregate = {
+        'name-of-file': 'total',
         'filament-used-m': 0.0,
         'filament-used-cm3': 0.0,
         'filament-used-g': 0.0,
@@ -142,12 +143,10 @@ def aggregate_data(print_estimates):
         aggregate['filament-cost-usd'] += data['filament-cost-usd']
         aggregate['print-time'] += data['print-time']
 
-    aggregate['name-of-file'] = 'total'
     aggregate['filament-used-m'] = round(aggregate['filament-used-m'], 2)
     aggregate['filament-used-cm3'] = round(aggregate['filament-used-cm3'], 2)
     aggregate['filament-used-g'] = round(aggregate['filament-used-g'], 2)
     aggregate['filament-cost-usd'] = round(aggregate['filament-cost-usd'], 2)
-    aggregate['print-time'] = aggregate['print-time']
 
     return aggregate
 
