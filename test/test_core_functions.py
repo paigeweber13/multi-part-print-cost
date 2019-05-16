@@ -101,31 +101,6 @@ class TestCoreFunctions(unittest.TestCase):
         except FileNotFoundError:
             pass
 
-    def test_slice_large_model(self):
-        """
-        """
-        try:
-            os.remove('test/models/gcodes/large-box-0.3mm.gcode')
-        except FileNotFoundError:
-            pass
-
-        expected_commands = [[
-            'bin/slic3r-pe.AppImage', '--slice', '--load',
-            'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.35',
-            '--layer-height', '0.3', 'test/models/large-box.stl', '--support-material', '--output',
-            'test/models/gcodes/large-box-0.3mm.gcode'
-            ]]
-        self.assertEqual(expected_commands,
-                         mpp.slice_model(0.3, True, ['test/' +
-                                         'models/large-box.stl']))
-        self.assertTrue(os.path.isfile(
-            'test/models/gcodes/large-box-0.3mm.gcode'))
-
-        try:
-            os.remove('test/models/gcodes/large-box-0.3mm.gcode')
-        except FileNotFoundError:
-            pass
-
     def test_slice_three_models_simultaneously(self):
         """
         """
