@@ -65,7 +65,10 @@ class TestCoreFunctions(unittest.TestCase):
         expected_commands = [[
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
-            '--layer-height', '0.2', 'test/models/bulbasaur.stl',
+            '--layer-height', '0.2', 
+            '--center', str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \
+            str(int(TestCoreFunctions.print_bed_height/2)),
+            'test/models/bulbasaur.stl',
             '--output', 'test/models/gcodes/bulbasaur-0.2mm.gcode'
             ]]
         self.assertEqual(expected_commands,
@@ -90,7 +93,10 @@ class TestCoreFunctions(unittest.TestCase):
         expected_commands = [[
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.15',
-            '--layer-height', '0.1', 'test/models/support-test.stl', '--support-material', '--output',
+            '--layer-height', '0.1', 
+            '--center', str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \
+            str(int(TestCoreFunctions.print_bed_height/2)),
+            'test/models/support-test.stl', '--support-material', '--output',
             'test/models/gcodes/support-test-0.1mm.gcode'
             ]]
         self.assertEqual(expected_commands,
@@ -117,18 +123,27 @@ class TestCoreFunctions(unittest.TestCase):
         expected_commands = [[
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
-            '--layer-height', '0.2', 'test/models/1cm-cube.stl', 
+            '--layer-height', '0.2', 
+            '--center', str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \
+            str(int(TestCoreFunctions.print_bed_height/2)),
+            'test/models/1cm-cube.stl', 
             '--output', 'test/models/gcodes/1cm-cube-0.2mm.gcode'
             ], [
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
-            '--layer-height', '0.2', 'test/models/2cm-cube.stl', 
+            '--layer-height', '0.2', 
+            '--center', str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \
+            str(int(TestCoreFunctions.print_bed_height/2)),
+            'test/models/2cm-cube.stl', 
             '--output', 'test/models/gcodes/2cm-cube-0.2mm.gcode'
             ],
             [
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
-            '--layer-height', '0.2', 'test/models/3cm-cube.stl', 
+            '--layer-height', '0.2', 
+            '--center', str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \
+            str(int(TestCoreFunctions.print_bed_height/2)),
+            'test/models/3cm-cube.stl', 
             '--output', 'test/models/gcodes/3cm-cube-0.2mm.gcode'
             ]]
         self.assertEqual(expected_commands,
