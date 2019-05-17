@@ -260,3 +260,28 @@ class TestCoreFunctions(unittest.TestCase):
             os.remove('test/models/gcodes/3cm-cube-0.2mm.gcode')
         except FileNotFoundError:
             pass
+
+    def test_slice_model_that_needs_repairing(self):
+        """
+        """
+        try:
+            os.remove('test/models/gcodes/crank-0.3mm.gcode')
+        except FileNotFoundError:
+            pass
+
+        expected_commands = [[
+            'bin/slic3r-pe.AppImage', '--slice', '--load',
+            'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.35',
+            '--layer-height', '0.3', 'test/models/crank.stl', '--output',
+            'test/models/gcodes/crank-0.3mm.gcode'
+            ]]
+        self.assertEqual(expected_commands,
+                         mpp.slice_model(0.3, False, ['test/' +
+                                         'models/crank.stl']))
+        self.assertTrue(os.path.isfile(
+            'test/models/gcodes/crank-0.3mm.gcode'))
+
+        try:
+            os.remove('test/models/gcodes/crank-0.3mm.gcode')
+        except FileNotFoundError:
+            pass
