@@ -63,7 +63,7 @@ def slice_model(layer_height: float, supports: bool,
                    model, '--output',
                    output_file_path]
         if supports:
-           command.insert(9, '--support-material')
+           command.insert(8, '--support-material')
         list_of_commands.append(command)
         subprocess.run(command)
     return list_of_commands
