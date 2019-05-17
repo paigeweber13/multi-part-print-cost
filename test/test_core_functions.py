@@ -244,10 +244,8 @@ class TestCoreFunctions(unittest.TestCase):
             ])
         expected = copy.deepcopy(\
             TestCoreFunctions.expected_scrape_results_200micron)
-        print(expected)
         expected.insert(0, \
             TestCoreFunctions.expected_aggregate_results_200micron)
-        print(TestCoreFunctions.expected_aggregate_results_200micron)
         expected[1]['name-of-file'] = \
             'test/models/gcodes/1cm-cube-0.2mm.gcode'
         expected[2]['name-of-file'] = \
