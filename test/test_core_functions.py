@@ -261,7 +261,7 @@ class TestCoreFunctions(unittest.TestCase):
         except FileNotFoundError:
             pass
 
-    def test_slice_model_that_needs_repairing(self):
+    def test_slice_model_that_isnt_centered(self):
         """
         """
         try:
