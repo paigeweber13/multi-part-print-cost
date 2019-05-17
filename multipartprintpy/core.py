@@ -46,6 +46,8 @@ def slice_model(layer_height: float, supports: bool,
     """
     slices model using slic3r. Must run get-slic3r-pe.sh first
     """
+    print_bed_width = 220 # mm
+    print_bed_height = 220 # mm
     list_of_commands = []
     layer_height = round(layer_height, 2)
     first_layer_height = round(layer_height+0.05, 2)
@@ -55,7 +57,10 @@ def slice_model(layer_height: float, supports: bool,
         command = [BINARY_LOCATION, '--slice', '--load',
                    CONFIG_FILE, '--first-layer-height', 
                    str(first_layer_height), '--layer-height',
-                   str(layer_height), model, '--output',
+                   str(layer_height), 
+                   '--center', str(int(print_bed_width/2)) + ',' + \
+                   str(int(print_bed_height/2)),
+                   model, '--output',
                    output_file_path]
         if supports:
            command.insert(9, '--support-material')
