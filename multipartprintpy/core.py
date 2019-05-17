@@ -171,14 +171,19 @@ def compute_stats(layer_height: float, supports: bool,
     return stats
 
 def main():
+    usage = 'usage:' + sys.argv[0] + \
+            ' layer-height supports? model[, model, ...]'
     num_commands = len(sys.argv)
     if num_commands < 4:
-        print('usage:', sys.argv[0],
-            'layer-height supports? model[, model, ...]')
+        print(usage)
         return
 
-    results = compute_stats(float(sys.argv[1]), bool(sys.argv[2]),
-                            sys.argv[3:num_commands])
+    try:
+        results = compute_stats(float(sys.argv[1]), bool(sys.argv[2]),
+                                sys.argv[3:num_commands])
+    except ValueError:
+        print(usage)
+        return
     
     print('Slicing complete! Outputting statistics of filament usage in ' +
         'various units.')
