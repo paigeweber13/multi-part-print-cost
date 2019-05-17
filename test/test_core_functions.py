@@ -93,10 +93,10 @@ class TestCoreFunctions(unittest.TestCase):
         expected_commands = [[
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.15',
-            '--layer-height', '0.1', 'test/models/support-test.stl', 
-            '--support-material', 
+            '--layer-height', '0.1', '--support-material', 
             '--center', str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \
             str(int(TestCoreFunctions.print_bed_height/2)),
+            'test/models/support-test.stl', 
             '--output', 'test/models/gcodes/support-test-0.1mm.gcode'
             ]]
         self.assertEqual(expected_commands,
