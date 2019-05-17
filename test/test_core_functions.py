@@ -18,36 +18,36 @@ class TestCoreFunctions(unittest.TestCase):
     def setUpClass(cls):
         cls.expected_scrape_results_200micron = [{
             'name-of-file': 'test/gcodes/1cm-cube-0.2mm.gcode',
-            'filament-used-m': 0.86,
-            'filament-used-cm3': 2.1,
-            'filament-used-g': 2.6,
-            'filament-cost-usd': 0.0,
-            'print-time': datetime.timedelta(minutes=11, seconds=4)
+            'filament-used-m': 1.57,
+            'filament-used-cm3': 3.8,
+            'filament-used-g': 4.7,
+            'filament-cost-usd': 0.1,
+            'print-time': datetime.timedelta(minutes=18, seconds=47)
         },
         {
             'name-of-file': 'test/gcodes/2cm-cube-0.2mm.gcode',
-            'filament-used-m': 4.99,
-            'filament-used-cm3': 12.0,
-            'filament-used-g': 14.9,
-            'filament-cost-usd': 0.3,
-            'print-time': datetime.timedelta(minutes=54, seconds=51)
+            'filament-used-m': 9.34,
+            'filament-used-cm3': 22.5,
+            'filament-used-g': 27.9,
+            'filament-cost-usd': 0.5,
+            'print-time': datetime.timedelta(hours=1, minutes=34, seconds=53)
         },
         {
             'name-of-file': 'test/gcodes/3cm-cube-0.2mm.gcode',
-            'filament-used-m': 14.36,
-            'filament-used-cm3': 34.5,
-            'filament-used-g': 42.8,
-            'filament-cost-usd': 0.8,
-            'print-time': datetime.timedelta(hours=2, minutes=23, seconds=20)
+            'filament-used-m': 27.23,
+            'filament-used-cm3': 65.5,
+            'filament-used-g': 81.2,
+            'filament-cost-usd': 1.5,
+            'print-time': datetime.timedelta(hours=4, minutes=11, seconds=53)
         }]
 
         cls.expected_aggregate_results_200micron = {
             'name-of-file': 'total',
-            'filament-used-m': 20.21,
-            'filament-used-cm3': 48.6,
-            'filament-used-g': 60.3,
-            'filament-cost-usd': 1.1,
-            'print-time': datetime.timedelta(hours=3, minutes=29, seconds=15)
+            'filament-used-m': 38.14,
+            'filament-used-cm3': 91.8,
+            'filament-used-g': 113.8,
+            'filament-cost-usd': 2.1,
+            'print-time': datetime.timedelta(hours=6, minutes=5, seconds=33)
         }
 
         cls.print_bed_width = 220 # mm
@@ -93,11 +93,11 @@ class TestCoreFunctions(unittest.TestCase):
         expected_commands = [[
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.15',
-            '--layer-height', '0.1', 
+            '--layer-height', '0.1', 'test/models/support-test.stl', 
+            '--support-material', 
             '--center', str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \
             str(int(TestCoreFunctions.print_bed_height/2)),
-            'test/models/support-test.stl', '--support-material', '--output',
-            'test/models/gcodes/support-test-0.1mm.gcode'
+            '--output', 'test/models/gcodes/support-test-0.1mm.gcode'
             ]]
         self.assertEqual(expected_commands,
                          mpp.slice_model(0.1, True, ['test/' +
