@@ -44,6 +44,9 @@ rolls, which is my trusted brand.
        function.
  - [ ] fix error when slicing crank.stl that says there are no layers
    - [ ] start by writing a failing test for crank.
+ - [ ] run pylint, make requested changes
+ - [ ] do I want to remove clamp-bolt? We don't use it. Could I use it at some
+   point?
  - [ ] create GUI
  - [ ] get newest version, even when newest version number changes
  - [ ] make it work with arbitrary exported slic3r profile
