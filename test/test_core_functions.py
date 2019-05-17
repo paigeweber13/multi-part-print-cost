@@ -50,6 +50,9 @@ class TestCoreFunctions(unittest.TestCase):
             'print-time': datetime.timedelta(hours=3, minutes=29, seconds=15)
         }
 
+        cls.print_bed_width = 220 # mm
+        cls.print_bed_height = 220 # mm
+
     def test_slice_single_model(self):
         """
         tries to slice a single model with 0.2mm layer height and checks to see if the file exists. Not a really robust check, but it works
@@ -272,7 +275,10 @@ class TestCoreFunctions(unittest.TestCase):
         expected_commands = [[
             'bin/slic3r-pe.AppImage', '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.35',
-            '--layer-height', '0.3', 'test/models/crank.stl', '--output',
+            '--layer-height', '0.3', 
+            '--center', str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \
+            str(int(TestCoreFunctions.print_bed_height/2)),
+            'test/models/crank.stl', '--output',
             'test/models/gcodes/crank-0.3mm.gcode'
             ]]
         self.assertEqual(expected_commands,
