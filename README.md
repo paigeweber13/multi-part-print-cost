@@ -42,8 +42,8 @@ rolls, which is my trusted brand.
      - [x] don't need to slice the model! Just need to scrape data from gcode.
        The function that has the edge case with multi-day prints is the scrape
        function.
- - [ ] fix error when slicing crank.stl that says there are no layers
-   - [ ] start by writing a failing test for crank.
+ - [x] fix error when slicing crank.stl that says there are no layers
+   - [x] start by writing a failing test for crank.
  - [ ] run pylint, make requested changes
  - [ ] do I want to remove clamp-bolt? We don't use it. Could I use it at some
    point?
