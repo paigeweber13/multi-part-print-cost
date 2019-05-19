@@ -172,12 +172,6 @@ def compute_stats(layer_height: float, supports: bool,
     return stats
 
 def main():
-    usage = 'usage:' + sys.argv[0] + '[options] -f model[, model, ...]' \
-        + '    options:' \
-        + '        -f file-name(s)    list of files to get estimates for' \
-        + '        -l layer-height    layer height in mm' \
-        + '        -s                 generate supports' \
-        + '        -o file-name       file to output stats to'
     parser = argparse.ArgumentParser(
         description="""Calculate individual and aggregate print time for 
         multiple .stl files""")
@@ -200,8 +194,8 @@ def main():
         parser.print_help()
         sys.exit(1)
 
-    files_to_slice = args
-    layer_height = 0
+    files_to_slice = args.files
+    layer_height = args.l
     generate_supports = False
     output_file = ''
 
