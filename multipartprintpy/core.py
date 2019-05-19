@@ -6,6 +6,7 @@ assumes this module is being run from the root of the package directory.
 """
 
 import datetime
+import getopt
 import os
 import re
 import subprocess
@@ -171,34 +172,49 @@ def compute_stats(layer_height: float, supports: bool,
     return stats
 
 def main():
-    usage = 'usage:' + sys.argv[0] + \
-            ' layer-height supports? model[, model, ...]'
-    num_commands = len(sys.argv)
-    if num_commands < 4:
+    usage = 'usage:' + sys.argv[0] + '[options] -f model[, model, ...]' \
+        + '    options:' \
+        + '        -f file-name(s)    list of files to get estimates for' \
+        + '        -l layer-height    layer height in mm' \
+        + '        -s                 generate supports' \
+        + '        -o file-name       file to output stats to'
+    files_to_slice = []
+    layer_height = 0
+    generate_supports = False
+    output_file = ''
+    try:
+        options, arguments = getopt.getopt(sys.argv, 'f:l:so:')
+    except getopt.GetoptError:
         print(usage)
-        return
+        sys.exit(1)
+    for option, argument in options:
+        if option == '-f':
+            layer_height = argument
+        if option == '-l':
+            layer_height = argument
 
     try:
-        results = compute_stats(float(sys.argv[1]), bool(sys.argv[2]),
+        results = compute_stats(float(), bool(sys.argv[2]),
                                 sys.argv[3:num_commands])
     except ValueError:
         print(usage)
-        return
+        sys.exit(1)
     
-    print('Slicing complete! Outputting statistics of filament usage in ' +
-        'various units.')
-    print()
-    print('%40s | %7s | %6s | %6s | %5s | %12s' % (
-        'Name of File', 'm', 'cm3', 'g', '$', 'dd:hh:mm:ss'))
+    print('\nSlicing complete! Outputting statistics of filament usage in ' +
+        'various units.\n 
+    header = '{:60s} | {:7s} | {:6s} | {:6s} | {:5s} | {:17s}'.format(
+        'Name of File', 'm', 'cm3', 'g', '$', 'print time')
+    print(header)
     for result in results:
         file_name = result['name-of-file']
-        if len(result['name-of-file']) > 40:
-            file_name = result['name-of-file'][-36:]
+        if len(result['name-of-file']) > 60:
+            file_name = result['name-of-file'][-56:]
             file_name = '... ' + file_name
-        print('%40s | %7.2f | %6.1f | %6.1f | %5.2f | %12s' % (
+        row = '{:60s} | {:7.2f} | {:6.1f} | {:6.1f} | {:5.2f} | {:17s}'.format(
             file_name , result['filament-used-m'],
             result['filament-used-cm3'], result['filament-used-g'],
             result['filament-cost-usd'], result['print-time']))
+        print(row)
 
 if __name__ == '__main__':
     main()

@@ -44,6 +44,13 @@ rolls, which is my trusted brand.
        function.
  - [x] fix error when slicing crank.stl that says there are no layers
    - [x] start by writing a failing test for crank.
+ - [ ] add argparse so I can add things like output
+ - [ ] make it so I can save output to file
+ - [ ] make output sortable (by print time or filament usage... they should
+       result in the same sorted order though right?)
+ - [ ] test length of text in name of gcode... maybe do full length in text
+       file and short length in terminal? Mmm... it'd be useful to also have
+       full length in terminal I think.
  - [ ] run pylint, make requested changes
  - [ ] do I want to remove clamp-bolt? We don't use it. Could I use it at some
    point?
