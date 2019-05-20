@@ -197,7 +197,9 @@ def main():
     files_to_slice = args.files
     layer_height = args.layer_height[0]
     generate_supports = args.supports
-    output_file = args.output_file[0]
+    output_file = None
+    if args.output_file:
+        output_file = args.output_file[0]
 
     try:
         results = compute_stats(layer_height, generate_supports, 
