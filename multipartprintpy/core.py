@@ -178,13 +178,13 @@ def main():
     parser.add_argument('files', metavar='model', type=str, nargs='+',
                     help="""models to predict print time and filament usage""")
     parser.add_argument('-l', '--layer-height', metavar='height-in-mm', 
-                    type=float, nargs=1, required=True, 
+                    type=float, nargs=1, required=True, dest='layer_height',
                     help="""height of each layer""")
-    parser.add_argument('-s', '--supports', required=False, 
+    parser.add_argument('-s', '--supports', required=False, dest='supports',
                     action='store_true',
                     help="""include if you want supports to be generated""")
     parser.add_argument('-o', '--output-file', metavar='file-name', nargs=1, 
-                    required=False,
+                    required=False, dest='output_file',
                     help="""include if you want data to be output to a file on 
                     disk""")
     args = None
@@ -195,21 +195,21 @@ def main():
         sys.exit(1)
 
     files_to_slice = args.files
-    layer_height = args.l
-    generate_supports = False
-    output_file = ''
+    layer_height = args.layer_height[0]
+    generate_supports = args.supports
+    output_file = args.output_file[0]
 
     try:
-        results = compute_stats(float(), bool(sys.argv[2]),
-                                sys.argv[3:num_commands])
+        results = compute_stats(layer_height, generate_supports, 
+            files_to_slice)
     except ValueError:
         parser.print_help()
         sys.exit(1)
     
     print('\nSlicing complete! Outputting statistics of filament usage in ' +\
         'various units.\n')
-    header = '{:60s} | {:7s} | {:6s} | {:6s} | {:5s} | {:17s}'.format(
-        'Name of File', 'm', 'cm3', 'g', '$', 'print time')
+    header = '{:60s} | {:>7s} | {:>6s} | {:>6s} | {:>5s} | {:17s}'.format(
+        'Name of File', 'm', 'cm3', 'g', '$', 'dd:hh:mm')
     print(header)
     for result in results:
         file_name = result['name-of-file']
@@ -219,7 +219,7 @@ def main():
         row = '{:60s} | {:7.2f} | {:6.1f} | {:6.1f} | {:5.2f} | {:17s}'.format(
             file_name , result['filament-used-m'],
             result['filament-used-cm3'], result['filament-used-g'],
-            result['filament-cost-usd'], result['print-time'])
+            result['filament-cost-usd'], str(result['print-time']))
         print(row)
 
 if __name__ == '__main__':
