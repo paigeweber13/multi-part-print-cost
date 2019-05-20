@@ -213,6 +213,15 @@ def main():
     header = '{:60s} | {:>7s} | {:>6s} | {:>6s} | {:>5s} | {:17s}'.format(
         'Name of File', 'm', 'cm3', 'g', '$', 'dd:hh:mm')
     print(header)
+    output = None
+    if output_file is not None:
+        try:
+            output = open(output_file, 'w')
+            output.write(header + '\n')
+        except IOError:
+            print("can't open output file!")
+            sys.exit(2)
+
     for result in results:
         file_name = result['name-of-file']
         if len(result['name-of-file']) > 60:
@@ -222,6 +231,8 @@ def main():
             file_name , result['filament-used-m'],
             result['filament-used-cm3'], result['filament-used-g'],
             result['filament-cost-usd'], str(result['print-time']))
+        if output is not None:
+            output.write(row + '\n')
         print(row)
 
 if __name__ == '__main__':
