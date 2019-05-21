@@ -56,7 +56,9 @@ rolls, which is my trusted brand.
    point?
  - [ ] create GUI
  - [ ] get newest version, even when newest version number changes
+   - [ ] is this a good idea? what if they change how the gcode is formatted?
  - [ ] make it work with arbitrary exported slic3r profile
+ - [ ] make it work with new PrusaSlicer
 
 ## Compatibility:
 only works with mac/linux/other unix-based operating systems. If there is
