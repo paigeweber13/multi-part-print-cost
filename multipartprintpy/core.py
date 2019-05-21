@@ -210,7 +210,7 @@ def main():
     
     print('\nSlicing complete! Outputting statistics of filament usage in ' +\
         'various units.\n')
-    header = '{:60s} | {:>7s} | {:>6s} | {:>6s} | {:>5s} | {:17s}'.format(
+    header = '{:>60s} | {:>7s} | {:>6s} | {:>6s} | {:>5s} | {:17s}'.format(
         'Name of File', 'm', 'cm3', 'g', '$', 'dd:hh:mm')
     print(header)
     output = None
@@ -227,8 +227,8 @@ def main():
         if len(result['name-of-file']) > 60:
             file_name = result['name-of-file'][-56:]
             file_name = '... ' + file_name
-        row = '{:60s} | {:7.2f} | {:6.1f} | {:6.1f} | {:5.2f} | {:17s}'.format(
-            file_name , result['filament-used-m'],
+        row = '{:>60s} | {:7.2f} | {:6.1f} | {:6.1f} | {:5.2f} | {:17s}' \
+            .format(file_name , result['filament-used-m'],
             result['filament-used-cm3'], result['filament-used-g'],
             result['filament-cost-usd'], str(result['print-time']))
         if output is not None:
