@@ -56,6 +56,7 @@ rolls, which is my trusted brand.
    point?
  - [ ] create GUI
  - [ ] make it work with arbitrary exported slic3r profile
+   - [ ] This will be useful when slicing airplane parts!
  - [x] ~~get newest version, even when newest version number changes~~
    - [x] ~~is this a good idea? what if they change how the gcode is
      formatted?~~
