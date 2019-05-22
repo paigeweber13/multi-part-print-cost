@@ -54,6 +54,8 @@ rolls, which is my trusted brand.
  - [ ] run pylint, make requested changes
  - [ ] do I want to remove clamp-bolt? We don't use it. Could I use it at some
    point?
+ - [ ] modify text output: just show file name, not full path. still clip off
+   long names.
  - [ ] create GUI
  - [ ] make it work with arbitrary exported slic3r profile
    - [ ] This will be useful when slicing airplane parts!
