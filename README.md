@@ -55,9 +55,11 @@ rolls, which is my trusted brand.
  - [ ] do I want to remove clamp-bolt? We don't use it. Could I use it at some
    point?
  - [ ] create GUI
- - [ ] get newest version, even when newest version number changes
-   - [ ] is this a good idea? what if they change how the gcode is formatted?
  - [ ] make it work with arbitrary exported slic3r profile
+ - [x] ~~get newest version, even when newest version number changes~~
+   - [x] ~~is this a good idea? what if they change how the gcode is
+     formatted?~~
+   - [x] this is a bad idea
  - [ ] make it work with new PrusaSlicer
 
 ## Compatibility:
