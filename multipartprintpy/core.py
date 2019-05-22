@@ -7,6 +7,7 @@ assumes this module is being run from the root of the package directory.
 
 import argparse
 import datetime
+import operator
 import os
 import re
 import subprocess
@@ -200,6 +201,7 @@ def main():
     output_file = None
     if args.output_file:
         output_file = args.output_file[0]
+    results = None
 
     try:
         results = compute_stats(layer_height, generate_supports, 
@@ -221,6 +223,7 @@ def main():
         except IOError:
             print("can't open output file!")
             sys.exit(2)
+    results.sort(key=operator.itemgetter('filament-used-g'), reverse=True)
 
     for result in results:
         file_name = result['name-of-file']
