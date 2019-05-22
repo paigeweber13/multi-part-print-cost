@@ -214,15 +214,17 @@ def main():
         'various units.\n')
     header = '{:>60s} | {:>7s} | {:>6s} | {:>6s} | {:>5s} | {:17s}'.format(
         'Name of File', 'm', 'cm3', 'g', '$', 'dd:hh:mm')
-    print(header)
     output = None
+
     if output_file is not None:
         try:
             output = open(output_file, 'w')
             output.write(header + '\n')
         except IOError:
-            print("can't open output file!")
-            sys.exit(2)
+            print("can't open output file! Are you trying to access a folder" \
+                + " that doesn't exist?\nContinuing without writing to file\n")
+
+    print(header)
     results.sort(key=operator.itemgetter('filament-used-g'), reverse=True)
 
     for result in results:
