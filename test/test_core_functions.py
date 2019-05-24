@@ -88,6 +88,8 @@ class TestCoreFunctions(unittest.TestCase):
 
     def test_slice_single_model_with_supports(self):
         """
+        slices with supports and checks the generated time/usage estimates,
+        which will be greater because of the support material
         """
         try:
             os.remove('test/models/gcodes/support-test-0.1mm.gcode')
@@ -117,6 +119,8 @@ class TestCoreFunctions(unittest.TestCase):
 
     def test_slice_three_models_simultaneously(self):
         """
+        slices multiple models to ensure behavior is still the same as when
+        slicing one
         """
         try:
             os.remove('test/models/gcodes/1cm-cube-0.2mm.gcode')
@@ -288,6 +292,8 @@ class TestCoreFunctions(unittest.TestCase):
 
     def test_slice_model_that_isnt_centered(self):
         """
+        models that were not centered would fail with an unhelpful message.
+        This test ensures that non-centered models get fixed first
         """
         try:
             os.remove('test/models/gcodes/crank-0.3mm.gcode')
