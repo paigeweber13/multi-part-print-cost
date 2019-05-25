@@ -2,6 +2,9 @@
 Calculates cumulative filament used and time taken for prints that have
 multiple parts. Uses Slic3r Prusa Edition on the backend.
 
+## Dependencies
+ * PySimpleGUI
+
 ## Print settings
 Full information about the profile used is in test/profiles. The important details are summarized below:
 
