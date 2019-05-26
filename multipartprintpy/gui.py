@@ -25,7 +25,8 @@ def main():
                   text_color='white',
                   element_text_color='white',
                   input_text_color='white',
-                  button_color=('white', gray))
+                  button_color=('white', gray),
+                  window_location=(600, 200))
 
     layout = [
                  [sg.Text('Broswe for .stl files (Hold shift to select '\
