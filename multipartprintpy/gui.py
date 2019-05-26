@@ -15,6 +15,8 @@ def validate_input(stl_files: typing.List[str], output_directory: str):
         return False
 
 def main():
+    loading_gif_path = 'assets/loading64x64.gif'
+
     layout = [
             #   [sg.Text('Your typed chars appear here:'),
             #    sg.Text('', key='_OUTPUT_') ],  
@@ -34,14 +36,15 @@ def main():
                  [sg.Button(button_text='Get Estimates', visible=True)],
                  [sg.Text('Now slicing...', key='_LOADING_TEXT_',
                      visible=False)],
-                 [sg.Image(filename='assets/loading.gif', size=(60,60),
+                 [sg.Image(filename=loading_gif_path, size=(64,64),
                      key='_LOADING_GIF_', visible=False)],
              ]
 
     window = sg.Window('Multi Part Print Calculator', layout)  
 
     while True: # Event Loop
-        event, values = window.Read()  
+        event, values = window.Read(timeout=100)  
+        window.Element('_LOADING_GIF_').UpdateAnimation(loading_gif_path)
         print(event, values)
         if event is None or event == 'Exit':  
             break
