@@ -4,7 +4,11 @@
  - [x] have basic GUI that takes input .stl files and outputs a prediction in a
    text file.
  - [x] make output properly formatted
+ - [ ] make it work cross-platform
  - [ ] DEPLOY BINARIES
+   - how do I want to deploy? How hard is it to make an appimage? how hard is
+     it to deploy to PyPi? I think I'm going to start by building .exe files
+     for windows and mac/linux users can just run from source
 ### Stretch:
  - [ ] fix loading gif
  - [ ] update readme
