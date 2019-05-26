@@ -9,7 +9,7 @@ def validate_input(stl_files: typing.List[str], output_directory: str):
     only validates whether or not input files and output directory are
     specified
     """
-    if len(stl_files > 0) and output_directory is not None:
+    if stl_files != '' and output_directory != '':
         return True
     else:
         return False
@@ -39,14 +39,21 @@ def main():
     window = sg.Window('Multi Part Print Calculator', layout)  
 
     while True: # Event Loop
-      event, values = window.Read()  
-      print(event, values)
-      if event is None or event == 'Exit':  
-          break
-      if event == 'Get Estimates':
-          sg.Popup('Now slicing!')
-          # change the "output" element to be the value of "input" element  
-        #   window.Element('_OUTPUT_').Update(values['_IN_'])
+        event, values = window.Read()  
+        print(event, values)
+        if event is None or event == 'Exit':  
+            break
+        if event == 'Get Estimates':
+            print(values['_STL_FILES_'])
+            if(validate_input(values['_STL_FILES_'],
+                              values['_OUTPUT_FILE_DIR_'])):
+                window.Element('Get Estimates').Update(visible=False)
+                sg.Popup('Now slicing!')
+            else:
+                sg.Popup('You must input at least one .stl file and a place ' \
+                         + 'to store the output!')
+            # change the "output" element to be the value of "input" element  
+          #   window.Element('_OUTPUT_').Update(values['_IN_'])
 
     window.Close()
 
