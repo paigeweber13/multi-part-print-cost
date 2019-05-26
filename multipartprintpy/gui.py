@@ -55,9 +55,8 @@ def main():
         if event is None or event == 'Exit':  
             break
         if event == 'Get Estimates':
-            if True:
-            # if validate_input(values['_STL_FILES_'],
-            #                   values['_OUTPUT_FILE_DIR_']):
+            if validate_input(values['_STL_FILES_'],
+                              values['_OUTPUT_FILE_DIR_']):
                 window.Element('Get Estimates').Update(visible=False)
                 window.Element('_LOADING_TEXT_').Update(visible=True)
                 window.Element('_LOADING_GIF_').Update(
@@ -65,8 +64,6 @@ def main():
             else:
                 sg.Popup('You must input at least one .stl file and a place ' \
                          + 'to store the output!')
-            # change the "output" element to be the value of "input" element  
-          #   window.Element('_OUTPUT_').Update(values['_IN_'])
 
     window.Close()
 
