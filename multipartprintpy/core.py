@@ -36,6 +36,7 @@ def get_gcode_output_path(model_path: str, layer_height: float):
     """
     split_path = model_path.split('/')
     gcode_directory = '/'.join(split_path[:-1]) + '/gcodes/'
+    print("gcode_directory:", gcode_directory)
     if not os.path.isdir(gcode_directory):
         os.makedirs(gcode_directory)
 
@@ -173,6 +174,10 @@ def compute_stats(layer_height: float, supports: bool,
     return stats
 
 def output_results(results, output_file:str=None):
+    """
+    also returns string object of output
+    """
+    output_string = ''
     header = '{:>60s} | {:>7s} | {:>6s} | {:>6s} | {:>5s} | {:17s}'.format(
         'Name of File', 'm', 'cm3', 'g', '$', 'dd:hh:mm')
     output = None
@@ -186,6 +191,7 @@ def output_results(results, output_file:str=None):
                 + " that doesn't exist?\nContinuing without writing to file\n")
 
     print(header)
+    output_string += header + '\n'
     results.sort(key=operator.itemgetter('filament-used-g'), reverse=True)
 
     for result in results:
@@ -200,6 +206,9 @@ def output_results(results, output_file:str=None):
         if output is not None:
             output.write(row + '\n')
         print(row)
+        output_string += row
+
+    return output_string
 
 def main():
     parser = argparse.ArgumentParser(
