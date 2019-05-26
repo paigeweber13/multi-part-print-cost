@@ -16,21 +16,43 @@ import typing
 
 CONFIG_FILE = 'profiles/slic3r-pe-config.ini'
 DOWNLOAD_DIR = 'bin'
-BINARY_LOCATION = DOWNLOAD_DIR + '/slic3r-pe'
+BINARY = DOWNLOAD_DIR + '/slic3r-pe'
+DOWNLOAD_URL = ''
 
 def get_slic3r_pe():
-    linux_binary_url = 'https://github.com/prusa3d/Slic3r/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+linux64-full-201904140843.AppImage'
-    mac_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+full-201904140836.dmg'
-    win64_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win64-full-201904140830.zip'
-    win32_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win32-full-201904140831.zip'
-
-    linux_binary_path = BINARY_LOCATION + '.AppImage'
+    set_os_specific_variables()
     
     if not os.path.isdir(DOWNLOAD_DIR):
         os.makedirs(DOWNLOAD_DIR)
     
-    subprocess.run(['wget', '-O', linux_binary_path, linux_binary_url])
-    subprocess.run(['chmod', '+x', linux_binary_path])
+    if not os.path.isfile(BINARY):
+        subprocess.run(['wget', '-O', BINARY, DOWNLOAD_URL])
+        subprocess.run(['chmod', '+x', BINARY])
+
+def set_os_specific_variables():
+    linux_binary_url = 'https://github.com/prusa3d/Slic3r/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+linux64-full-201904140843.AppImage'
+    mac_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+full-201904140836.dmg'
+    win64_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win64-full-201904140830.zip'
+    win32_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win32-full-201904140831.zip'
+    
+    global DOWNLOAD_URL
+    global BINARY
+    os = sys.platform.lower()
+    if os == 'windows':
+        # if we're on 32 bit windows
+        DOWNLOAD_URL = win32_binary_url
+        # else if we're on 64 bit windows
+        DOWNLOAD_URL = win64_binary_url
+        BINARY += '.exe'
+    elif os == 'linux':
+        DOWNLOAD_URL = linux_binary_url
+        BINARY += '.AppImage'
+    elif os == 'mac':
+        DOWNLOAD_URL = mac_binary_url
+        BINARY += '.dmg'
+    else:
+        print('could not detect operating system!')
+        sys.exit(-1)
 
 def get_gcode_output_path(model_path: str, layer_height: float):
     """
@@ -52,7 +74,7 @@ def slice_model(layer_height: float, supports: bool,
     """
     slices model using slic3r-pe
     """
-    # TODO: update so it automatically gets the binary
+    get_slic3r_pe()
     print_bed_width = 220 # mm
     print_bed_height = 220 # mm
     list_of_commands = []
@@ -61,7 +83,7 @@ def slice_model(layer_height: float, supports: bool,
 
     for model in path_to_models:
         output_file_path = get_gcode_output_path(model, layer_height)
-        command = [BINARY_LOCATION, '--slice', '--load',
+        command = [BINARY, '--slice', '--load',
                    CONFIG_FILE, '--first-layer-height', 
                    str(first_layer_height), '--layer-height',
                    str(layer_height), 
