@@ -17,6 +17,12 @@ def validate_input(stl_files: typing.List[str], output_directory: str):
 def main():
     loading_gif_path = 'assets/loading64x64.gif'
 
+    sg.SetOptions(background_color='#000000',
+                  text_element_background_color='#000000',
+                  text_color='white',
+                  element_background_color='#000000',
+                  button_color=('white','#101010'))
+
     layout = [
             #   [sg.Text('Your typed chars appear here:'),
             #    sg.Text('', key='_OUTPUT_') ],  
@@ -49,11 +55,13 @@ def main():
         if event is None or event == 'Exit':  
             break
         if event == 'Get Estimates':
-            if(validate_input(values['_STL_FILES_'],
-                              values['_OUTPUT_FILE_DIR_'])):
+            if True:
+            # if validate_input(values['_STL_FILES_'],
+            #                   values['_OUTPUT_FILE_DIR_']):
                 window.Element('Get Estimates').Update(visible=False)
                 window.Element('_LOADING_TEXT_').Update(visible=True)
-                window.Element('_LOADING_GIF_').Update(visible=True)
+                window.Element('_LOADING_GIF_').Update(
+                    filename=loading_gif_path, visible=True)
             else:
                 sg.Popup('You must input at least one .stl file and a place ' \
                          + 'to store the output!')
