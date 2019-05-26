@@ -17,17 +17,11 @@ There are a couple ways to run multi-part-print-cost.
  * PySimpleGUI
 
 ## Print settings
-Full information about the profile used is in test/profiles. The important details are summarized below:
-
-Calculates by default with four different settings: 
- * 0.1 mm layer height
- * 0.2 mm layer height
- * 0.3 mm layer height
- * 0.35mm layer height
-each case is calculated with and without supports.
+Full information about the profile used is in `profiles/slic3r-pe-config.ini`.
+The important details are summarized below:
 
 all three use 3 perimeter, top, and bottom layers, and 20% cubic infill.
-Printer-specific settings based on Ender3, the printer I have on hand. But
+Printer-specific settings are based on Ender3, the printer I have on hand. But
 time/cost estimates should be the same across single-extruder printers that use
 the same filament.
 
@@ -36,5 +30,5 @@ cost is assumed to be $18 USD per KG. This is the cost of most of 3D Solutech's
 rolls, which is my trusted brand.
 
 ## Compatibility:
-only works with mac/linux/other unix-based operating systems. If there is
-enough interest, I will work on a windows port.
+only works with linux and other operating systems capable of running the
+slic3r-pe AppImage. I am currently working on windows compatibility.
