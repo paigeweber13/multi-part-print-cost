@@ -17,7 +17,7 @@ import typing
 CONFIG_FILE = 'profiles/slic3r-pe-config.ini'
 DOWNLOAD_DIR = 'bin'
 BINARY = DOWNLOAD_DIR + '/slic3r-pe'
-DOWNLOAD_URL = ''
+DOWNLOAD_URL = None
 
 def get_slic3r_pe():
     set_os_specific_variables()
@@ -30,13 +30,18 @@ def get_slic3r_pe():
         subprocess.run(['chmod', '+x', BINARY])
 
 def set_os_specific_variables():
+    global DOWNLOAD_URL
+    global BINARY
+    # these two lines enforces that this function runs at most once during the
+    # lifetime of this process
+    if DOWNLOAD_URL is not None:
+        return
+
     linux_binary_url = 'https://github.com/prusa3d/Slic3r/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+linux64-full-201904140843.AppImage'
     mac_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+full-201904140836.dmg'
     win64_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win64-full-201904140830.zip'
     win32_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win32-full-201904140831.zip'
     
-    global DOWNLOAD_URL
-    global BINARY
     os = sys.platform.lower()
     if os == 'windows':
         # if we're on 32 bit windows
