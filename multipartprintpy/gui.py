@@ -28,10 +28,6 @@ def main():
                   button_color=('white', gray))
 
     layout = [
-            #   [sg.Text('Your typed chars appear here:'),
-            #    sg.Text('', key='_OUTPUT_') ],  
-            #   [sg.Input(do_not_clear=True, key='_IN_')],  
-            #   [sg.Button('Show'), sg.Button('Exit')],
                  [sg.Text('Broswe for .stl files (Hold shift to select '\
                           + 'multiple)')],
                  [sg.InputText(key='_STL_FILES_'), sg.FilesBrowse()],
