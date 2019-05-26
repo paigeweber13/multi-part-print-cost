@@ -1,7 +1,12 @@
 import PySimpleGUI as sg
+import typing
 import sys
 
 import multipartprintpy.core as mpp
+
+def validate_input(stl_files: typing.List[str], layer_height: int,
+                   supports: bool, output_directory: str):
+    pass
 
 def main():
     layout = [
@@ -20,7 +25,11 @@ def main():
                      key='_LAYER_HEIGHT_')],
                  [sg.Checkbox('Generate supports', default=False,
                      key='_GENERATE_SUPPORTS?_')],
-                 [sg.Button('Get Estimates')],
+                 [sg.Button(button_text='Get Estimates', visible=True)],
+                 [sg.Image(filename='assets/loading.gif', size=(60,60),
+                     key='_LOADING_GIF_', visible=False)],
+                 [sg.Text('Output')],
+                 [sg.Output(size=(120, 10), key='_OUTPUT_')]
              ]
 
     window = sg.Window('Multi Part Print Calculator', layout)  
@@ -29,10 +38,11 @@ def main():
       event, values = window.Read()  
       print(event, values)
       if event is None or event == 'Exit':  
-          break  
-      if event == 'Show':  
+          break
+      if event == 'Get Estimates':
+          sg.Popup('Now slicing!')
           # change the "output" element to be the value of "input" element  
-          window.Element('_OUTPUT_').Update(values['_IN_'])
+        #   window.Element('_OUTPUT_').Update(values['_IN_'])
 
     window.Close()
 
