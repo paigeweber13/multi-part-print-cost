@@ -1,9 +1,14 @@
 # Sprint
 ## Target Release Date: 2019-05-26
 ## Goals:
- - [ ] have basic GUI that takes input .stl files and outputs a prediction in a
+ - [x] have basic GUI that takes input .stl files and outputs a prediction in a
    text file.
+ - [x] make output properly formatted
+ - [ ] DEPLOY BINARIES
+### Stretch:
+ - [ ] fix loading gif
  - [ ] update readme
+ - [ ] deploy to pypi
 
 # Icebox
  - [ ] do I want to remove clamp-bolt? We don't use it. Could I use it at some

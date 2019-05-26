@@ -36,6 +36,7 @@ def get_gcode_output_path(model_path: str, layer_height: float):
     """
     split_path = model_path.split('/')
     gcode_directory = '/'.join(split_path[:-1]) + '/gcodes/'
+    print("gcode_directory:", gcode_directory)
     if not os.path.isdir(gcode_directory):
         os.makedirs(gcode_directory)
 
@@ -172,6 +173,43 @@ def compute_stats(layer_height: float, supports: bool,
 
     return stats
 
+def output_results(results, output_file:str=None):
+    """
+    also returns string object of output
+    """
+    output_string = ''
+    header = '{:>60s} | {:>7s} | {:>6s} | {:>6s} | {:>5s} | {:17s}'.format(
+        'Name of File', 'm', 'cm3', 'g', '$', 'dd:hh:mm')
+    output = None
+
+    if output_file is not None:
+        try:
+            output = open(output_file, 'w')
+            output.write(header + '\n')
+        except IOError:
+            print("can't open output file! Are you trying to access a folder" \
+                + " that doesn't exist?\nContinuing without writing to file\n")
+
+    print(header)
+    output_string += header + '\n'
+    results.sort(key=operator.itemgetter('filament-used-g'), reverse=True)
+
+    for result in results:
+        file_name = result['name-of-file']
+        if len(result['name-of-file']) > 60:
+            file_name = result['name-of-file'][-56:]
+            file_name = '... ' + file_name
+        row = '{:>60s} | {:7.2f} | {:6.1f} | {:6.1f} | {:5.2f} | {:17s}' \
+            .format(file_name , result['filament-used-m'],
+            result['filament-used-cm3'], result['filament-used-g'],
+            result['filament-cost-usd'], str(result['print-time']))
+        if output is not None:
+            output.write(row + '\n')
+        print(row)
+        output_string += row + '\n'
+
+    return output_string
+
 def main():
     parser = argparse.ArgumentParser(
         description="""Calculate individual and aggregate print time for 
@@ -212,33 +250,7 @@ def main():
     
     print('\nSlicing complete! Outputting statistics of filament usage in ' +\
         'various units.\n')
-    header = '{:>60s} | {:>7s} | {:>6s} | {:>6s} | {:>5s} | {:17s}'.format(
-        'Name of File', 'm', 'cm3', 'g', '$', 'dd:hh:mm')
-    output = None
-
-    if output_file is not None:
-        try:
-            output = open(output_file, 'w')
-            output.write(header + '\n')
-        except IOError:
-            print("can't open output file! Are you trying to access a folder" \
-                + " that doesn't exist?\nContinuing without writing to file\n")
-
-    print(header)
-    results.sort(key=operator.itemgetter('filament-used-g'), reverse=True)
-
-    for result in results:
-        file_name = result['name-of-file']
-        if len(result['name-of-file']) > 60:
-            file_name = result['name-of-file'][-56:]
-            file_name = '... ' + file_name
-        row = '{:>60s} | {:7.2f} | {:6.1f} | {:6.1f} | {:5.2f} | {:17s}' \
-            .format(file_name , result['filament-used-m'],
-            result['filament-used-cm3'], result['filament-used-g'],
-            result['filament-cost-usd'], str(result['print-time']))
-        if output is not None:
-            output.write(row + '\n')
-        print(row)
+    output_results(results, output_file)
 
 if __name__ == '__main__':
     main()
