@@ -4,9 +4,15 @@ import sys
 
 import multipartprintpy.core as mpp
 
-def validate_input(stl_files: typing.List[str], layer_height: int,
-                   supports: bool, output_directory: str):
-    pass
+def validate_input(stl_files: typing.List[str], output_directory: str):
+    """
+    only validates whether or not input files and output directory are
+    specified
+    """
+    if len(stl_files > 0) and output_directory is not None:
+        return True
+    else:
+        return False
 
 def main():
     layout = [
