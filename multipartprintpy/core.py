@@ -43,6 +43,7 @@ def set_os_specific_variables():
     win32_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win32-full-201904140831.zip'
     
     os = sys.platform.lower()
+    # is 'windows' the right label? Test this.
     if os == 'windows':
         # if we're on 32 bit windows
         DOWNLOAD_URL = win32_binary_url
