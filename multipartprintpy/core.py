@@ -206,7 +206,7 @@ def output_results(results, output_file:str=None):
         if output is not None:
             output.write(row + '\n')
         print(row)
-        output_string += row
+        output_string += row + '\n'
 
     return output_string
 

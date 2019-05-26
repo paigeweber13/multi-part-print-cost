@@ -3,11 +3,11 @@
 ## Goals:
  - [x] have basic GUI that takes input .stl files and outputs a prediction in a
    text file.
- - [ ] update readme
- - [ ] make output properly formatted
+ - [x] make output properly formatted
  - [ ] DEPLOY BINARIES
 ### Stretch:
  - [ ] fix loading gif
+ - [ ] update readme
  - [ ] deploy to pypi
 
 # Icebox
