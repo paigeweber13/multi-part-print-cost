@@ -26,7 +26,8 @@ def main():
                   element_text_color='white',
                   input_text_color='white',
                   button_color=('white', gray),
-                  window_location=(600, 200))
+                  window_location=(600, 200),
+                  font='Fixedsys')
 
     layout = [
                  [sg.Text('Broswe for .stl files (Hold shift to select '\
@@ -62,6 +63,24 @@ def main():
                 window.Element('_LOADING_TEXT_').Update(visible=True)
                 window.Element('_LOADING_GIF_').Update(
                     filename=loading_gif_path, visible=True)
+
+                layer_height = values['_LAYER_HEIGHT_']
+                supports = values['_GENERATE_SUPPORTS?_']
+                models = values['_STL_FILES_'].split(';')
+                estimates = mpp.compute_stats(layer_height, supports,
+                                              models)
+                output_file = values['_OUTPUT_FILE_DIR_'] \
+                    + '/_print_estimates.txt'
+
+                window.Element('Get Estimates').Update(visible=True)
+                window.Element('_LOADING_TEXT_').Update(visible=False)
+                window.Element('_LOADING_GIF_').Update(
+                    filename=loading_gif_path, visible=False)
+
+                result = mpp.output_results(estimates, output_file)
+                result = 'Estimates have also been output to ' + output_file \
+                    + '\n\n' + result
+                sg.PopupScrolled(result, size=(120, 35))
             else:
                 sg.Popup('You must input at least one .stl file and a place ' \
                          + 'to store the output!')
