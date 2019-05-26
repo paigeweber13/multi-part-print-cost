@@ -52,8 +52,9 @@ def get_gcode_output_path(model_path: str, layer_height: float):
 def slice_model(layer_height: float, supports: bool,
                 path_to_models: typing.List[str]):
     """
-    slices model using slic3r. Must run get-slic3r-pe.sh first
+    slices model using slic3r-pe
     """
+    # TODO: update so it automatically gets the binary
     print_bed_width = 220 # mm
     print_bed_height = 220 # mm
     list_of_commands = []
