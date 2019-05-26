@@ -18,16 +18,21 @@ CONFIG_FILE = 'profiles/slic3r-pe-config.ini'
 BINARY_LOCATION = 'bin/slic3r-pe.AppImage'
 
 def get_slic3r_pe():
-    latest_appimage_url = 'https://github.com/prusa3d/Slic3r/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+linux64-full-201904140843.AppImage'
-    appimage_name = 'slic3r-pe.AppImage'
+    linux_binary_url = 'https://github.com/prusa3d/Slic3r/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+linux64-full-201904140843.AppImage'
+    mac_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+full-201904140836.dmg'
+    win64_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win64-full-201904140830.zip'
+    win32_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win32-full-201904140831.zip'
+
+    binary_name = 'slic3r-pe'
+    linux_name = binary_name + '.AppImage'
     download_dir = 'bin'
     
     if not os.path.isdir(download_dir):
         os.makedirs(download_dir)
     
-    subprocess.run(['wget', '-O', download_dir + '/' + appimage_name, 
-        latest_appimage_url])
-    subprocess.run(['chmod', '+x', download_dir + '/' + appimage_name])
+    subprocess.run(['wget', '-O', download_dir + '/' + linux_name, 
+        linux_binary_url])
+    subprocess.run(['chmod', '+x', download_dir + '/' + linux_name])
 
 def get_gcode_output_path(model_path: str, layer_height: float):
     """
