@@ -17,6 +17,7 @@
 # Icebox
  - [ ] do I want to remove clamp-bolt? We don't use it. Could I use it at some
    point?
+ - [ ] travis-ci for AppImage building, windows exe creation, etc.
  - [ ] modify text output: just show file name, not full path. still clip off
    long names.
  - [ ] in file where print stats are output, include print settings and
