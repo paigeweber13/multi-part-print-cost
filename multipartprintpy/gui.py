@@ -28,8 +28,6 @@ def main():
                  [sg.Button(button_text='Get Estimates', visible=True)],
                  [sg.Image(filename='assets/loading.gif', size=(60,60),
                      key='_LOADING_GIF_', visible=False)],
-                 [sg.Text('Output')],
-                 [sg.Output(size=(120, 10), key='_OUTPUT_')]
              ]
 
     window = sg.Window('Multi Part Print Calculator', layout)  
