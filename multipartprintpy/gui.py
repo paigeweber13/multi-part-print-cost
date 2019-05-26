@@ -17,11 +17,15 @@ def validate_input(stl_files: typing.List[str], output_directory: str):
 def main():
     loading_gif_path = 'assets/loading64x64.gif'
 
-    sg.SetOptions(background_color='#000000',
-                  text_element_background_color='#000000',
+    gray = '#444444'
+    sg.SetOptions(background_color='black',
+                  element_background_color='black',
+                  text_element_background_color='black',
+                  input_elements_background_color=gray,
                   text_color='white',
-                  element_background_color='#000000',
-                  button_color=('white','#101010'))
+                  element_text_color='white',
+                  input_text_color='white',
+                  button_color=('white', gray))
 
     layout = [
             #   [sg.Text('Your typed chars appear here:'),
@@ -39,11 +43,11 @@ def main():
                      key='_LAYER_HEIGHT_')],
                  [sg.Checkbox('Generate supports', default=False,
                      key='_GENERATE_SUPPORTS?_')],
-                 [sg.Button(button_text='Get Estimates', visible=True)],
                  [sg.Text('Now slicing...', key='_LOADING_TEXT_',
                      visible=False)],
                  [sg.Image(filename=loading_gif_path, size=(64,64),
                      key='_LOADING_GIF_', visible=False)],
+                 [sg.Button(button_text='Get Estimates', visible=True)],
              ]
 
     window = sg.Window('Multi Part Print Calculator', layout)  
