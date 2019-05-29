@@ -51,7 +51,7 @@ def set_os_specific_variables():
     
     os = sys.platform.lower()
     # is 'windows' the right label? Test this.
-    if os == 'windows':
+    if os == 'win32':
         # just always download win32 binary because it works in both cases
         DOWNLOAD_URL = win32_binary_url
         BINARY += '.exe'
@@ -59,6 +59,8 @@ def set_os_specific_variables():
         DOWNLOAD_URL = linux_binary_url
         BINARY += '.AppImage'
     elif os == 'mac':
+        # 'mac' is probably not the right name? maybe Darwin? I need a mac to 
+        # test it...
         DOWNLOAD_URL = mac_binary_url
         BINARY += '.dmg'
     else:
