@@ -30,13 +30,19 @@ def get_slic3r_pe():
         os.makedirs(DOWNLOAD_DIR)
     
     if not os.path.isfile(BINARY):
-        response = requests.get(DOWNLOAD_URL)
-        with open(DOWNLOAD_LOCATION, 'wb') as downloaded_file:
-            downloaded_file.write(response.content)
-            if OS == 'win32':
-                zip_ref = zipfile.ZipFile(DOWNLOAD_LOCATION, 'r')
-                zip_ref.extractall(DOWNLOAD_DIR)
-                zip_ref.close()
+        # download if it's not there
+        if not os.path.isfile(DOWNLOAD_LOCATION):
+            response = requests.get(DOWNLOAD_URL)
+            with open(DOWNLOAD_LOCATION, 'wb') as downloaded_file:
+                downloaded_file.write(response.content)
+
+        # on windows, unzip
+        if OS == 'win32':
+            zip_ref = zipfile.ZipFile(DOWNLOAD_LOCATION, 'r')
+            zip_ref.extractall(DOWNLOAD_DIR)
+            zip_ref.close()
+
+        # try to change permissions
         try:
             subprocess.run(['chmod', '+x', BINARY])
         except FileNotFoundError:
