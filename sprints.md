@@ -6,6 +6,12 @@
  - [x] make output properly formatted
  - [ ] make it work cross-platform
    - [ ] FIX FAILING TEST
+     - okay so this is more complicated than it may 
+     initially seem. The easiest way I can think of making this happen is by
+     making the tests aware of the globals in core.... Which I don't even know
+     if that's possible? Might be better to make core a class and make the
+     globals into class variables.
+     - potential solution: https://stackoverflow.com/a/3400652
  - [ ] DEPLOY BINARIES
    - how do I want to deploy? How hard is it to make an appimage? how hard is
      it to deploy to PyPi? I think I'm going to start by building .exe files
