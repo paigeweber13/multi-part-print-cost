@@ -14,11 +14,14 @@ import requests
 import subprocess
 import sys
 import typing
+import zipfile
 
 CONFIG_FILE = 'profiles/slic3r-pe-config.ini'
 DOWNLOAD_DIR = 'bin'
 BINARY = DOWNLOAD_DIR + '/slic3r-pe'
+DOWNLOAD_LOCATION = None
 DOWNLOAD_URL = None
+OS = None
 
 def get_slic3r_pe():
     set_os_specific_variables()
@@ -28,8 +31,12 @@ def get_slic3r_pe():
     
     if not os.path.isfile(BINARY):
         response = requests.get(DOWNLOAD_URL)
-        with open(BINARY, 'wb') as binary_on_disk:
-            binary_on_disk.write(response.content)
+        with open(DOWNLOAD_LOCATION, 'wb') as downloaded_file:
+            downloaded_file.write(response.content)
+            if OS == 'win32':
+                zip_ref = zipfile.ZipFile(DOWNLOAD_LOCATION, 'r')
+                zip_ref.extractall(DOWNLOAD_DIR)
+                zip_ref.close()
         try:
             subprocess.run(['chmod', '+x', BINARY])
         except FileNotFoundError:
@@ -39,6 +46,8 @@ def get_slic3r_pe():
 def set_os_specific_variables():
     global DOWNLOAD_URL
     global BINARY
+    global DOWNLOAD_LOCATION
+    global OS
     # these two lines enforces that this function runs at most once during the
     # lifetime of this process
     if DOWNLOAD_URL is not None:
@@ -49,20 +58,24 @@ def set_os_specific_variables():
     win64_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win64-full-201904140830.zip'
     win32_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win32-full-201904140831.zip'
     
-    os = sys.platform.lower()
+    OS = sys.platform.lower()
     # is 'windows' the right label? Test this.
-    if os == 'win32':
+    if OS == 'win32':
         # just always download win64 binary because it's far more common
         DOWNLOAD_URL = win64_binary_url
+        DOWNLOAD_LOCATION = BINARY
+        DOWNLOAD_LOCATION += '.zip'
         BINARY += '.exe'
-    elif os == 'linux':
+    elif OS == 'linux':
         DOWNLOAD_URL = linux_binary_url
         BINARY += '.AppImage'
-    elif os == 'mac':
+        DOWNLOAD_LOCATION = BINARY
+    elif OS == 'mac':
         # 'mac' is probably not the right name? maybe Darwin? I need a mac to 
         # test it...
         DOWNLOAD_URL = mac_binary_url
         BINARY += '.dmg'
+        DOWNLOAD_LOCATION = BINARY
     else:
         print('could not detect operating system!')
         sys.exit(-1)
