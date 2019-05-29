@@ -10,6 +10,7 @@ import datetime
 import operator
 import os
 import re
+import requests
 import subprocess
 import sys
 import typing
@@ -26,8 +27,14 @@ def get_slic3r_pe():
         os.makedirs(DOWNLOAD_DIR)
     
     if not os.path.isfile(BINARY):
-        subprocess.run(['wget', '-O', BINARY, DOWNLOAD_URL])
-        subprocess.run(['chmod', '+x', BINARY])
+        r = requests.get(DOWNLOAD_URL)
+        with open(BINARY, 'wb') as binary_on_disk:
+            binary_on_disk.write(response.content)
+        try:
+            subprocess.run(['chmod', '+x', BINARY])
+        except FileNotFoundError:
+            # if chmod isn't installed (e.g. on windows) do nothing
+            pass
 
 def set_os_specific_variables():
     global DOWNLOAD_URL
@@ -45,10 +52,8 @@ def set_os_specific_variables():
     os = sys.platform.lower()
     # is 'windows' the right label? Test this.
     if os == 'windows':
-        # if we're on 32 bit windows
+        # just always download win32 binary because it works in both cases
         DOWNLOAD_URL = win32_binary_url
-        # else if we're on 64 bit windows
-        DOWNLOAD_URL = win64_binary_url
         BINARY += '.exe'
     elif os == 'linux':
         DOWNLOAD_URL = linux_binary_url
