@@ -52,8 +52,8 @@ def set_os_specific_variables():
     os = sys.platform.lower()
     # is 'windows' the right label? Test this.
     if os == 'win32':
-        # just always download win32 binary because it works in both cases
-        DOWNLOAD_URL = win32_binary_url
+        # just always download win64 binary because it's far more common
+        DOWNLOAD_URL = win64_binary_url
         BINARY += '.exe'
     elif os == 'linux':
         DOWNLOAD_URL = linux_binary_url
