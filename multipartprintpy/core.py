@@ -65,7 +65,8 @@ def set_os_specific_variables():
         DOWNLOAD_URL = win64_binary_url
         DOWNLOAD_LOCATION = BINARY
         DOWNLOAD_LOCATION += '.zip'
-        BINARY += '.exe'
+        BINARY = DOWNLOAD_DIR + \
+            '/Slic3rPE-1.42.0-beta2+win64-full-201904140830/slic3r.exe'
     elif OS == 'linux':
         DOWNLOAD_URL = linux_binary_url
         BINARY += '.AppImage'
