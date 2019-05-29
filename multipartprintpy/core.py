@@ -27,7 +27,7 @@ def get_slic3r_pe():
         os.makedirs(DOWNLOAD_DIR)
     
     if not os.path.isfile(BINARY):
-        r = requests.get(DOWNLOAD_URL)
+        response = requests.get(DOWNLOAD_URL)
         with open(BINARY, 'wb') as binary_on_disk:
             binary_on_disk.write(response.content)
         try:
