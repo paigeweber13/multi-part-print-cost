@@ -10,29 +10,82 @@ import datetime
 import operator
 import os
 import re
+import requests
 import subprocess
 import sys
 import typing
+import zipfile
 
 CONFIG_FILE = 'profiles/slic3r-pe-config.ini'
-BINARY_LOCATION = 'bin/slic3r-pe.AppImage'
+DOWNLOAD_DIR = 'bin'
+BINARY = DOWNLOAD_DIR + '/slic3r-pe'
+DOWNLOAD_LOCATION = None
+DOWNLOAD_URL = None
+OS = None
 
 def get_slic3r_pe():
+    set_os_specific_variables()
+    
+    if not os.path.isdir(DOWNLOAD_DIR):
+        os.makedirs(DOWNLOAD_DIR)
+    
+    if not os.path.isfile(BINARY):
+        # download if it's not there
+        if not os.path.isfile(DOWNLOAD_LOCATION):
+            response = requests.get(DOWNLOAD_URL)
+            with open(DOWNLOAD_LOCATION, 'wb') as downloaded_file:
+                downloaded_file.write(response.content)
+
+        # on windows, unzip
+        if OS == 'win32':
+            zip_ref = zipfile.ZipFile(DOWNLOAD_LOCATION, 'r')
+            zip_ref.extractall(DOWNLOAD_DIR)
+            zip_ref.close()
+
+        # try to change permissions
+        try:
+            subprocess.run(['chmod', '+x', BINARY])
+        except FileNotFoundError:
+            # if chmod isn't installed (e.g. on windows) do nothing
+            pass
+
+def set_os_specific_variables():
+    global DOWNLOAD_URL
+    global BINARY
+    global DOWNLOAD_LOCATION
+    global OS
+    # these two lines enforces that this function runs at most once during the
+    # lifetime of this process
+    if DOWNLOAD_URL is not None:
+        return
+
     linux_binary_url = 'https://github.com/prusa3d/Slic3r/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+linux64-full-201904140843.AppImage'
     mac_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+full-201904140836.dmg'
     win64_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win64-full-201904140830.zip'
     win32_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win32-full-201904140831.zip'
-
-    binary_name = 'slic3r-pe'
-    linux_name = binary_name + '.AppImage'
-    download_dir = 'bin'
     
-    if not os.path.isdir(download_dir):
-        os.makedirs(download_dir)
-    
-    subprocess.run(['wget', '-O', download_dir + '/' + linux_name, 
-        linux_binary_url])
-    subprocess.run(['chmod', '+x', download_dir + '/' + linux_name])
+    OS = sys.platform.lower()
+    # is 'windows' the right label? Test this.
+    if OS == 'win32':
+        # just always download win64 binary because it's far more common
+        DOWNLOAD_URL = win64_binary_url
+        DOWNLOAD_LOCATION = BINARY
+        DOWNLOAD_LOCATION += '.zip'
+        BINARY = DOWNLOAD_DIR + \
+            '/Slic3rPE-1.42.0-beta2+win64-full-201904140830/slic3r.exe'
+    elif OS == 'linux':
+        DOWNLOAD_URL = linux_binary_url
+        BINARY += '.AppImage'
+        DOWNLOAD_LOCATION = BINARY
+    elif OS == 'mac':
+        # 'mac' is probably not the right name? maybe Darwin? I need a mac to 
+        # test it...
+        DOWNLOAD_URL = mac_binary_url
+        BINARY += '.dmg'
+        DOWNLOAD_LOCATION = BINARY
+    else:
+        print('could not detect operating system!')
+        sys.exit(-1)
 
 def get_gcode_output_path(model_path: str, layer_height: float):
     """
@@ -41,7 +94,7 @@ def get_gcode_output_path(model_path: str, layer_height: float):
     """
     split_path = model_path.split('/')
     gcode_directory = '/'.join(split_path[:-1]) + '/gcodes/'
-    print("gcode_directory:", gcode_directory)
+    # print("gcode_directory:", gcode_directory)
     if not os.path.isdir(gcode_directory):
         os.makedirs(gcode_directory)
 
@@ -54,7 +107,7 @@ def slice_model(layer_height: float, supports: bool,
     """
     slices model using slic3r-pe
     """
-    # TODO: update so it automatically gets the binary
+    get_slic3r_pe()
     print_bed_width = 220 # mm
     print_bed_height = 220 # mm
     list_of_commands = []
@@ -62,8 +115,9 @@ def slice_model(layer_height: float, supports: bool,
     first_layer_height = round(layer_height+0.05, 2)
 
     for model in path_to_models:
+        print("INFO: slicing", model)
         output_file_path = get_gcode_output_path(model, layer_height)
-        command = [BINARY_LOCATION, '--slice', '--load',
+        command = [BINARY, '--slice', '--load',
                    CONFIG_FILE, '--first-layer-height', 
                    str(first_layer_height), '--layer-height',
                    str(layer_height), 
@@ -93,6 +147,7 @@ def scrape_time_and_usage_estimates(list_of_files: typing.List[str]):
         \ (?P<time> (\d+d\ )? (\d+h\ )? (\d+m\ )? \d+s) $
         """, re.VERBOSE | re.MULTILINE)
     for gcode_file in list_of_files:
+        print("INFO: scraping data from", gcode_file)
         my_match = None
         # print_time[0] is days, print_time[1] is hours, index 2 is minutes, 
         # and index 3 is seconds

@@ -67,7 +67,9 @@ class TestCoreFunctions(unittest.TestCase):
             pass
 
         expected_commands = [[
-            'bin/slic3r-pe.AppImage', '--slice', '--load',
+            # 'bin/slic3r-pe.AppImage',
+            mpp.BINARY,
+            '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
             '--layer-height', '0.2',
             '--center', str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \
@@ -97,7 +99,9 @@ class TestCoreFunctions(unittest.TestCase):
             pass
 
         expected_commands = [[
-            'bin/slic3r-pe.AppImage', '--slice', '--load',
+            # 'bin/slic3r-pe.AppImage',
+            mpp.BINARY,
+            '--slice', '--load',
             'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.15',
             '--layer-height', '0.1', '--support-material',
             '--center', str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \
@@ -131,7 +135,9 @@ class TestCoreFunctions(unittest.TestCase):
 
         expected_commands = [
             [
-                'bin/slic3r-pe.AppImage', '--slice', '--load',
+                # 'bin/slic3r-pe.AppImage',
+                mpp.BINARY,
+                '--slice', '--load',
                 'profiles/slic3r-pe-config.ini', '--first-layer-height',
                 '0.25', '--layer-height', '0.2',
                 '--center', str(int(TestCoreFunctions.print_bed_width/2)) \
@@ -140,7 +146,9 @@ class TestCoreFunctions(unittest.TestCase):
                 '--output', 'test/models/gcodes/1cm-cube-0.2mm.gcode'
             ],
             [
-                'bin/slic3r-pe.AppImage', '--slice', '--load',
+                # 'bin/slic3r-pe.AppImage',
+                mpp.BINARY,
+                '--slice', '--load',
                 'profiles/slic3r-pe-config.ini', '--first-layer-height',
                 '0.25', '--layer-height', '0.2',
                 '--center', str(int(TestCoreFunctions.print_bed_width/2)) + \
@@ -149,7 +157,9 @@ class TestCoreFunctions(unittest.TestCase):
                 '--output', 'test/models/gcodes/2cm-cube-0.2mm.gcode'
             ],
             [
-                'bin/slic3r-pe.AppImage', '--slice', '--load',
+                # 'bin/slic3r-pe.AppImage',
+                mpp.BINARY,
+                '--slice', '--load',
                 'profiles/slic3r-pe-config.ini', '--first-layer-height',
                 '0.25', '--layer-height', '0.2',
                 '--center', str(int(TestCoreFunctions.print_bed_width/2)) \
@@ -302,7 +312,9 @@ class TestCoreFunctions(unittest.TestCase):
 
         expected_commands = [
             [
-                'bin/slic3r-pe.AppImage', '--slice', '--load',
+                # 'bin/slic3r-pe.AppImage',
+                mpp.BINARY,
+                '--slice', '--load',
                 'profiles/slic3r-pe-config.ini', '--first-layer-height',
                 '0.35', '--layer-height', '0.3', '--center',
                 str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \

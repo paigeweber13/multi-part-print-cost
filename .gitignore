@@ -2,3 +2,6 @@ bin/
 *.gcode
 *cache*
 .vscode
+build
+dist
+gui.spec
