@@ -94,7 +94,7 @@ def get_gcode_output_path(model_path: str, layer_height: float):
     """
     split_path = model_path.split('/')
     gcode_directory = '/'.join(split_path[:-1]) + '/gcodes/'
-    print("gcode_directory:", gcode_directory)
+    # print("gcode_directory:", gcode_directory)
     if not os.path.isdir(gcode_directory):
         os.makedirs(gcode_directory)
 
@@ -115,6 +115,7 @@ def slice_model(layer_height: float, supports: bool,
     first_layer_height = round(layer_height+0.05, 2)
 
     for model in path_to_models:
+        print("INFO: slicing", model)
         output_file_path = get_gcode_output_path(model, layer_height)
         command = [BINARY, '--slice', '--load',
                    CONFIG_FILE, '--first-layer-height', 
@@ -146,6 +147,7 @@ def scrape_time_and_usage_estimates(list_of_files: typing.List[str]):
         \ (?P<time> (\d+d\ )? (\d+h\ )? (\d+m\ )? \d+s) $
         """, re.VERBOSE | re.MULTILINE)
     for gcode_file in list_of_files:
+        print("INFO: scraping data from", gcode_file)
         my_match = None
         # print_time[0] is days, print_time[1] is hours, index 2 is minutes, 
         # and index 3 is seconds
