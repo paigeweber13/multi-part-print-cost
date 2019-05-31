@@ -53,7 +53,7 @@ def main():
     while True: # Event Loop
         event, values = window.Read(timeout=100)  
         window.Element('_LOADING_GIF_').UpdateAnimation(loading_gif_path)
-        print(event, values)
+        # print(event, values)
         if event is None or event == 'Exit':  
             break
         if event == 'Get Estimates':
