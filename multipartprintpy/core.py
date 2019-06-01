@@ -175,6 +175,7 @@ def scrape_time_and_usage_estimates(list_of_files: typing.List[str]):
         except SyntaxError:
             print('file ' + gcode_file + ' does not have properly formatted'
                 + 'filament usage and time data. Skipping.')
+            continue
 
         filament_usage_m = round(float(my_match.group(
             'mm_usage')) / 1000, 2)
