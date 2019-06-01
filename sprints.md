@@ -12,13 +12,18 @@
      if that's possible? Might be better to make core a class and make the
      globals into class variables.
      - potential solution: https://stackoverflow.com/a/3400652
- - [ ] DEPLOY BINARIES
+ - [x] DEPLOY BINARIES
    - how do I want to deploy? How hard is it to make an appimage? 
      how hard is it to deploy to PyPi? I think I'm going to start by 
      building .exe files for windows and mac/linux users can just 
      run from source
+   - [x] pyInstaller works
+   - [x] test the exe
 ### Stretch:
  - [ ] fix loading gif
+ - [ ] make build file for pyinstaller, add external files so that they get
+   built into the .exe
+ - [ ] set up continuous integration
  - [ ] update readme
  - [ ] deploy to pypi
 
