@@ -34,3 +34,8 @@ rolls, which is my trusted brand.
 ## Compatibility:
 only works with linux and other operating systems capable of running the
 slic3r-pe AppImage. I am currently working on windows compatibility.
+
+# PROGRESS BAR TODO:
+ - [ ] make slice_model error if it's not a list
+ - [ ] make input to slice_model a list
+ - [ ] make cancel button work
