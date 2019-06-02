@@ -5,3 +5,4 @@ bin/
 build
 dist
 gui.spec
+_print_estimates.txt
