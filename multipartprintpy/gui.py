@@ -76,7 +76,6 @@ def main():
                 models = values['_STL_FILES_'].split(';')
 
                 gcode_file_names = []
-                print('models:', models)
                 num_models = len(models)
                 for i in range(num_models):
                     sg.OneLineProgressMeter('Slicing models...', i+1, 
@@ -85,8 +84,6 @@ def main():
                     event, values = window.Read(timeout=100)  
                     if event is None or event == 'Exit':  
                         break
-                    print('i:', i)
-                    print('models[i]:', models[i])
                     mpp.slice_models(layer_height, supports, [models[i]])
                     gcode_file_names.append(
                         mpp.get_gcode_output_path(models[i], layer_height))
@@ -104,7 +101,6 @@ def main():
                                             'for estimates...', i+1, 
                                             num_models, 'scraping_progress')
                 
-                print("stats", estimates)
                 estimates.insert(0, mpp.aggregate_data(estimates))
 
                 output_file = values['_OUTPUT_FILE_DIR_'] \
