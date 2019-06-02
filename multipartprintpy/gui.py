@@ -29,7 +29,7 @@ def main():
                   window_location=(600, 200),
                   font='Fixedsys')
 
-    layout = [
+    main_window_layout = [
                  [sg.Text('Broswe for .stl files (Hold shift to select '\
                           + 'multiple)')],
                  [sg.InputText(key='_STL_FILES_'), sg.FilesBrowse()],
@@ -48,12 +48,19 @@ def main():
                  [sg.Button(button_text='Get Estimates', visible=True)],
              ]
 
-    window = sg.Window('Multi Part Print Calculator', layout)  
+    progress_bar_window_layout = [
+        [sg.Text('')],
+        [sg.ProgressBar(max_value=10000, orientation='h', size=(20, 20), 
+            key='progressbar'),
+            sg.Text('', key='num_completed'), sg.Text('/'), 
+            sg.Text('', key='num_total')],      
+        [sg.Cancel()]
+    ]
+
+    window = sg.Window('Multi Part Print Calculator', main_window_layout)  
 
     while True: # Event Loop
         event, values = window.Read(timeout=100)  
-        # window.Element('_LOADING_GIF_').UpdateAnimation(loading_gif_path)
-        # print(event, values)
         if event is None or event == 'Exit':  
             break
         if event == 'Get Estimates':
@@ -72,32 +79,33 @@ def main():
                 print('models:', models)
                 num_models = len(models)
                 for i in range(num_models):
-                    if not sg.OneLineProgressMeter('Slicing models...', i+1, 
+                    sg.OneLineProgressMeter('Slicing models...', i+1, 
                                                    num_models, 
-                                                   'single'):
-                        break
-                    event, values = window.Read(timeout=0)
-                    if event == 'Cancel' or event is None:
+                                                   'single')
+                    event, values = window.Read(timeout=100)  
+                    if event is None or event == 'Exit':  
                         break
                     print('i:', i)
                     print('models[i]:', models[i])
-                    mpp.slice_model(layer_height, supports, models[i])
+                    mpp.slice_models(layer_height, supports, [models[i]])
                     gcode_file_names.append(
-                        mpp.get_gcode_output_path(models[i]))
+                        mpp.get_gcode_output_path(models[i], layer_height))
                 
-                stats = []
+                estimates = []
+                print("gcode_file_names", gcode_file_names)
                 for i in range(num_models):
                     # the scraper function returns a list and we just want the
                     # first element
-                    stats.append(
+                    estimates.append(
                         mpp.scrape_time_and_usage_estimates(
-                            gcode_file_names[i])[0])
-                    if not sg.OneLineProgressMeter('Scraping .gcode files ' + \
+                            [gcode_file_names[i]])
+                            [0])
+                    sg.OneLineProgressMeter('Scraping .gcode files ' + \
                                             'for estimates...', i+1, 
-                                            num_models, 'scraping_progress'):
-                        break
+                                            num_models, 'scraping_progress')
                 
-                stats.insert(0, mpp.aggregate_data(stats))
+                print("stats", estimates)
+                estimates.insert(0, mpp.aggregate_data(estimates))
 
                 output_file = values['_OUTPUT_FILE_DIR_'] \
                     + '/_print_estimates.txt'
