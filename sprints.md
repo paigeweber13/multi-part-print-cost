@@ -19,8 +19,8 @@
      run from source
    - [x] pyInstaller works
    - [x] test the exe
+   - [ ] fix loading gif
 ### Stretch:
- - [ ] fix loading gif
  - [ ] make build file for pyinstaller, add external files so that they get
    built into the .exe
  - [ ] set up continuous integration
