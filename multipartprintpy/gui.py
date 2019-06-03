@@ -48,14 +48,6 @@ def main():
                  [sg.Button(button_text='Get Estimates', visible=True)],
              ]
 
-    progress_bar_window_layout = [
-        [sg.Text('')],
-        [sg.ProgressBar(max_value=10000, orientation='h', size=(20, 20), 
-            key='progressbar'),
-            sg.Text('', key='num_completed'), sg.Text('/'), 
-            sg.Text('', key='num_total')],      
-        [sg.Cancel()]
-    ]
 
     window = sg.Window('Multi Part Print Calculator', main_window_layout)  
 
@@ -74,19 +66,40 @@ def main():
                 layer_height = values['_LAYER_HEIGHT_']
                 supports = values['_GENERATE_SUPPORTS?_']
                 models = values['_STL_FILES_'].split(';')
+                num_models = len(models)
+
+                progress_bar_window_layout = [
+                    [sg.Text('', key='title')],
+                    [sg.ProgressBar(max_value=num_models, orientation='h',
+                        size=(20, 20), key='progressbar'),
+                        sg.Text('', key='num_completed'), sg.Text('/'), 
+                        sg.Text('', key='num_total')],      
+                    [sg.Cancel()]
+                ]
+
+                progress_bar_window = sg.Window('Slicing models...', 
+                                                progress_bar_window_layout)
+                progress_bar = progress_bar_window.Element('progressbar')
+                progress_bar_window.Element('title').Update(
+                    value='This is the longest step! Please be patient, even' +\
+                          ' if the program stops responding.')
+                progress_bar_window.Element('num_total').Update(
+                    value=str(num_models))
 
                 gcode_file_names = []
-                num_models = len(models)
                 for i in range(num_models):
-                    sg.OneLineProgressMeter('Slicing models...', i+1, 
-                                                   num_models, 
-                                                   'single')
-                    event, values = window.Read(timeout=100)  
-                    if event is None or event == 'Exit':  
-                        break
+                    # sg.OneLineProgressMeter('Slicing models...', i+1, 
+                    #                                num_models, 
+                    #                                'single')
                     mpp.slice_models(layer_height, supports, [models[i]])
                     gcode_file_names.append(
                         mpp.get_gcode_output_path(models[i], layer_height))
+                    event, values = window.Read(timeout=0)  
+                    if event is None or event == 'Cancel':  
+                        break
+                    progress_bar.UpdateBar(i+1)
+                    progress_bar_window.Element('num_completed').Update(
+                        text=str(i+1))
                 
                 estimates = []
                 print("gcode_file_names", gcode_file_names)
