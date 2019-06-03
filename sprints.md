@@ -21,8 +21,12 @@
    - [x] test the exe
    - [x] fix loading gif
    - [x] make cancel button work
-   - [ ] find out why that one window is just hanging out when it's supposed to
+   - [x] find out why that one window is just hanging out when it's supposed to
      be closed?
+
+I'm ready to release for this sprint, but it is too late to decide how to
+package this thing tonight. I'll do that tomorrow. Code is done though!
+
 ### Stretch:
  - [ ] make build file for pyinstaller, add external files so that they get
    built into the .exe
