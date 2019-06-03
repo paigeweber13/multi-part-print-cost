@@ -75,39 +75,43 @@ def main():
                 supports = values['_GENERATE_SUPPORTS?_']
                 models = values['_STL_FILES_'].split(';')
 
+                result = ''
                 gcode_file_names = []
                 num_models = len(models)
                 for i in range(num_models):
-                    sg.OneLineProgressMeter('Slicing models...', i+1, 
-                                                   num_models, 
-                                                   'single')
-                    event, values = window.Read(timeout=100)  
-                    if event is None or event == 'Exit':  
-                        break
                     mpp.slice_models(layer_height, supports, [models[i]])
                     gcode_file_names.append(
                         mpp.get_gcode_output_path(models[i], layer_height))
+                    if sg.OneLineProgressMeter('Slicing models...', i+1, 
+                                                num_models, 'single') is False:
+                        result += 'Slicing was cancelled, not all selected ' \
+                            + 'models are included.\n'
+                        break
                 
                 estimates = []
-                print("gcode_file_names", gcode_file_names)
-                for i in range(num_models):
+                for i in range(len(gcode_file_names)):
                     # the scraper function returns a list and we just want the
                     # first element
                     estimates.append(
                         mpp.scrape_time_and_usage_estimates(
                             [gcode_file_names[i]])
                             [0])
-                    sg.OneLineProgressMeter('Scraping .gcode files ' + \
-                                            'for estimates...', i+1, 
-                                            num_models, 'scraping_progress')
+                    if sg.OneLineProgressMeter('Scraping .gcode files ' + \
+                                               'for estimates...', i+1, 
+                                               num_models,
+                                               'scraping_progress') is False:
+                        result += 'Data scraping was cancelled, not all ' \
+                            + 'selected models are included.\n'
+                        break
+                        
                 
                 estimates.insert(0, mpp.aggregate_data(estimates))
 
                 output_file = values['_OUTPUT_FILE_DIR_'] \
                     + '/_print_estimates.txt'
-                result = mpp.output_results(estimates, output_file)
-                result = 'Estimates have also been output to ' + output_file \
-                    + '\n\n' + result
+                result += 'Estimates have also been output to ' + output_file \
+                    + '\n\n'
+                result += mpp.output_results(estimates, output_file)
 
                 window.Element('Get Estimates').Update(visible=True)
                 # window.Element('_LOADING_TEXT_').Update(visible=False)
