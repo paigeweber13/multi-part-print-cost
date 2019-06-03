@@ -89,7 +89,8 @@ def main():
                         break
                 
                 estimates = []
-                for i in range(len(gcode_file_names)):
+                num_gcode_files = len(gcode_file_names)
+                for i in range(num_gcode_files):
                     # the scraper function returns a list and we just want the
                     # first element
                     estimates.append(
@@ -98,7 +99,7 @@ def main():
                             [0])
                     if sg.OneLineProgressMeter('Scraping .gcode files ' + \
                                                'for estimates...', i+1, 
-                                               num_models,
+                                               num_gcode_files,
                                                'scraping_progress') is False:
                         result += 'Data scraping was cancelled, not all ' \
                             + 'selected models are included.\n'
