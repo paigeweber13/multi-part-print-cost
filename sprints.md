@@ -19,7 +19,10 @@
      run from source
    - [x] pyInstaller works
    - [x] test the exe
-   - [ ] fix loading gif
+   - [x] fix loading gif
+   - [x] make cancel button work
+   - [ ] find out why that one window is just hanging out when it's supposed to
+     be closed?
 ### Stretch:
  - [ ] make build file for pyinstaller, add external files so that they get
    built into the .exe
