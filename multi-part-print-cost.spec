@@ -1,15 +1,15 @@
 # -*- mode: python -*-
 
 block_cipher = None
-
+added_files = [
+    ('profiles/default-profile.ini', 'default-profile.ini'),
+    ('bin', 'bin'),
+]
 
 a = Analysis(['multipartprintpy\\gui.py'],
              pathex=['C:\\Users\\brian\\Documents\\code\\muli-part-print-cost'],
              binaries=[],
-             datas=[
-               ('profiles/default-profile.ini', 'default-profile.ini'),
-               ('bin/Slic3rPE-1.42.0-beta2+win64-full-201904140830', 'bin')
-             ],
+             datas=added_files,
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
