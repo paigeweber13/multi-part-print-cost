@@ -15,8 +15,6 @@ def validate_input(stl_files: typing.List[str], output_directory: str):
         return False
 
 def main():
-    loading_gif_path = 'assets/loading64x64.gif'
-
     gray = '#444444'
     sg.SetOptions(background_color='black',
                   element_background_color='black',
@@ -29,7 +27,7 @@ def main():
                   window_location=(600, 200),
                   font='Fixedsys')
 
-    layout = [
+    main_window_layout = [
                  [sg.Text('Broswe for .stl files (Hold shift to select '\
                           + 'multiple)')],
                  [sg.InputText(key='_STL_FILES_'), sg.FilesBrowse()],
@@ -41,45 +39,74 @@ def main():
                      key='_LAYER_HEIGHT_')],
                  [sg.Checkbox('Generate supports', default=False,
                      key='_GENERATE_SUPPORTS?_')],
-                 [sg.Text('Now slicing...', key='_LOADING_TEXT_',
-                     visible=False)],
-                 [sg.Image(filename=loading_gif_path, size=(64,64),
-                     key='_LOADING_GIF_', visible=False)],
                  [sg.Button(button_text='Get Estimates', visible=True)],
              ]
 
-    window = sg.Window('Multi Part Print Calculator', layout)  
+    progress_bar_window_layout = [
+        [sg.Text('')],
+        [sg.ProgressBar(max_value=10000, orientation='h', size=(20, 20), 
+            key='progressbar'),
+            sg.Text('', key='num_completed'), sg.Text('/'), 
+            sg.Text('', key='num_total')],      
+        [sg.Cancel()]
+    ]
+
+    window = sg.Window('Multi Part Print Calculator', main_window_layout)  
 
     while True: # Event Loop
         event, values = window.Read(timeout=100)  
-        window.Element('_LOADING_GIF_').UpdateAnimation(loading_gif_path)
-        # print(event, values)
         if event is None or event == 'Exit':  
             break
         if event == 'Get Estimates':
             if validate_input(values['_STL_FILES_'],
                               values['_OUTPUT_FILE_DIR_']):
                 window.Element('Get Estimates').Update(visible=False)
-                window.Element('_LOADING_TEXT_').Update(visible=True)
-                window.Element('_LOADING_GIF_').Update(
-                    filename=loading_gif_path, visible=True)
 
                 layer_height = values['_LAYER_HEIGHT_']
                 supports = values['_GENERATE_SUPPORTS?_']
                 models = values['_STL_FILES_'].split(';')
-                estimates = mpp.compute_stats(layer_height, supports,
-                                              models)
+
+                result = ''
+                gcode_file_names = []
+                num_models = len(models)
+                for i in range(num_models):
+                    mpp.slice_models(layer_height, supports, [models[i]])
+                    gcode_file_names.append(
+                        mpp.get_gcode_output_path(models[i], layer_height))
+                    if sg.OneLineProgressMeter('Slicing models...', i+1, 
+                                                num_models, 'single') is False:
+                        if num_models != i + 1:
+                            result += 'Slicing was cancelled, not all ' + \
+                                      'selected models are included.\n'
+                        break
+                
+                estimates = []
+                num_gcode_files = len(gcode_file_names)
+                for i in range(num_gcode_files):
+                    # the scraper function returns a list and we just want the
+                    # first element
+                    estimates.append(
+                        mpp.scrape_time_and_usage_estimates(
+                            [gcode_file_names[i]])
+                            [0])
+                    if sg.OneLineProgressMeter('Scraping .gcode files ' + \
+                                               'for estimates...', i+1, 
+                                               num_gcode_files,
+                                               'scraping_progress') is False:
+                        if num_models != i + 1:
+                            result += 'Data scraping was cancelled, not ' + \
+                                      'all selected models are included.\n'
+                        break
+                
+                estimates.insert(0, mpp.aggregate_data(estimates))
+
                 output_file = values['_OUTPUT_FILE_DIR_'] \
                     + '/_print_estimates.txt'
+                result += 'Estimates have also been output to ' + output_file \
+                    + '\n\n'
+                result += mpp.output_results(estimates, output_file)
 
                 window.Element('Get Estimates').Update(visible=True)
-                window.Element('_LOADING_TEXT_').Update(visible=False)
-                window.Element('_LOADING_GIF_').Update(
-                    filename=loading_gif_path, visible=False)
-
-                result = mpp.output_results(estimates, output_file)
-                result = 'Estimates have also been output to ' + output_file \
-                    + '\n\n' + result
                 sg.PopupScrolled(result, size=(120, 35))
             else:
                 sg.Popup('You must input at least one .stl file and a place ' \

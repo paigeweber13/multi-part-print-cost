@@ -1,6 +1,8 @@
 # Multi Part Print Cost
 Calculates cumulative filament used and time taken for prints that have
-multiple parts. Uses Slic3r Prusa Edition on the backend.
+multiple parts. Uses Slic3r Prusa Edition on the backend, which is released
+under the [AGPLv3 license](https://github.com/prusa3d/PrusaSlicer/blob/7308017ee82abc725e5eb7aff26839d3e963b566/LICENSE).
+Source code for slic3r is available [here](https://github.com/prusa3d/PrusaSlicer)
 
 # Getting Started
 There are a couple ways to run multi-part-print-cost.
@@ -19,7 +21,7 @@ There are a couple ways to run multi-part-print-cost.
  * PySimpleGUI
 
 ## Print settings
-Full information about the profile used is in `profiles/slic3r-pe-config.ini`.
+Full information about the profile used is in `profiles/default-profile.ini`
 The important details are summarized below:
 
 all three use 3 perimeter, top, and bottom layers, and 20% cubic infill.
@@ -34,3 +36,8 @@ rolls, which is my trusted brand.
 ## Compatibility:
 only works with linux and other operating systems capable of running the
 slic3r-pe AppImage. I am currently working on windows compatibility.
+
+# PROGRESS BAR TODO:
+ - [ ] make slice_model error if it's not a list
+ - [ ] make input to slice_model a list
+ - [ ] make cancel button work

@@ -70,7 +70,7 @@ class TestCoreFunctions(unittest.TestCase):
             # 'bin/slic3r-pe.AppImage',
             mpp.BINARY,
             '--slice', '--load',
-            'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.25',
+            'profiles/default-profile.ini', '--first-layer-height', '0.25',
             '--layer-height', '0.2',
             '--center', str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \
             str(int(TestCoreFunctions.print_bed_height/2)),
@@ -102,7 +102,7 @@ class TestCoreFunctions(unittest.TestCase):
             # 'bin/slic3r-pe.AppImage',
             mpp.BINARY,
             '--slice', '--load',
-            'profiles/slic3r-pe-config.ini', '--first-layer-height', '0.15',
+            'profiles/default-profile.ini', '--first-layer-height', '0.15',
             '--layer-height', '0.1', '--support-material',
             '--center', str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \
             str(int(TestCoreFunctions.print_bed_height/2)),
@@ -138,7 +138,7 @@ class TestCoreFunctions(unittest.TestCase):
                 # 'bin/slic3r-pe.AppImage',
                 mpp.BINARY,
                 '--slice', '--load',
-                'profiles/slic3r-pe-config.ini', '--first-layer-height',
+                'profiles/default-profile.ini', '--first-layer-height',
                 '0.25', '--layer-height', '0.2',
                 '--center', str(int(TestCoreFunctions.print_bed_width/2)) \
                 + ',' + str(int(TestCoreFunctions.print_bed_height/2)),
@@ -149,7 +149,7 @@ class TestCoreFunctions(unittest.TestCase):
                 # 'bin/slic3r-pe.AppImage',
                 mpp.BINARY,
                 '--slice', '--load',
-                'profiles/slic3r-pe-config.ini', '--first-layer-height',
+                'profiles/default-profile.ini', '--first-layer-height',
                 '0.25', '--layer-height', '0.2',
                 '--center', str(int(TestCoreFunctions.print_bed_width/2)) + \
                 ',' + str(int(TestCoreFunctions.print_bed_height/2)),
@@ -160,7 +160,7 @@ class TestCoreFunctions(unittest.TestCase):
                 # 'bin/slic3r-pe.AppImage',
                 mpp.BINARY,
                 '--slice', '--load',
-                'profiles/slic3r-pe-config.ini', '--first-layer-height',
+                'profiles/default-profile.ini', '--first-layer-height',
                 '0.25', '--layer-height', '0.2',
                 '--center', str(int(TestCoreFunctions.print_bed_width/2)) \
                 + ',' + str(int(TestCoreFunctions.print_bed_height/2)),
@@ -315,7 +315,7 @@ class TestCoreFunctions(unittest.TestCase):
                 # 'bin/slic3r-pe.AppImage',
                 mpp.BINARY,
                 '--slice', '--load',
-                'profiles/slic3r-pe-config.ini', '--first-layer-height',
+                'profiles/default-profile.ini', '--first-layer-height',
                 '0.35', '--layer-height', '0.3', '--center',
                 str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \
                 str(int(TestCoreFunctions.print_bed_height/2)),

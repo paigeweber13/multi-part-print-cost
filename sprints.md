@@ -19,8 +19,18 @@
      run from source
    - [x] pyInstaller works
    - [x] test the exe
+   - [x] fix loading gif
+   - [x] make cancel button work
+   - [x] find out why that one window is just hanging out when it's supposed to
+     be closed?
+   - [x] 'slicing was cancelled' error always comes up, even when there is no
+     error
+   - [ ] package slic3r-pe with exe
+
+I'm ready to release for this sprint, but it is too late to decide how to
+package this thing tonight. I'll do that tomorrow. Code is done though!
+
 ### Stretch:
- - [ ] fix loading gif
  - [ ] make build file for pyinstaller, add external files so that they get
    built into the .exe
  - [ ] set up continuous integration

@@ -16,7 +16,7 @@ import sys
 import typing
 import zipfile
 
-CONFIG_FILE = 'profiles/slic3r-pe-config.ini'
+CONFIG_FILE = 'profiles/default-profile.ini'
 DOWNLOAD_DIR = 'bin'
 BINARY = DOWNLOAD_DIR + '/slic3r-pe'
 DOWNLOAD_LOCATION = None
@@ -102,11 +102,15 @@ def get_gcode_output_path(model_path: str, layer_height: float):
         str(layer_height) + 'mm.gcode'
     return output_file_path
 
-def slice_model(layer_height: float, supports: bool,
+def slice_models(layer_height: float, supports: bool,
                 path_to_models: typing.List[str]):
     """
     slices model using slic3r-pe
     """
+    if not isinstance(path_to_models, list):
+        print("ERROR: input to slice_models must be a list!")
+        return []
+
     get_slic3r_pe()
     print_bed_width = 220 # mm
     print_bed_height = 220 # mm
@@ -225,7 +229,7 @@ def compute_stats(layer_height: float, supports: bool,
     """
     wrapper function that takes paths to models and returns time and filament usage stats
     """
-    slice_model(layer_height, supports, models)
+    slice_models(layer_height, supports, models)
     gcode_names = []
     for model in models:
         gcode_names.append(get_gcode_output_path(model, layer_height))
