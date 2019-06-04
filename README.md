@@ -1,6 +1,8 @@
 # Multi Part Print Cost
 Calculates cumulative filament used and time taken for prints that have
-multiple parts. Uses Slic3r Prusa Edition on the backend.
+multiple parts. Uses Slic3r Prusa Edition on the backend, which is released
+under the [AGPLv3 license](https://github.com/prusa3d/PrusaSlicer/blob/7308017ee82abc725e5eb7aff26839d3e963b566/LICENSE).
+Source code for slic3r is available [here](https://github.com/prusa3d/PrusaSlicer)
 
 # Getting Started
 There are a couple ways to run multi-part-print-cost.
