@@ -19,7 +19,7 @@ There are a couple ways to run multi-part-print-cost.
  * PySimpleGUI
 
 ## Print settings
-Full information about the profile used is in `profiles/slic3r-pe-config.ini`.
+Full information about the profile used is in `profiles/default-profile.ini`
 The important details are summarized below:
 
 all three use 3 perimeter, top, and bottom layers, and 20% cubic infill.

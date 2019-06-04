@@ -16,7 +16,7 @@ import sys
 import typing
 import zipfile
 
-CONFIG_FILE = 'profiles/slic3r-pe-config.ini'
+CONFIG_FILE = 'profiles/default-profile.ini'
 DOWNLOAD_DIR = 'bin'
 BINARY = DOWNLOAD_DIR + '/slic3r-pe'
 DOWNLOAD_LOCATION = None
