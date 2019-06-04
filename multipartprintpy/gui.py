@@ -75,8 +75,9 @@ def main():
                         mpp.get_gcode_output_path(models[i], layer_height))
                     if sg.OneLineProgressMeter('Slicing models...', i+1, 
                                                 num_models, 'single') is False:
-                        result += 'Slicing was cancelled, not all selected ' \
-                            + 'models are included.\n'
+                        if num_models != i + 1:
+                            result += 'Slicing was cancelled, not all ' + \
+                                      'selected models are included.\n'
                         break
                 
                 estimates = []
@@ -92,10 +93,10 @@ def main():
                                                'for estimates...', i+1, 
                                                num_gcode_files,
                                                'scraping_progress') is False:
-                        result += 'Data scraping was cancelled, not all ' \
-                            + 'selected models are included.\n'
+                        if num_models != i + 1:
+                            result += 'Data scraping was cancelled, not ' + \
+                                      'all selected models are included.\n'
                         break
-                        
                 
                 estimates.insert(0, mpp.aggregate_data(estimates))
 
