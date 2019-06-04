@@ -6,7 +6,10 @@ block_cipher = None
 a = Analysis(['multipartprintpy\\gui.py'],
              pathex=['C:\\Users\\brian\\Documents\\code\\muli-part-print-cost'],
              binaries=[],
-             datas=[('profiles/default-profile.ini', 'default-profile.ini')],
+             datas=[
+               ('profiles/default-profile.ini', 'default-profile.ini'),
+               ('bin/Slic3rPE-1.42.0-beta2+win64-full-201904140830', 'bin')
+             ],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
