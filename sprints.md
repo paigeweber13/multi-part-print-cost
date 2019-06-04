@@ -23,6 +23,8 @@
    - [x] make cancel button work
    - [x] find out why that one window is just hanging out when it's supposed to
      be closed?
+   - [ ] 'slicing was cancelled' error always comes up, even when there is no
+     error
 
 I'm ready to release for this sprint, but it is too late to decide how to
 package this thing tonight. I'll do that tomorrow. Code is done though!
