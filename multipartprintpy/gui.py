@@ -15,8 +15,6 @@ def validate_input(stl_files: typing.List[str], output_directory: str):
         return False
 
 def main():
-    loading_gif_path = 'assets/loading64x64.gif'
-
     gray = '#444444'
     sg.SetOptions(background_color='black',
                   element_background_color='black',
@@ -41,10 +39,6 @@ def main():
                      key='_LAYER_HEIGHT_')],
                  [sg.Checkbox('Generate supports', default=False,
                      key='_GENERATE_SUPPORTS?_')],
-                #  [sg.Text('Now slicing...', key='_SLICING_PROGRESS_TEXT_',
-                #      visible=False)],
-                #  [sg.Image(filename=loading_gif_path, size=(64,64),
-                #      key='_LOADING_GIF_', visible=False)],
                  [sg.Button(button_text='Get Estimates', visible=True)],
              ]
 
@@ -67,9 +61,6 @@ def main():
             if validate_input(values['_STL_FILES_'],
                               values['_OUTPUT_FILE_DIR_']):
                 window.Element('Get Estimates').Update(visible=False)
-                # window.Element('_LOADING_TEXT_').Update(visible=True)
-                # window.Element('_LOADING_GIF_').Update(
-                #     filename=loading_gif_path, visible=True)
 
                 layer_height = values['_LAYER_HEIGHT_']
                 supports = values['_GENERATE_SUPPORTS?_']
@@ -115,10 +106,6 @@ def main():
                 result += mpp.output_results(estimates, output_file)
 
                 window.Element('Get Estimates').Update(visible=True)
-                # window.Element('_LOADING_TEXT_').Update(visible=False)
-                # window.Element('_LOADING_GIF_').Update(
-                #     filename=loading_gif_path, visible=False)
-
                 sg.PopupScrolled(result, size=(120, 35))
             else:
                 sg.Popup('You must input at least one .stl file and a place ' \
