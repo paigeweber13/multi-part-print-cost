@@ -34,6 +34,8 @@ package this thing tonight. I'll do that tomorrow. Code is done though!
  - [ ] make build file for pyinstaller, add external files so that they get
    built into the .exe
  - [ ] set up continuous integration
+   - [ ] fix discrepency in spec files: set up a place where they can be built 
+   so directories don't need to be changed when building on different machines
  - [ ] update readme
  - [ ] deploy to pypi
 
