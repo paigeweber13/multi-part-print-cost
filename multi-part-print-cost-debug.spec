@@ -36,4 +36,4 @@ coll = COLLECT(exe,
                a.datas,
                strip=False,
                upx=True,
-               name='gui')
+               name='multi-part-print-cost-debug')
