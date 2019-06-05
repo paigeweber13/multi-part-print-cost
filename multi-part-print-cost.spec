@@ -1,10 +1,7 @@
 # -*- mode: python -*-
 
 block_cipher = None
-added_files = [
-    ('profiles/default-profile.ini', 'default-profile.ini'),
-    ('bin', 'bin'),
-]
+added_files = []
 
 a = Analysis(['multipartprintpy\\gui.py'],
              pathex=['C:\\Users\\brian\\Documents\\code\\muli-part-print-cost'],
