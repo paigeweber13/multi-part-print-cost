@@ -2,7 +2,7 @@
 
 block_cipher = None
 added_files = [
-    ('profiles/default-profile.ini', 'default-profile.ini'),
+    ('profiles/default-profile.ini', 'profiles'),
     ('bin', 'bin'),
 ]
 
