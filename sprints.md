@@ -25,7 +25,8 @@
      be closed?
    - [x] 'slicing was cancelled' error always comes up, even when there is no
      error
-   - [ ] package slic3r-pe with exe
+   - [x] ~~package slic3r-pe with exe~~ will just manually copy bin directory 
+   alongside .exe
 
 I'm ready to release for this sprint, but it is too late to decide how to
 package this thing tonight. I'll do that tomorrow. Code is done though!
@@ -38,6 +39,7 @@ package this thing tonight. I'll do that tomorrow. Code is done though!
    so directories don't need to be changed when building on different machines
  - [ ] update readme
  - [ ] deploy to pypi
+ - [ ] create executables for linux
 
 # Icebox
  - [ ] do I want to remove clamp-bolt? We don't use it. Could I use it at some
