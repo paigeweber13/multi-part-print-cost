@@ -6,7 +6,7 @@ Source code for slic3r is available [here](https://github.com/prusa3d/PrusaSlice
 No modifications to the slic3r source code were made before redistributing.
 
 # Getting Started
-The easiest way to run multi-part-print-cost is to download a [release](https://github.com/rileyweber13/muli-part-print-cost/releases), extract it if needed, and run. Other options are listed below
+The easiest way to run multi-part-print-cost is to download a [release](https://github.com/rileyweber13/muli-part-print-cost/releases), extract it, and run. Other options are listed below
 ## Run from source
  1. ensure that python 3 is installed
  1. install dependencies: `pip install --user PySimpleGUI`
@@ -14,6 +14,9 @@ The easiest way to run multi-part-print-cost is to download a [release](https://
     https://github.com/rileyweber13/muli-part-print-cost.git`
  1. enter the directory where the project resides: 
     `cd multi-part-print-cost`
+ 1. add the project directory to PYTHONPATH environment variable
+    1. on mac/linux/other unix this can be done by executing `$PYTHONPATH=/path/ to/multi-part-print-cost:$PYTHONPATH`
+       before running the following command
  1. in the root where the code is extracted, run `python3
     multipartprintpy/gui.py`
 ## Install and run using pip
@@ -37,11 +40,9 @@ cost is assumed to be $18 USD per KG. This is the cost of most of 3D Solutech's
 rolls, which is my trusted brand.
 
 # Compatibility:
+Releases are currently only built for Windows 10 x64. Linux builds coming soon!
+You can run from source on any platform that has a Python3 interpreter.
 ## Mac:
 I don't have access to a mac. If you have one and would like to contribute by
 testing code and building releases, please contact me at
 rileyw13@protonmail.com. You can also just donate an old mac to me ;)
-## Releases:
-Releases are currently only built for Windows 10 x64. Linux builds coming soon!
-only works with linux and other operating systems capable of running the
-slic3r-pe AppImage. I am currently working on windows compatibility.
