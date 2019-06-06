@@ -7,6 +7,13 @@ Source code for slic3r is available
 [here](https://github.com/prusa3d/PrusaSlicer). No modifications to the slic3r
 source code were made before redistributing.
 
+## Justification
+There are many interesting things that can be 3d-printed but require more parts
+than can fit on a single build plate. One example is [ericthepoolboy's scale
+model of a Toyota 4-cylinder engine](https://www.thingiverse.com/thing:644933).
+It can be very useful to have a good estimate of how much this project would
+cost (in both time and money) before beginning it. Enter this program.
+
 # Getting Started
 The easiest way to run multi-part-print-cost is to download a
 [release](https://github.com/rileyweber13/muli-part-print-cost/releases),
