@@ -1,12 +1,17 @@
 # Multi Part Print Cost
-Calculates cumulative filament used and time taken for prints that have
-multiple parts. Uses Slic3r Prusa Edition on the backend, which is released
-under the [AGPLv3 license](https://github.com/prusa3d/PrusaSlicer/blob/7308017ee82abc725e5eb7aff26839d3e963b566/LICENSE).
-Source code for slic3r is available [here](https://github.com/prusa3d/PrusaSlicer).
-No modifications to the slic3r source code were made before redistributing.
+Calculates cumulative filament used and time taken for prints that have too many
+parts to fit on one build plate. Uses Slic3r Prusa Edition on the backend, which
+is released under the [AGPLv3
+license](https://github.com/prusa3d/PrusaSlicer/blob/7308017ee82abc725e5eb7aff26839d3e963b566/LICENSE).
+Source code for slic3r is available
+[here](https://github.com/prusa3d/PrusaSlicer). No modifications to the slic3r
+source code were made before redistributing.
 
 # Getting Started
-The easiest way to run multi-part-print-cost is to download a [release](https://github.com/rileyweber13/muli-part-print-cost/releases), extract it, and run. Other options are listed below
+The easiest way to run multi-part-print-cost is to download a
+[release](https://github.com/rileyweber13/muli-part-print-cost/releases),
+extract it, and run. For now, this only works on windows. Other options are
+listed below
 ## Run from source
  1. ensure that python 3 is installed
  1. install dependencies: `pip install --user PySimpleGUI`
