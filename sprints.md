@@ -1,6 +1,29 @@
+# Icebox
+ - [ ] set up continuous integration. Travis-ci?
+   - [ ] fix discrepency in spec files: set up a place where they can be built 
+   so directories don't need to be changed when building on different machines
+ - [ ] do I want to remove clamp-bolt? We don't use it. Could I use it at some
+   point?
+ - [ ] modify text output: just show file name, not full path. still clip off
+   long names.
+ - [ ] file names: don't include layer height
+ - [ ] in file where print stats are output, include print settings and
+   location of gcodes
+ - [ ] make it work with arbitrary exported slic3r profile
+   - [ ] This will be useful when slicing airplane parts!
+ - [ ] deploy to pypi
+ - [ ] create executables for linux
+ - [ ] make it work with new PrusaSlicer
+
 # Sprint
+## Target Release Date: 2019-06-16
+### Goals:
+ - [ ] add screenshot to justification section
+### Stretch:
+ - [ ] 
+
 ## Target Release Date: 2019-06-02
-## Goals:
+### Goals:
  - [x] have basic GUI that takes input .stl files and outputs a prediction in a
    text file.
  - [x] make output properly formatted
@@ -28,32 +51,10 @@
    - [x] ~~package slic3r-pe with exe~~ will just manually copy bin directory 
    alongside .exe
 
-I'm ready to release for this sprint, but it is too late to decide how to
-package this thing tonight. I'll do that tomorrow. Code is done though!
-
 ### Stretch:
- - [ ] make build file for pyinstaller, add external files so that they get
+ - [x] make build file for pyinstaller, add external files so that they get
    built into the .exe
- - [ ] set up continuous integration
-   - [ ] fix discrepency in spec files: set up a place where they can be built 
-   so directories don't need to be changed when building on different machines
- - [ ] update readme
- - [ ] deploy to pypi
- - [ ] create executables for linux
-
-# Icebox
- - [ ] do I want to remove clamp-bolt? We don't use it. Could I use it at some
-   point?
- - [ ] travis-ci for AppImage building, windows exe creation, etc.
- - [ ] modify text output: just show file name, not full path. still clip off
-   long names.
- - [ ] in file where print stats are output, include print settings and
-   location of gcodes
- - [ ] file names: don't include layer height
- - [ ] create GUI
- - [ ] make it work with arbitrary exported slic3r profile
-   - [ ] This will be useful when slicing airplane parts!
- - [ ] make it work with new PrusaSlicer
+ - [x] update readme
 
 # Log of what's been done:
  - [x] how will I add times together? Make time object? Switch language?
