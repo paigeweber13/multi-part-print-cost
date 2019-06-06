@@ -32,7 +32,9 @@ listed below
  1. in the root where the code is extracted, run `python3
     multipartprintpy/gui.py`
 ## Install and run using pip
-Coming soon!
+Currently, I don't plan on targeting PyPi for builds. If you would like to
+install multi-part-print-cost with pip, please show your interest by opening an
+issue.
 
 # Dependencies
  * python 3 (tested on versions 3.6.2 and above)
