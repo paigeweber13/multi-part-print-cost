@@ -41,6 +41,7 @@ def get_slic3r_pe():
             zip_ref = zipfile.ZipFile(DOWNLOAD_LOCATION, 'r')
             zip_ref.extractall(DOWNLOAD_DIR)
             zip_ref.close()
+            os.remove(DOWNLOAD_LOCATION)
 
         # try to change permissions
         try:
