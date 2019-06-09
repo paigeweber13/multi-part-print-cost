@@ -3,7 +3,7 @@
 block_cipher = None
 added_files = []
 
-a = Analysis(['multipartprintpy\\gui.py'],
+a = Analysis(['..\\multipartprintpy\\gui.py'],
              pathex=['C:\\Users\\brian\\Documents\\code\\muli-part-print-cost'],
              binaries=[],
              datas=added_files,
