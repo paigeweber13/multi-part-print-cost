@@ -14,6 +14,15 @@ model of a Toyota 4-cylinder engine](https://www.thingiverse.com/thing:644933).
 It can be very useful to have a good estimate of how much this project would
 cost (in both time and money) before beginning it. Enter this program.
 
+The interface:
+
+![gui](https://i.imgur.com/xDfe0TM.png)
+
+Output of the program when the .stl files from the model
+Toyota engine are input:
+
+![output](https://i.imgur.com/teOh64C.png)
+
 # Getting Started
 The easiest way to run multi-part-print-cost is to download a
 [release](https://github.com/rileyweber13/muli-part-print-cost/releases),
