@@ -5,7 +5,7 @@ SET currentDir=%%F
 )
 SET PYTHONPATH=%PYTHONPATH%%currentDir%;
 cd
-pyinstaller build-files\multi-part-print-cost.spec
+pyinstaller build-files\multi-part-print-cost-win.spec
 copy README.md dist\
 copy LICENSE dist\
 Xcopy /E /I bin dist\bin
