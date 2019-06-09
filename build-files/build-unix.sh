@@ -7,3 +7,9 @@ cp README.md dist/
 cp LICENSE dist/
 cp -r bin dist/
 cp -r profiles dist/
+
+filename="version"
+read VERSION < $filename
+rm -r "multi-part-print-cost-$VERSION-unix"
+mv "dist" "multi-part-print-cost-$VERSION-unix"
+tar -czf multi-part-print-cost-$VERSION-unix.tgz multi-part-print-cost-$VERSION-unix
