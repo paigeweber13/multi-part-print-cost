@@ -1,7 +1,12 @@
 # Icebox
- - [ ] set up continuous integration. Travis-ci?
-   - [ ] fix discrepency in spec files: set up a place where they can be built 
-   so directories don't need to be changed when building on different machines
+ - [ ] make it work with new PrusaSlicer
+
+# Sprint
+## Target Release Date: 2019-06-23
+### Goals:
+ - [x] add screenshot to justification section
+ - [ ] make it work with arbitrary exported slic3r profile
+   - [ ] This will be useful when slicing airplane parts!
  - [ ] do I want to remove clamp-bolt? We don't use it. Could I use it at some
    point?
  - [ ] modify text output: just show file name, not full path. still clip off
@@ -9,18 +14,8 @@
  - [ ] file names: don't include layer height
  - [ ] in file where print stats are output, include print settings and
    location of gcodes
- - [ ] make it work with arbitrary exported slic3r profile
-   - [ ] This will be useful when slicing airplane parts!
- - [ ] deploy to pypi
- - [ ] create executables for linux
- - [ ] make it work with new PrusaSlicer
-
-# Sprint
-## Target Release Date: 2019-06-16
-### Goals:
- - [ ] add screenshot to justification section
 ### Stretch:
- - [ ] 
+ - [ ] deploy to pypi
 
 ## Target Release Date: 2019-06-02
 ### Goals:
