@@ -7,7 +7,7 @@ added_files = [
 ]
 
 a = Analysis(['..\\multipartprintpy\\gui.py'],
-             pathex=['C:\\Users\\m78162\\Documents\\code\\muli-part-print-cost'],
+             pathex=['C:\\Users\\brian\\Documents\\code\\muli-part-print-cost'],
              binaries=[],
              datas=added_files,
              hiddenimports=[],
