@@ -332,3 +332,6 @@ class TestCoreFunctions(unittest.TestCase):
             os.remove('test/models/gcodes/crank-0.3mm.gcode')
         except FileNotFoundError:
             pass
+    
+    def test_slice_model_with_custom_profile(self):
+        pass
