@@ -7,13 +7,16 @@
  - [x] add screenshot to justification section
  - [x] do I want to remove clamp-bolt? We don't use it. Could I use it at some
    point?
+
  - [ ] make it work with arbitrary exported slic3r profile
    - [ ] This will be useful when slicing airplane parts!
  - [ ] in file where print stats are output, include print settings
+
  - [ ] modify text output: just show file name, not full path. still clip off
    long names.
  - [ ] in output, include and location of gcodes
  - [ ] file names: don't include layer height
+
  - [ ] update windows build script to automatically zip files like the linux script
 ### Stretch:
  - [ ] deploy to pypi
