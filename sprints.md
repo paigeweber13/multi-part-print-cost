@@ -18,7 +18,15 @@
  - [ ] in output, include and location of gcodes
  - [ ] file names: don't include layer height
 
- - [ ] update windows build script to automatically zip files like the linux script
+ - [ ] update windows build script to automatically zip files like the linux
+   script
+ - [ ] do I want to strip down .gcode files so that they don't dramatically
+   affect github statistics?
+    - I'm afraid removing extra information would make the test less realistic:
+      whole files have to be loaded; a file will never have ONLY estimates
+    - also what does it matter if the files are longer? Scraping the files is
+      incredibly fast, even for large-box-0.3mm.gcode. There's also no
+      reasonable risk of a computer running out of memory with the 'big' gcodes
 ### Stretch:
  - [ ] deploy to pypi
 
