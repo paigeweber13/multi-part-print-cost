@@ -11,6 +11,7 @@
  - [ ] make it work with arbitrary exported slic3r profile
    - [ ] This will be useful when slicing airplane parts!
  - [ ] in file where print stats are output, include print settings
+ - [ ] get print bed size programatically
 
  - [ ] modify text output: just show file name, not full path. still clip off
    long names.
