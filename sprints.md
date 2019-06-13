@@ -8,12 +8,8 @@
  - [x] do I want to remove clamp-bolt? We don't use it. Could I use it at some
    point?
 
- - [x] make it work with arbitrary exported slic3r profile
+ - [ ] make it work with arbitrary exported slic3r profile
    - [ ] This will be useful when slicing airplane parts!
- - [ ] open gcode sliced with new profile to check if it's working
- - [ ] add cli and gui interfaces for custom profile
- - [ ] custom profile work was done on the wrong branch! Cherry pick those
-   commits to custom-slicing-profile and then roll back on this branch.
  - [ ] in file where print stats are output, include print settings
  - [ ] get print bed size programatically
 
