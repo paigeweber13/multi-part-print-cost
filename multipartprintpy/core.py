@@ -16,6 +16,7 @@ import sys
 import typing
 import zipfile
 
+CONFIG_FILE = 'profiles/default-profile.ini'
 DOWNLOAD_DIR = 'bin'
 BINARY = DOWNLOAD_DIR + '/slic3r-pe'
 DOWNLOAD_LOCATION = None
@@ -103,8 +104,7 @@ def get_gcode_output_path(model_path: str, layer_height: float):
     return output_file_path
 
 def slice_models(layer_height: float, supports: bool,
-                path_to_models: typing.List[str],
-                profile='profiles/default-profile.ini'):
+                path_to_models: typing.List[str]):
     """
     slices model using slic3r-pe
     """
@@ -123,7 +123,7 @@ def slice_models(layer_height: float, supports: bool,
         print("INFO: slicing", model)
         output_file_path = get_gcode_output_path(model, layer_height)
         command = [BINARY, '--slice', '--load',
-                   profile, '--first-layer-height', 
+                   CONFIG_FILE, '--first-layer-height', 
                    str(first_layer_height), '--layer-height',
                    str(layer_height), 
                    '--center', str(int(print_bed_width/2)) + ',' + \
