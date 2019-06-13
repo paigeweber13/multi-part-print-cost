@@ -349,12 +349,12 @@ class TestCoreFunctions(unittest.TestCase):
                 '0.25', '--layer-height', '0.2', '--center',
                 str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \
                 str(int(TestCoreFunctions.print_bed_height/2)),
-                'test/models/1cm-cube.stl', '--output',
-                'test/models/gcodes/1cm-cube-0.2mm.gcode'
+                'test/models/crank.stl', '--output',
+                'test/models/gcodes/crank-0.3mm.gcode'
             ]]
         self.assertEqual(expected_commands,
-                         mpp.slice_models(0.2, False,
-                                         ['test/' + 'models/1cm-cube.stl'],
+                         mpp.slice_models(0.3, False,
+                                         ['test/' + 'models/crank.stl'],
                                          profile='profiles/airplane-ender3.ini'))
         self.assertTrue(os.path.isfile(
             'test/models/gcodes/1cm-cube-0.2mm.gcode'))
