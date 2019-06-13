@@ -55,7 +55,6 @@ class TestCoreFunctions(unittest.TestCase):
 
         cls.print_bed_width = 220 # mm
         cls.print_bed_height = 220 # mm
-        mpp.get_slic3r_pe()
 
     def test_slice_single_model(self):
         """
@@ -360,7 +359,7 @@ class TestCoreFunctions(unittest.TestCase):
         self.assertTrue(os.path.isfile(
             'test/models/gcodes/1cm-cube-0.2mm.gcode'))
 
-        # try:
-        #     os.remove('test/models/gcodes/1cm-cube-0.2mm.gcode')
-        # except FileNotFoundError:
-        #     pass
+        try:
+            os.remove('test/models/gcodes/1cm-cube-0.2mm.gcode')
+        except FileNotFoundError:
+            pass
