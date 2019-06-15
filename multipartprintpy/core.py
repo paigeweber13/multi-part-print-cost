@@ -16,7 +16,6 @@ import sys
 import typing
 import zipfile
 
-DEFAULT_PROFILE = 'profiles/default-profile.ini'
 DOWNLOAD_DIR = 'bin'
 BINARY = DOWNLOAD_DIR + '/slic3r-pe'
 DOWNLOAD_LOCATION = None
@@ -227,11 +226,11 @@ def aggregate_data(print_estimates):
     return aggregate
 
 def compute_stats(layer_height: float, supports: bool,
-                  models: typing.List[str], profile: str):
+                  models: typing.List[str]):
     """
     wrapper function that takes paths to models and returns time and filament usage stats
     """
-    slice_models(layer_height, supports, models, profile=profile)
+    slice_models(layer_height, supports, models)
     gcode_names = []
     for model in models:
         gcode_names.append(get_gcode_output_path(model, layer_height))
@@ -312,9 +311,6 @@ def main():
     if args.output_file:
         output_file = args.output_file[0]
     results = None
-    profile = DEFAULT_PROFILE
-    if args.profile:
-        profile = args.profile
 
     try:
         results = compute_stats(layer_height, generate_supports, 
