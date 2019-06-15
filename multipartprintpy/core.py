@@ -227,7 +227,7 @@ def aggregate_data(print_estimates):
     return aggregate
 
 def compute_stats(layer_height: float, supports: bool,
-                  models: typing.List[str], profile: str=DEFAULT_PROFILE):
+                  models: typing.List[str], profile: str):
     """
     wrapper function that takes paths to models and returns time and filament usage stats
     """
@@ -294,7 +294,7 @@ def main():
                     required=False, dest='output_file',
                     help="""include if you want data to be output to a file on 
                     disk""")
-    parser.add_argument('-p', '--profile', metavar='profile', nargs=1,
+    parser.add_argument('-p', '--profile', metavar='profile', nargs=1
                         required=False, dest='profile', help="""this command 
                         accepts a prusa-slic3r config file as an argument: 
                         useful for slicing with your parameters.""")
