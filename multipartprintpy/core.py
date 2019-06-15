@@ -314,11 +314,11 @@ def main():
     results = None
     profile = DEFAULT_PROFILE
     if args.profile:
-        profile = args.profile
+        profile = args.profile[0]
 
     try:
         results = compute_stats(layer_height, generate_supports, 
-            files_to_slice)
+            files_to_slice, profile=profile)
     except ValueError:
         parser.print_help()
         sys.exit(1)
