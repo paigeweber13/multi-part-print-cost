@@ -7,14 +7,26 @@
  - [x] add screenshot to justification section
  - [x] do I want to remove clamp-bolt? We don't use it. Could I use it at some
    point?
+
  - [ ] make it work with arbitrary exported slic3r profile
    - [ ] This will be useful when slicing airplane parts!
  - [ ] in file where print stats are output, include print settings
+ - [ ] get print bed size programatically
+
  - [ ] modify text output: just show file name, not full path. still clip off
    long names.
  - [ ] in output, include and location of gcodes
  - [ ] file names: don't include layer height
- - [ ] update windows build script to automatically zip files like the linux script
+
+ - [ ] update windows build script to automatically zip files like the linux
+   script
+ - [ ] do I want to strip down .gcode files so that they don't dramatically
+   affect github statistics?
+    - I'm afraid removing extra information would make the test less realistic:
+      whole files have to be loaded; a file will never have ONLY estimates
+    - also what does it matter if the files are longer? Scraping the files is
+      incredibly fast, even for large-box-0.3mm.gcode. There's also no
+      reasonable risk of a computer running out of memory with the 'big' gcodes
 ### Stretch:
  - [ ] deploy to pypi
 

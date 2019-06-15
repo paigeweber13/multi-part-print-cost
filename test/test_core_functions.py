@@ -78,7 +78,7 @@ class TestCoreFunctions(unittest.TestCase):
             '--output', 'test/models/gcodes/bulbasaur-0.2mm.gcode'
             ]]
         self.assertEqual(expected_commands,
-                         mpp.slice_model(0.2, False, \
+                         mpp.slice_models(0.2, False, \
                                          ['test/' + 'models/bulbasaur.stl']))
         self.assertTrue(os.path.isfile(
             'test/models/gcodes/bulbasaur-0.2mm.gcode'))
@@ -110,7 +110,7 @@ class TestCoreFunctions(unittest.TestCase):
             '--output', 'test/models/gcodes/support-test-0.1mm.gcode'
             ]]
         self.assertEqual(expected_commands,
-                         mpp.slice_model(0.1, True,
+                         mpp.slice_models(0.1, True,
                                          ['test/' +
                                           'models/support-test.stl']))
         self.assertTrue(os.path.isfile(
@@ -168,7 +168,7 @@ class TestCoreFunctions(unittest.TestCase):
                 '--output', 'test/models/gcodes/3cm-cube-0.2mm.gcode'
             ]]
         self.assertEqual(expected_commands,
-                         mpp.slice_model(0.2, False,
+                         mpp.slice_models(0.2, False,
                                          [
                                              'test/models/1cm-cube.stl',
                                              'test/models/2cm-cube.stl',
@@ -323,7 +323,7 @@ class TestCoreFunctions(unittest.TestCase):
                 'test/models/gcodes/crank-0.3mm.gcode'
             ]]
         self.assertEqual(expected_commands,
-                         mpp.slice_model(0.3, False,
+                         mpp.slice_models(0.3, False,
                                          ['test/' + 'models/crank.stl']))
         self.assertTrue(os.path.isfile(
             'test/models/gcodes/crank-0.3mm.gcode'))
@@ -332,3 +332,6 @@ class TestCoreFunctions(unittest.TestCase):
             os.remove('test/models/gcodes/crank-0.3mm.gcode')
         except FileNotFoundError:
             pass
+    
+    def test_slice_model_with_custom_profile(self):
+        pass
