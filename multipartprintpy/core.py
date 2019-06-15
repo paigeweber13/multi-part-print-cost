@@ -293,10 +293,6 @@ def main():
                     required=False, dest='output_file',
                     help="""include if you want data to be output to a file on 
                     disk""")
-    parser.add_argument('-p', '--profile', metavar='profile', nargs=1
-                        required=False, dest='profile', help="""this command 
-                        accepts a prusa-slic3r config file as an argument: 
-                        useful for slicing with your parameters.""")
     args = None
     try:
         args = parser.parse_args()
