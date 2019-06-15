@@ -360,7 +360,7 @@ class TestCoreFunctions(unittest.TestCase):
         self.assertTrue(os.path.isfile(
             'test/models/gcodes/1cm-cube-0.2mm.gcode'))
 
-        try:
-            os.remove('test/models/gcodes/1cm-cube-0.2mm.gcode')
-        except FileNotFoundError:
-            pass
+        # try:
+        #     os.remove('test/models/gcodes/1cm-cube-0.2mm.gcode')
+        # except FileNotFoundError:
+        #     pass
