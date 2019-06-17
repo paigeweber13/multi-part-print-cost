@@ -33,6 +33,9 @@ def main():
                  [sg.InputText(key='_STL_FILES_'), sg.FilesBrowse()],
                  [sg.Text('Select where the output data should be stored')],
                  [sg.InputText(key='_OUTPUT_FILE_DIR_'), sg.FolderBrowse()],
+                 [sg.Text('Select which profile to use.')],
+                 [sg.Text('Any slic3r-pe config file will work.')],
+                 [sg.InputText(default_text='./profiles/default-profile.ini', key='_PROFILE_'), sg.FileBrowse()],
                  [sg.Text('Layer height')],
                  [sg.Slider(range=(0.05, 0.35), default_value=(0.2), 
                      resolution=(0.05), orientation='horizontal',
@@ -41,15 +44,6 @@ def main():
                      key='_GENERATE_SUPPORTS?_')],
                  [sg.Button(button_text='Get Estimates', visible=True)],
              ]
-
-    progress_bar_window_layout = [
-        [sg.Text('')],
-        [sg.ProgressBar(max_value=10000, orientation='h', size=(20, 20), 
-            key='progressbar'),
-            sg.Text('', key='num_completed'), sg.Text('/'), 
-            sg.Text('', key='num_total')],      
-        [sg.Cancel()]
-    ]
 
     window = sg.Window('Multi Part Print Calculator', main_window_layout)  
 
@@ -65,12 +59,14 @@ def main():
                 layer_height = values['_LAYER_HEIGHT_']
                 supports = values['_GENERATE_SUPPORTS?_']
                 models = values['_STL_FILES_'].split(';')
+                profile = values['_PROFILE_']
 
                 result = ''
                 gcode_file_names = []
                 num_models = len(models)
                 for i in range(num_models):
-                    mpp.slice_models(layer_height, supports, [models[i]])
+                    mpp.slice_models(layer_height, supports, [models[i]], 
+                            profile=profile)
                     gcode_file_names.append(
                         mpp.get_gcode_output_path(models[i], layer_height))
                     if sg.OneLineProgressMeter('Slicing models...', i+1, 
