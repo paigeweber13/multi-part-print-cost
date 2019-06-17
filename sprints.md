@@ -19,6 +19,7 @@
    - [ ] gui
  - [x] custom profile work was done on the wrong branch! Cherry pick those
    commits to custom-slicing-profile and then roll back on this branch.
+ - [ ] give error when file input is not a slic3r-pe file
  - [ ] in file where print stats are output, include print settings
  - [ ] get print bed size programatically
 
