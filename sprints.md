@@ -21,8 +21,9 @@
    - [x] gui
  - [x] custom profile work was done on the wrong branch! Cherry pick those
    commits to custom-slicing-profile and then roll back on this branch.
- - [ ] get current directory and use that as default value for profile instead
+ - [x] get current directory and use that as default value for profile instead
    of './'. For consistency.
+    - we don't do this in core.py, why should we do it in gui.py?
  - [ ] give error when file input is not a slic3r-pe file
  - [ ] in file where print stats are output, include print settings
  - [ ] get print bed size programatically
