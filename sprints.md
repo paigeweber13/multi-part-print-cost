@@ -2,6 +2,8 @@
  - [ ] make it work with new PrusaSlicer
  - [ ] test if new PrusaSlicer profiles work?
  - [ ] make it easier to see what files you've selected in the gui
+ - [ ] clean up code
+ - [ ] stabilize back end
 
 # Sprint
 ## Target Release Date: 2019-06-23
