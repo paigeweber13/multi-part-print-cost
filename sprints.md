@@ -6,7 +6,7 @@
  - [ ] stabilize back end
 
 # Sprint
-## Target Release Date: 2019-06-23
+## Target Release Date: 2019-06-30
 ### Goals:
  - [x] add screenshot to justification section
  - [x] do I want to remove clamp-bolt? We don't use it. Could I use it at some
