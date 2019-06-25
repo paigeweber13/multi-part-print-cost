@@ -364,3 +364,32 @@ class TestCoreFunctions(unittest.TestCase):
             os.remove('test/models/gcodes/1cm-cube-0.2mm.gcode')
         except FileNotFoundError:
             pass
+
+    def test_slicing_with_bad_profile(self):
+        try:
+            os.remove('test/models/gcodes/1cm-cube-0.2mm.gcode')
+        except FileNotFoundError:
+            pass
+
+        expected_commands = [
+            [
+                mpp.BINARY,
+                '--slice', '--load',
+                'test/bad-profile.ini', '--first-layer-height',
+                '0.25', '--layer-height', '0.2', '--center',
+                str(int(TestCoreFunctions.print_bed_width/2)) + ',' + \
+                str(int(TestCoreFunctions.print_bed_height/2)),
+                'test/models/1cm-cube.stl', '--output',
+                'test/models/gcodes/1cm-cube-0.2mm.gcode'
+            ]]
+        self.assertEqual(expected_commands,
+                         mpp.slice_models(0.2, False,
+                                         ['test/' + 'models/1cm-cube.stl'],
+                                         profile='test/bad-profile.ini'))
+        self.assertFalse(os.path.isfile(
+            'test/models/gcodes/1cm-cube-0.2mm.gcode'))
+
+        try:
+            os.remove('test/models/gcodes/1cm-cube-0.2mm.gcode')
+        except FileNotFoundError:
+            pass
