@@ -27,6 +27,12 @@
    of './'. For consistency.
     - we don't do this in core.py, why should we do it in gui.py?
  - [ ] give error when file input is not a slic3r-pe file
+    - looks like I need to validate this myself.... slic3r goes ahead and tires
+      to slice it when only given bad settings
+    - inspect .ini profile? Or inspect output .gcode? Output gcode doesn't seem
+      to have any time info when given a bad profile. How would I check for a
+      bad profile? I'd have to determine what settings are needed to get an
+      accurate estimate... that sounds tough
  - [ ] in file where print stats are output, include print settings
  - [ ] get print bed size programatically
 
