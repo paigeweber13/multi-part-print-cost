@@ -11,6 +11,7 @@ import operator
 import os
 import re
 import requests
+from shutil import copyfile
 import subprocess
 import sys
 import typing
@@ -42,6 +43,10 @@ def get_slic3r_pe():
             zip_ref.extractall(DOWNLOAD_DIR)
             zip_ref.close()
             os.remove(DOWNLOAD_LOCATION)
+        elif OS == 'darwin':
+            os.subprocess(['hdiutil', 'attach', DOWNLOAD_LOCATION])
+            copyfile('/Volumes/Slic3r/Slic3r.app', BINARY)
+            os.subprocess(['hdiutil', 'detach', '/Volumes/Sli3r'])
 
         # try to change permissions
         try:
@@ -66,7 +71,6 @@ def set_os_specific_variables():
     win32_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win32-full-201904140831.zip'
     
     OS = sys.platform.lower()
-    # is 'windows' the right label? Test this.
     if OS == 'win32':
         # just always download win64 binary because it's far more common
         DOWNLOAD_URL = win64_binary_url
@@ -78,12 +82,13 @@ def set_os_specific_variables():
         DOWNLOAD_URL = linux_binary_url
         BINARY += '.AppImage'
         DOWNLOAD_LOCATION = BINARY
-    elif OS == 'mac':
+    elif OS == 'darwin':
         # 'mac' is probably not the right name? maybe Darwin? I need a mac to 
         # test it...
         DOWNLOAD_URL = mac_binary_url
-        BINARY += '.dmg'
         DOWNLOAD_LOCATION = BINARY
+        DOWNLOAD_LOCATION += '.dmg'
+        BINARY = DOWNLOAD_DIR + '/Slic3r.app'
     else:
         print('could not detect operating system!')
         sys.exit(-1)
