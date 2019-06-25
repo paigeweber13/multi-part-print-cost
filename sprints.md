@@ -33,6 +33,14 @@
       to have any time info when given a bad profile. How would I check for a
       bad profile? I'd have to determine what settings are needed to get an
       accurate estimate... that sounds tough
+ - [ ] what if user doesn't supply filament density/cost?
+    - [ ] add to README that they should if they want mass/cost estimates
+    - [ ] if they don't, make it so regex doesn't fail
+    - order in gcode:
+      - filament used, by length/volume
+      - filament used, by mass
+      - filament cost
+      - estimated print time (normal)
  - [ ] in file where print stats are output, include print settings
  - [ ] get print bed size programatically
 
