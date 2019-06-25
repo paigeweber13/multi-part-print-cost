@@ -11,7 +11,7 @@ import operator
 import os
 import re
 import requests
-from shutil import copyfile
+import shutil
 import subprocess
 import sys
 import typing
@@ -19,21 +19,24 @@ import zipfile
 
 DEFAULT_PROFILE = 'profiles/default-profile.ini'
 DOWNLOAD_DIR = 'bin'
-BINARY = DOWNLOAD_DIR + '/slic3r-pe'
-DOWNLOAD_LOCATION = None
+DOWNLOAD_LOCATION = DOWNLOAD_DIR + "/slicer-pe"
+MAC_APP_LOCATION = DOWNLOAD_DIR + "/Slic3r.app"
+BINARY = None
 DOWNLOAD_URL = None
 OS = None
 
 def get_slic3r_pe():
+    global BINARY
     set_os_specific_variables()
     
     if not os.path.isdir(DOWNLOAD_DIR):
         os.makedirs(DOWNLOAD_DIR)
     
-    if not os.path.isfile(BINARY):
+    if not os.path.exists(BINARY):
         # download if it's not there
         if not os.path.isfile(DOWNLOAD_LOCATION):
-            response = requests.get(DOWNLOAD_URL)
+            # response = requests.get(DOWNLOAD_URL)
+            response = requests.get(DOWNLOAD_URL, proxies={"https": "https://gateway.zscaler.net:9400"})
             with open(DOWNLOAD_LOCATION, 'wb') as downloaded_file:
                 downloaded_file.write(response.content)
 
@@ -43,17 +46,21 @@ def get_slic3r_pe():
             zip_ref.extractall(DOWNLOAD_DIR)
             zip_ref.close()
             os.remove(DOWNLOAD_LOCATION)
+        # on mac, unpack .dmg
         elif OS == 'darwin':
-            os.subprocess(['hdiutil', 'attach', DOWNLOAD_LOCATION])
-            copyfile('/Volumes/Slic3r/Slic3r.app', BINARY)
-            os.subprocess(['hdiutil', 'detach', '/Volumes/Sli3r'])
+            # this line will probably fail, but if there it ensures that any already-mounted slic3r images get removed
+            subprocess.run(['hdiutil', 'detach', '/Volumes/Slic3r'])
+            subprocess.run(['hdiutil', 'attach', DOWNLOAD_LOCATION])
+            shutil.copytree('/Volumes/Slic3r/Slic3r.app', MAC_APP_LOCATION)
+            subprocess.run(['hdiutil', 'detach', '/Volumes/Slic3r'])
+            os.remove(DOWNLOAD_LOCATION)
 
-        # try to change permissions
-        try:
-            subprocess.run(['chmod', '+x', BINARY])
-        except FileNotFoundError:
-            # if chmod isn't installed (e.g. on windows) do nothing
-            pass
+    # try to change permissions
+    try:
+        subprocess.run(['chmod', '+x', BINARY])
+    except FileNotFoundError:
+        # if chmod isn't installed (e.g. on windows) do nothing
+        pass
 
 def set_os_specific_variables():
     global DOWNLOAD_URL
@@ -69,26 +76,24 @@ def set_os_specific_variables():
     mac_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+full-201904140836.dmg'
     win64_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win64-full-201904140830.zip'
     win32_binary_url = 'https://github.com/prusa3d/PrusaSlicer/releases/download/version_1.42.0-beta2/Slic3rPE-1.42.0-beta2+win32-full-201904140831.zip'
-    
+
     OS = sys.platform.lower()
     if OS == 'win32':
         # just always download win64 binary because it's far more common
         DOWNLOAD_URL = win64_binary_url
-        DOWNLOAD_LOCATION = BINARY
         DOWNLOAD_LOCATION += '.zip'
         BINARY = DOWNLOAD_DIR + \
             '/Slic3rPE-1.42.0-beta2+win64-full-201904140830/slic3r.exe'
     elif OS == 'linux':
         DOWNLOAD_URL = linux_binary_url
-        BINARY += '.AppImage'
-        DOWNLOAD_LOCATION = BINARY
+        DOWNLOAD_LOCATION += '.AppImage'
+        BINARY = DOWNLOAD_LOCATION
     elif OS == 'darwin':
         # 'mac' is probably not the right name? maybe Darwin? I need a mac to 
         # test it...
         DOWNLOAD_URL = mac_binary_url
-        DOWNLOAD_LOCATION = BINARY
         DOWNLOAD_LOCATION += '.dmg'
-        BINARY = DOWNLOAD_DIR + '/Slic3r.app'
+        BINARY = MAC_APP_LOCATION + '/Contents/MacOS/Slic3r'
     else:
         print('could not detect operating system!')
         sys.exit(-1)
