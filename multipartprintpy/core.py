@@ -19,7 +19,7 @@ import zipfile
 
 DEFAULT_PROFILE = 'profiles/default-profile.ini'
 DOWNLOAD_DIR = 'bin'
-DOWNLOAD_LOCATION = DOWNLOAD_DIR + "/slicer-pe"
+DOWNLOAD_LOCATION = DOWNLOAD_DIR + "/slic3r-pe"
 MAC_APP_LOCATION = DOWNLOAD_DIR + "/Slic3r.app"
 BINARY = None
 DOWNLOAD_URL = None
